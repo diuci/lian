@@ -97,6 +97,11 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 <template>
   <div class="shell">
     <header class="top">
+      <!-- 主站的顶栏是「满宽的条 + 1160 网格的内层」两层：
+           背景与毛玻璃铺满视口，内容落在 1160 网格、左右 24px。
+           之前这里只有一层 padding:10px 20px，整条顶栏贴到屏幕边，印章在 19px，
+           主站在 84px，同一排链接的位置自然对不上。 -->
+      <div class="top-in">
       <a class="brand" href="/">
         <span class="mark">连</span>
         <span class="brand-tx">
@@ -105,19 +110,20 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         </span>
       </a>
       <!-- 六个乐园：与主站、汉兜、古诗文库同一组、同一顺序、同一措辞 -->
-      <nav class="parks" aria-label="六个乐园">
-        <a href="https://k12.diuci.com/">古诗文</a>
-        <a href="https://lian.diuci.com/" aria-current="page" class="on">连词成句</a>
-        <a href="https://ink.diuci.com/">丢词大作战</a>
-        <a href="https://moon.diuci.com/">遗失月冕</a>
-        <a href="https://handle.diuci.com/">汉兜</a>
-        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
-      </nav>
       <nav class="nav">
         <button :class="['tab', view === 'daily' ? 'on' : '']" @click="backToDaily">今日</button>
         <button :class="['tab', view === 'browse' ? 'on' : '']" @click="view = 'browse'">浏览</button>
         <button :class="['tab', view === 'stats' ? 'on' : '']" @click="view = 'stats'">战绩</button>
         <button :class="['tab', view === 'help' ? 'on' : '']" @click="view = 'help'">玩法</button>
+      </nav>
+      <nav class="parks" aria-label="六个乐园">
+        <a href="https://diuci.com/">首页</a>
+        <a href="https://k12.diuci.com/">学古诗</a>
+        <a href="https://lian.diuci.com/" aria-current="page" class="on">连词成句</a>
+        <a href="https://ink.diuci.com/">丢词大作战</a>
+        <a href="https://moon.diuci.com/">遗失月冕</a>
+        <a href="https://handle.diuci.com/">汉兜</a>
+        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
       </nav>
       <button class="theme" type="button" :title="dark ? '切回宣纸' : '切到夜墨'" :aria-label="dark ? '切回宣纸' : '切到夜墨'" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
@@ -128,6 +134,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
           <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z"/>
         </svg>
       </button>
+      </div>
     </header>
 
     <main class="main">
@@ -222,6 +229,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     </main>
 
     <footer class="foot">
+      <div class="foot-in">
       <div class="foot-l">
         <a href="https://diuci.com/">丢词夺理 diuci.com</a> · 给孩子的古诗文<br>
         课文快照 {{ corpus.contentVersion }} · 可玩 {{ corpus.count }} 篇
@@ -229,13 +237,14 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a href="https://k12.diuci.com/legal">原文公有领域 · 注释 CC BY 4.0 · 代码 MIT · 版权与免责</a>
       </div>
       <nav aria-label="六个乐园">
-        <a href="https://k12.diuci.com/">古诗文</a>
+        <a href="https://k12.diuci.com/">学古诗</a>
         <a href="https://lian.diuci.com/">连词成句</a>
         <a href="https://ink.diuci.com/">丢词大作战</a>
         <a href="https://moon.diuci.com/">遗失月冕</a>
         <a href="https://handle.diuci.com/">汉兜</a>
         <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
       </nav>
+      </div>
     </footer>
 
     <TabBar />
@@ -245,21 +254,27 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 <style scoped>
 .shell{min-height:100%;display:flex;flex-direction:column}
 .top{
-  position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
-  padding:10px 20px;background:var(--nav-bg);backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:20;
+  background:var(--nav-bg);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line)
+}
+/* 与主站 .wrap.nav-in 逐值一致：1160px 网格、24px 内边距、66px 栏高 */
+.top-in{
+  display:flex;align-items:center;gap:28px;
+  height:66px;max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box
 }
 /* 牌子与主站逐值一致：印章 40px、渐变、-4° 倾角、站名 21px、DIUCI 10px */
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);flex:none}
 .mark{
   width:40px;height:40px;flex:0 0 40px;border-radius:9px;display:grid;place-items:center;
   background:linear-gradient(155deg,var(--cinnabar),var(--cinnabar-deep));
-  color:var(--on-accent);font-family:var(--brush);font-size:23px;line-height:1;
+  color:var(--on-accent);font-family:var(--round);font-size:23px;line-height:1;
   box-shadow:0 3px 10px -2px rgba(200,68,46,.5);transform:rotate(-4deg)
 }
-.brand-tx{display:flex;flex-direction:column;gap:1px}
-.name{font-family:var(--round);font-size:21px;letter-spacing:.04em;line-height:1.25;white-space:nowrap}
-.brand-sub{font-family:var(--round);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);line-height:1}
+.brand-tx{display:block}
+.name{display:block;font-family:var(--round);font-size:21px;letter-spacing:.04em;line-height:1.25;white-space:nowrap}
+/* 主站的 brand-s 没有单独指定字体，跟着正文走衬线 */
+.brand-sub{display:block;font-family:var(--serif);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);margin-top:1px}
 /* 六个乐园：主站 .nav-links 那套（26px 间距、衬线 14.5px、悬停朱砂 + 下划线展开） */
 .parks{display:flex;gap:26px;margin-left:auto}
 .parks a{
@@ -339,8 +354,13 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 .rules em{font-style:normal;border-bottom:2px solid var(--gold)}
 code{background:var(--tag-bg);padding:1px 6px;border-radius:6px;font-size:12.5px}
 /* 主站页脚：上边框 + 左块三行 + 右侧六个乐园 */
+/* 主站页脚：满宽的 footer + 1160 网格的内层（padding 38px 0，内层 0 24px） */
 .foot{
-  border-top:1px solid var(--line);padding:24px 20px 84px;
+  border-top:1px solid var(--line);margin-top:34px;
+  background:var(--surface-3);padding:38px 0 84px
+}
+.foot-in{
+  max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;
   display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between;
   font-size:13.4px;color:var(--ink-faint)
 }
@@ -353,7 +373,7 @@ code{background:var(--tag-bg);padding:1px 6px;border-radius:6px;font-size:12.5px
 /* 乐园那一排在窄屏让位给底部标签栏（与汉兜、主站同一处理） */
 @media (max-width:1080px){ .parks{display:none} }
 @media (max-width:430px){
-  .top{padding:10px 12px;gap:8px}
+  .top-in{padding:0 16px;gap:10px;height:56px}
   .mark{width:34px;height:34px;flex:0 0 34px;font-size:20px}
   .name{font-size:18px}
   .brand-sub{font-size:9px;letter-spacing:.2em}
