@@ -120,10 +120,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a href="https://diuci.com/">首页</a>
         <a href="https://k12.diuci.com/">学古诗</a>
         <a href="https://lian.diuci.com/" aria-current="page" class="on">连词成句</a>
-        <a href="https://ink.diuci.com/">丢词大作战</a>
-        <a href="https://moon.diuci.com/">遗失月冕</a>
         <a href="https://handle.diuci.com/">汉兜</a>
-        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
+        <a href="https://moon.diuci.com/">遗失月冕</a>
+        <a href="https://ink.diuci.com/">丢词大作战</a>
       </nav>
       <button class="theme" type="button" :title="dark ? '切回宣纸' : '切到夜墨'" :aria-label="dark ? '切回宣纸' : '切到夜墨'" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
@@ -239,9 +238,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       <nav aria-label="六个乐园">
         <a href="https://k12.diuci.com/">学古诗</a>
         <a href="https://lian.diuci.com/">连词成句</a>
-        <a href="https://ink.diuci.com/">丢词大作战</a>
-        <a href="https://moon.diuci.com/">遗失月冕</a>
         <a href="https://handle.diuci.com/">汉兜</a>
+        <a href="https://moon.diuci.com/">遗失月冕</a>
+        <a href="https://ink.diuci.com/">丢词大作战</a>
         <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
       </nav>
       </div>
@@ -274,7 +273,8 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 .brand-tx{display:block}
 .name{display:block;font-family:var(--round);font-size:21px;letter-spacing:.04em;line-height:1.25;white-space:nowrap}
 /* 主站的 brand-s 没有单独指定字体，跟着正文走衬线 */
-.brand-sub{display:block;font-family:var(--serif);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);margin-top:1px}
+/* DIUCI 跟着站名同一只笔：圆体 ZCOOL KuaiLe，四站的副标都是这一款。 */
+.brand-sub{display:block;font-family:var(--round);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);margin-top:1px}
 /* 六个乐园：主站 .nav-links 那套（26px 间距、衬线 14.5px、悬停朱砂 + 下划线展开） */
 .parks{display:flex;gap:26px;margin-left:auto}
 .parks a{
