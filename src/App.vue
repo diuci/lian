@@ -14,8 +14,16 @@ const today = dayKey()
 const params = new URLSearchParams(location.search)
 const view = ref<View>((params.get('view') as View) || 'daily')
 const stage = ref(params.get('stage') || loadStage() || '小学')
-const practicePiece = ref(params.get('p') || '')
-const practicePart = ref(Number(params.get('part') || 0))
+// 链接里的篇目 id 必须先对得上快照。对不上就当没这个参数：
+// 之前直接把 URL 上的字符串交给 useGame，快照里没有这篇就抛错，
+// 整个组件树在 setup 里炸掉 —— 一个打错的分享链接能让整页变白。
+const wantedPiece = params.get('p') || ''
+const knownPiece = pieces.find((x: any) => x.id === wantedPiece)
+const practicePiece = ref(knownPiece ? wantedPiece : '')
+const badLink = ref(knownPiece || !wantedPiece ? '' : wantedPiece)
+const practicePart = ref(knownPiece
+  ? Math.max(0, Math.min(Number(params.get('part') || 0), (knownPiece.parts || []).length - 1))
+  : 0)
 const day = (() => {
   const d = parseDayKey(params.get('d'))
   return d ? dayKey(d) : today
@@ -105,6 +113,10 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     </header>
 
     <main class="main">
+      <p v-if="badLink" class="notice">
+        链接里那一篇（{{ badLink }}）不在这份课文快照里，已经换成今天这一题。
+        可能是快照换过版本，去<a href="#" @click.prevent="view = 'browse'">浏览</a>挑一篇。
+      </p>
       <GameView
         v-if="view === 'daily'"
         :key="gameDay + '|' + practicePiece + '|' + replayKey"
@@ -229,6 +241,12 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 .tab.on{opacity:1;background:var(--tag-bg);color:var(--ink)}
 .theme{font-size:17px;color:var(--ink-soft)}
 .main{flex:1;padding-bottom:78px}
+.notice{
+  margin:0 0 14px;padding:10px 14px;border-radius:10px;
+  border:1px solid var(--line);background:var(--surface-3);
+  font-size:13.5px;color:var(--ink-soft);line-height:1.7
+}
+.notice a{color:var(--cinnabar)}
 .panel{max-width:640px;margin:0 auto;padding:22px 20px}
 .panel h2{font-family:var(--round);font-size:21px;margin:0 0 6px}
 .panel h3{font-family:var(--round);font-size:15px;margin:22px 0 8px}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import BoardGrid from './BoardGrid.vue'
 import StrandPanel from './StrandPanel.vue'
 import { useGame } from '~/logic/game'
@@ -19,6 +19,8 @@ const emit = defineEmits<{ (e: 'replay'): void }>()
 const game = useGame(props.pieces, props.day, props.pick)
 const picked = ref(-1)
 const copied = ref(false)
+const shareBox = ref('')
+const shareRef = ref<unknown>(null)
 const orderWrong = ref(false)
 
 const pieceLabel = computed(() => {
@@ -70,8 +72,18 @@ async function share() {
     mistakes: game.mistakes.value, orderAttempts: game.orderAttempts.value,
     seconds: game.seconds.value, solved: game.phase.value === 'done', mode: props.mode,
   }, location.origin + '/?d=' + game.day)
-  try { await navigator.clipboard.writeText(text); copied.value = true; setTimeout(() => { copied.value = false }, 2000) }
-  catch { window.prompt('复制这段：', text) }
+  try {
+    await navigator.clipboard.writeText(text)
+    copied.value = true
+    shareBox.value = ''
+    setTimeout(() => { copied.value = false }, 2000)
+  } catch {
+    // 剪贴板拿不到（非安全上下文、用户没给权限、浏览器直接拒）。
+    // window.prompt 在不少浏览器里被抑制，玩家点了「分享」什么也没发生 ——
+    // 那就把这段文字摊在页面上，全选好，让他自己复制。
+    shareBox.value = text
+    nextTick(() => { const el = shareRef.value as HTMLInputElement | null; if (el) { el.focus(); el.select() } })
+  }
 }
 
 // 换题（换日期 / 换篇目）时把状态清干净
@@ -132,6 +144,11 @@ defineExpose({ game })
       </template>
     </div>
 
+    <label v-if="shareBox.value" class="share-box">
+      <span>复制这段发给同学：</span>
+      <input ref="shareRef" readonly :value="shareBox.value" @focus="($event.target as HTMLInputElement).select()" />
+    </label>
+
     <StrandPanel
       :units="game.units"
       :found="game.found.value"
@@ -162,4 +179,11 @@ defineExpose({ game })
 .cur{flex:1;min-width:160px;font-size:13.5px;color:var(--ink-soft);font-family:var(--brush);font-size:16px}
 .okline{color:var(--celadon)}
 .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.share-box{display:block;margin-top:10px}
+.share-box span{display:block;font-size:12.5px;color:var(--ink-faint);margin-bottom:6px}
+.share-box input{
+  width:100%;font-family:var(--serif);font-size:13px;color:var(--ink);
+  padding:9px 11px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface-3)
+}
 </style>
