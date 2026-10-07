@@ -99,16 +99,34 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     <header class="top">
       <a class="brand" href="/">
         <span class="mark">连</span>
-        <span class="name">连词成句</span>
+        <span class="brand-tx">
+          <span class="name">连词成句</span>
+          <span class="brand-sub">DIUCI</span>
+        </span>
       </a>
+      <!-- 六个乐园：与主站、汉兜、古诗文库同一组、同一顺序、同一措辞 -->
+      <nav class="parks" aria-label="六个乐园">
+        <a href="https://k12.diuci.com/">古诗文</a>
+        <a href="https://lian.diuci.com/" aria-current="page" class="on">连词成句</a>
+        <a href="https://ink.diuci.com/">丢词大作战</a>
+        <a href="https://moon.diuci.com/">遗失月冕</a>
+        <a href="https://handle.diuci.com/">汉兜</a>
+        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
+      </nav>
       <nav class="nav">
         <button :class="['tab', view === 'daily' ? 'on' : '']" @click="backToDaily">今日</button>
         <button :class="['tab', view === 'browse' ? 'on' : '']" @click="view = 'browse'">浏览</button>
         <button :class="['tab', view === 'stats' ? 'on' : '']" @click="view = 'stats'">战绩</button>
         <button :class="['tab', view === 'help' ? 'on' : '']" @click="view = 'help'">玩法</button>
       </nav>
-      <button class="theme icon-btn" :title="dark ? '切回宣纸' : '切到夜墨'" @click="toggleTheme">
-        <span v-if="dark">☀</span><span v-else>☾</span>
+      <button class="theme" type="button" :title="dark ? '切回宣纸' : '切到夜墨'" :aria-label="dark ? '切回宣纸' : '切到夜墨'" @click="toggleTheme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.4v2.1M12 19.5v2.1M2.4 12h2.1M19.5 12h2.1M5.2 5.2l1.5 1.5M17.3 17.3l1.5 1.5M18.8 5.2l-1.5 1.5M6.7 17.3l-1.5 1.5"/>
+        </svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z"/>
+        </svg>
       </button>
     </header>
 
@@ -204,14 +222,20 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     </main>
 
     <footer class="foot">
-      <span>丢词夺理 diuci.com · 给孩子的古诗文</span>
-      <span>
-        <a href="https://k12.diuci.com/legal">原文公有领域 · 注释 CC BY 4.0 · 代码 MIT · 版权与免责</a>
-      </span>
-      <span class="dim">
+      <div class="foot-l">
+        <a href="https://diuci.com/">丢词夺理 diuci.com</a> · 给孩子的古诗文<br>
         课文快照 {{ corpus.contentVersion }} · 可玩 {{ corpus.count }} 篇
-        <template v-if="corpus.sourceTotal">（内容仓 {{ corpus.sourceTotal }} 篇，跳过 {{ (corpus.skipped || []).length }} 篇：太短或句子太少）</template>
-      </span>
+        <template v-if="corpus.sourceTotal">（内容仓 {{ corpus.sourceTotal }} 篇，跳过 {{ (corpus.skipped || []).length }} 篇：太短或句子太少）</template><br>
+        <a href="https://k12.diuci.com/legal">原文公有领域 · 注释 CC BY 4.0 · 代码 MIT · 版权与免责</a>
+      </div>
+      <nav aria-label="六个乐园">
+        <a href="https://k12.diuci.com/">古诗文</a>
+        <a href="https://lian.diuci.com/">连词成句</a>
+        <a href="https://ink.diuci.com/">丢词大作战</a>
+        <a href="https://moon.diuci.com/">遗失月冕</a>
+        <a href="https://handle.diuci.com/">汉兜</a>
+        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
+      </nav>
     </footer>
 
     <TabBar />
@@ -225,13 +249,32 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
   padding:10px 20px;background:var(--nav-bg);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line)
 }
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);flex:none}
+/* 牌子与主站逐值一致：印章 40px、渐变、-4° 倾角、站名 21px、DIUCI 10px */
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);flex:none}
 .mark{
-  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  background:var(--cinnabar);color:var(--on-accent);font-family:var(--brush);font-size:19px
+  width:40px;height:40px;flex:0 0 40px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(155deg,var(--cinnabar),var(--cinnabar-deep));
+  color:var(--on-accent);font-family:var(--brush);font-size:23px;line-height:1;
+  box-shadow:0 3px 10px -2px rgba(200,68,46,.5);transform:rotate(-4deg)
 }
-.name{font-family:var(--round);font-size:16px;letter-spacing:.04em;white-space:nowrap}
-.nav{display:flex;gap:2px;margin-left:auto}
+.brand-tx{display:flex;flex-direction:column;gap:1px}
+.name{font-family:var(--round);font-size:21px;letter-spacing:.04em;line-height:1.25;white-space:nowrap}
+.brand-sub{font-family:var(--round);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);line-height:1}
+/* 六个乐园：主站 .nav-links 那套（26px 间距、衬线 14.5px、悬停朱砂 + 下划线展开） */
+.parks{display:flex;gap:26px;margin-left:auto}
+.parks a{
+  font-family:var(--serif);font-size:14.5px;color:var(--ink-soft);text-decoration:none;
+  border-bottom:0;position:relative;padding:4px 0;transition:color .22s;white-space:nowrap
+}
+.parks a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:2px;
+  background:var(--cinnabar);transition:width .28s cubic-bezier(.4,0,.2,1)
+}
+.parks a:hover{color:var(--cinnabar);border-bottom-color:transparent}
+.parks a:hover::after{width:100%}
+.parks a.on{color:var(--cinnabar)}
+.parks a.on::after{width:100%}
+.nav{display:flex;gap:2px}
 .tab{
   border:0;background:none;color:var(--ink-soft);cursor:pointer;
   font-family:var(--serif);font-size:14px;padding:6px 12px;border-radius:8px;opacity:.6;
@@ -239,7 +282,19 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 }
 .tab:hover{opacity:.9}
 .tab.on{opacity:1;background:var(--tag-bg);color:var(--ink)}
-.theme{font-size:17px;color:var(--ink-soft)}
+/* 主站那枚圆钮：38px、描边、surface 底、太阳/月亮 SVG 互换 */
+.theme{
+  width:38px;height:38px;flex:0 0 38px;border-radius:50%;cursor:pointer;padding:0;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink);
+  display:grid;place-items:center;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,color .25s
+}
+.theme:hover{color:var(--cinnabar);border-color:var(--cinnabar);transform:rotate(18deg) scale(1.08)}
+.theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.theme .i-sun{display:block}
+.theme .i-moon{display:none}
+:root[data-theme="dark"] .theme .i-sun{display:none}
+:root[data-theme="dark"] .theme .i-moon{display:block}
 .main{flex:1;padding-bottom:78px}
 .notice{
   margin:0 0 14px;padding:10px 14px;border-radius:10px;
@@ -283,14 +338,27 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 .rules b{font-family:var(--round)}
 .rules em{font-style:normal;border-bottom:2px solid var(--gold)}
 code{background:var(--tag-bg);padding:1px 6px;border-radius:6px;font-size:12.5px}
+/* 主站页脚：上边框 + 左块三行 + 右侧六个乐园 */
 .foot{
-  border-top:1px solid var(--line);padding:16px 20px 84px;
-  display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink-soft)
+  border-top:1px solid var(--line);padding:24px 20px 84px;
+  display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between;
+  font-size:13.4px;color:var(--ink-faint)
 }
-.foot a{color:var(--ink-soft)}
+.foot-l{line-height:1.9}
+.foot-l a{color:var(--cinnabar);border-bottom:0}
+.foot-l a:hover{text-decoration:underline}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{font-size:13.6px;color:var(--ink-soft);border-bottom:0;text-decoration:none;transition:color .2s}
+.foot nav a:hover{color:var(--cinnabar)}
+/* 乐园那一排在窄屏让位给底部标签栏（与汉兜、主站同一处理） */
+@media (max-width:1080px){ .parks{display:none} }
 @media (max-width:430px){
   .top{padding:10px 12px;gap:8px}
-  .name{font-size:15px}
+  .mark{width:34px;height:34px;flex:0 0 34px;font-size:20px}
+  .name{font-size:18px}
+  .brand-sub{font-size:9px;letter-spacing:.2em}
+  .theme{width:34px;height:34px;flex:0 0 34px}
+  .theme svg{width:17px;height:17px}
   .nav{gap:0}
   .tab{padding:6px 7px;font-size:13px}
 }
