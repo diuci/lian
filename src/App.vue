@@ -111,6 +111,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         :pieces="pieces"
         :day="gameDay"
         :mode="mode"
+        :pick="pick"
         :readings="readings.value"
         :show-target="settings.showTarget"
         :show-pinyin="settings.showPinyin"

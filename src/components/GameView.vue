@@ -12,10 +12,11 @@ const props = defineProps<{
   readings: Record<string, { common: string }>
   showTarget: boolean
   showPinyin: boolean
+  pick?: { pieceId: string, part?: number }
 }>()
 const emit = defineEmits<{ (e: 'replay'): void }>()
 
-const game = useGame(props.pieces, props.day)
+const game = useGame(props.pieces, props.day, props.pick)
 const picked = ref(-1)
 const copied = ref(false)
 const orderWrong = ref(false)
