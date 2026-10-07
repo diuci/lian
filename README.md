@@ -1,0 +1,66 @@
+# 连词成句（lian.diuci.com）
+
+每天一段必背课文。盘面上每个字都来自这篇课文：点住一个字，拖过相邻的字（横竖斜都算，
+一条路不重复经过同一个格），连出原文里的句子；句子全找齐之后，按原文顺序排好。
+
+篇目来自课标与统编教材的必背范围：小学 109 篇、初中 66 篇、高中 70 篇，共 245 篇能玩。
+超过一盘的篇目按句子边界切成几段，一段一盘。
+
+## 数据从哪来
+
+内容仓 `diuci/k12-chinese-poetry` 是唯一的真源。本站构建期快照一份：
+
+```bash
+CONTENT_ROOT=../k12-chinese-poetry node tools/sync-corpus.mjs   # 生成 src/data/corpus.json
+node tools/sync-corpus.mjs --check                              # 漂移就失败
+node tools/build-readings.mjs                                   # 离线读音，运行时不查字典
+```
+
+快照里带着 `contentVersion`、来源文件的 sha256、每篇的 `authorDied` / `authorEraEnd` ——
+公开哪篇课文，就同时公开凭什么说这篇可以公开。
+
+## 玩法规则写在代码里
+
+- `src/logic/layout.mjs`：拆句、切段、盘面生成、盘面校验。客户端与 tools/ 共用这一份。
+- `src/logic/daily.mjs`：每日选篇与种子。同一天所有人同一题。
+- `src/logic/game.ts`：找句 / 排句两阶段的规则。组件只负责画。
+
+盘面约束：列数按 `[6,7,5,8,4]` 试，行数 ≤ 12，格子总数 ≤ 96，空洞不足一整行；
+每句占一条不自交的八向路径，同一格不被两句共用。摆法用随机哈密顿路径，
+找不到就退回蛇形路径 —— 蛇形对任何矩形都存在，所以任何长短组合都保证铺得满。
+
+## 分站与内容仓的契约
+
+内容仓 `diuci/k12-chinese-poetry` 是唯一的真源。分站读的是**快照**，不是内容仓本身：
+
+1. **单向**：内容仓 → 本站快照。本站永不读另一个分站的文件。
+2. **按需取**：本站要什么字段就取什么字段，不要的不进快照。这里要切好的 `units`
+   和 `authorDied` / `authorEraEnd`（页面上要公开「凭什么这篇能公开」）；
+   注释、译文、赏析这些本站用不到的东西一概不进来。
+3. **快照随本站提交**，头部带 `contentVersion`、来源文件 `sha256`、跳过了哪几篇、为什么。
+4. **CI 不 clone 内容仓**：本站只校验快照自洽与玩法成立。内容仓怎么改都不会让本站无故变红。
+5. 更新快照是显式动作：`npm run sync:corpus` → 看 diff → 提交。内容仓变了而本站没重跑，
+   `sync:corpus --check` 会指出 sha256 漂移 —— 但这条只在本地跑，不进 CI，理由同上。
+
+代价说清楚：快照会滞后于内容仓。换来的是分站之间零依赖。
+## 检查
+
+| 命令 | 查什么 |
+|---|---|
+| `npm run selftest` | 六个工具各自的坏样本 |
+| `npm test` | 玩法与盘面生成的 24 条断言 |
+| `npm run check:puzzle` | 246 个盘面全量生成 + 校验，最近 30 天的每日题可复现 |
+| `npm run build:readings -- --check` | 读音快照重算一遍逐字节一致（顺带就是覆盖率） |
+| `npm run check:legal` | LICENSE、公有领域逐篇核验、绝对化表述、联系入口 |
+| `npm run check:build` | dist 齐不齐 + 23 个色值有没有被顺手改掉 |
+| `npm run smoke` | 真开浏览器把当天这一题连到完成态 |
+
+只有六个工具：取数据两个（`sync:corpus`、`build:readings`），检查四个。
+读音的多音字统计是 `npm run report:readings`，给人看的，CI 不跑。
+
+每个检查都带 `--selftest`：先证明它抓得住坏样本，再看它说「通过」值不值得信。
+
+## 许可
+
+代码 MIT（见 LICENSE）。课文原文属公有领域，选篇与切句编排 CC BY 4.0。
+完整说明：<https://k12.diuci.com/legal/>。侵权通知：hi@diuci.com。

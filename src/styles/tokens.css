@@ -1,0 +1,74 @@
+/*
+   连词成句 · 主题变量
+   这一段与主站、k12-site、汉兜的 :root / :root[data-theme="dark"] 逐值一致。
+   从 handle-site/src/styles/main.css 原样搬来，不要在这里改单个值。
+*/
+:root{
+  --paper:#f4ede0;
+  --paper-2:#eae0cd;
+  --ink:#241f1a;
+  --ink-soft:#5b5147;
+  --ink-faint:#8a7f72;
+  --cinnabar:#c8442e;
+  --cinnabar-deep:#a33524;
+  --celadon:#5f8d7d;
+  --indigo:#3c5a78;
+  --gold:#c08a2e;
+  --line:#d8cbb4;
+  --shadow:0 2px 0 rgba(36,31,26,.06), 0 12px 32px -12px rgba(36,31,26,.18);
+  --radius:14px;
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun","STSong",serif;
+  --round:"ZCOOL KuaiLe","Noto Serif SC","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  --brush:"ZCOOL XiaoWei","Noto Serif SC","Kaiti SC","STKaiti","KaiTi",serif;
+  --card-grad:linear-gradient(168deg,#fdf8ec,#f3e9d5);
+  --card-grad-2:linear-gradient(168deg,#fdf9ef,#f2e8d4);
+  --surface:rgba(255,253,247,.62);
+  --surface-2:rgba(255,253,247,.55);
+  --surface-3:rgba(244,237,224,.66);
+  --surface-hi:#fdf9ef;
+  --nav-bg:rgba(244,237,224,.82);
+  --wash-1:rgba(192,138,46,.10);
+  --wash-2:rgba(200,68,46,.07);
+  --wash-3:rgba(60,90,120,.06);
+  --tag-bg:rgba(36,31,26,.07);
+  --grain-op:.5;
+  --on-accent:#fdf8ee;
+  color-scheme:light;
+
+  /* handle 自己的语义名，指向上面的主站色 */
+  --c-primary:var(--cinnabar);
+  --c-primary-deep:var(--cinnabar-deep);
+  --c-ok:var(--celadon);
+  --c-mis:var(--gold);
+}
+
+/* 夜墨：宣纸翻到背面。双选择器是防首帧漏配：data-theme 由脚本写，html.dark 由 UnoCSS 的 dark: 变体用 */
+:root[data-theme="dark"],
+html.dark{
+  --paper:#17140f;
+  --paper-2:#241f18;
+  --ink:#f0e7d6;
+  --ink-soft:#c3b8a5;
+  --ink-faint:#948a79;
+  --cinnabar:#e2694c;
+  --cinnabar-deep:#f07f61;
+  --celadon:#7fae9c;
+  --indigo:#7d9dc0;
+  --gold:#d3a44a;
+  --line:#3b342a;
+  --shadow:0 2px 0 rgba(0,0,0,.2), 0 14px 36px -14px rgba(0,0,0,.6);
+  --card-grad:linear-gradient(168deg,#2b2519,#1d1811);
+  --card-grad-2:linear-gradient(168deg,#292319,#1b1610);
+  --surface:rgba(52,45,35,.5);
+  --surface-2:rgba(48,42,33,.55);
+  --surface-3:rgba(38,33,26,.6);
+  --surface-hi:#28221a;
+  --nav-bg:rgba(23,20,15,.86);
+  --wash-1:rgba(211,164,74,.09);
+  --wash-2:rgba(226,105,76,.08);
+  --wash-3:rgba(125,157,192,.07);
+  --tag-bg:rgba(240,231,214,.09);
+  --grain-op:.24;
+  --on-accent:#1a1610;
+  color-scheme:dark;
+}

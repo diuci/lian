@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>连词成句 · 把必背课文连出来 | 丢词夺理</title>
+  <meta name="description" content="连词成句：每天一段必背课文。在字块里连出相邻的字，找回每一句，再把它们排回原文顺序。小学到高中的必背篇目都能玩。">
+  <meta name="author" content="丢词夺理 diuci.com">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lian.diuci.com/">
+  <meta property="og:title" content="连词成句 · 把必背课文连出来">
+  <meta property="og:description" content="在字块里连出相邻的字，找回每一句，再把它们排回原文顺序。">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#f4ede0" id="metaTheme">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=ZCOOL+KuaiLe&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <script>
+    /* 首次绘制前定色，避免暗色用户看到白色闪屏。键与主站 / K12 / 汉兜一致：dc-theme */
+    (function(){
+      try{
+        var s=localStorage.getItem('dc-theme');
+        var t=s||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+        document.documentElement.dataset.theme=t;
+        if(t==='dark')document.documentElement.classList.add('dark');
+      }catch(e){}
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

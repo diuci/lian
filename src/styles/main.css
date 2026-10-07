@@ -1,0 +1,45 @@
+/* 连词成句：站点级样式。颜色一律走 tokens.css 的变量，不在这里写死色值。 */
+
+html,body,#app{height:100%;margin:0;padding:0}
+
+body{
+  font-family:var(--serif);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color .45s ease,color .45s ease;
+}
+
+/* 宣纸纹理：与主站 / K12 / 汉兜同一套底纹语言，fixed 因为 html/body/#app 都是 height:100% */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60% 45% at 12% 8%, var(--wash-1), transparent 70%),
+    radial-gradient(50% 40% at 88% 18%, var(--wash-2), transparent 72%),
+    radial-gradient(70% 50% at 50% 100%, var(--wash-3), transparent 75%);
+}
+
+#app{position:relative;z-index:1}
+
+a{color:var(--cinnabar);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:var(--cinnabar)}
+
+button{font-family:inherit}
+
+.btn{
+  border:1px solid var(--cinnabar-deep);
+  background:var(--cinnabar);color:var(--on-accent);
+  border-radius:10px;padding:7px 16px;cursor:pointer;
+  font-family:var(--serif);font-size:14px;letter-spacing:.04em;
+  opacity:.92;transition:opacity .18s ease,transform .12s ease;
+}
+.btn:hover{opacity:1}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:default}
+
+::selection{background:var(--wash-2)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important}
+}

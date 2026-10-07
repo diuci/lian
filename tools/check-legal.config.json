@@ -1,0 +1,16 @@
+{
+  "name": "lian-site",
+  "upstreamCopyrights": [],
+  "vendorDirs": [],
+  "corpusFiles": [
+    "src/data/corpus.json"
+  ],
+  "contactEmail": "hi@diuci.com",
+  "legalLink": "k12.diuci.com/legal",
+  "phraseScan": [
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "docs/"
+  ]
+}

@@ -1,0 +1,81 @@
+name: 构建并部署连词成句
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出
+        uses: actions/checkout@v5
+
+      - name: 设置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 体检脚本自检
+        # 先证明检查本身会失败。空过的检查比没有检查更危险。
+        run: npm run selftest
+
+      - name: 单元测试
+        run: npm run test
+
+      - name: 盘面体检
+        # 246 个盘面全部生成一遍并校验；最近 30 天的每日题可复现。
+        # 这是玩法的地基：一个连不出来的盘面比没有盘面更糟。
+        run: npm run check:puzzle
+
+      - name: 读音快照自洽
+        run: node tools/build-readings.mjs --check
+
+      - name: 构建
+        run: npm run build
+
+      - name: 法律护栏
+        run: npm run check:legal
+
+      - name: 产物体检
+        run: npm run check:build
+
+      - name: 冒烟：真开浏览器把当天这题连到完成态
+        run: |
+          npm run preview -- --port 4173 --host 127.0.0.1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:4173/ >/dev/null && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:4173/ >/dev/null
+          node tools/smoke-lian.mjs --url=http://127.0.0.1:4173
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

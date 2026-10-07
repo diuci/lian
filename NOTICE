@@ -1,0 +1,8 @@
+# NOTICE
+
+本仓代码 MIT，版权归 丢词大作战 (Diuci Games)。
+课文原文属公有领域：判定只有一条 —— 作者卒年 ≤ 当前年 − 50，逐篇证据见
+src/data/corpus.json 的 authorDied / authorEraEnd（真源 diuci/k12-chinese-poetry）。
+选篇与切句编排按 CC BY 4.0 授权，署名「来源：k12-chinese-poetry / 丢词大作战」。
+读音数据来自构建期生成的 src/data/readings.json，底层为 Unicode Unihan kMandarin。
+完整版权与免责说明见 <https://k12.diuci.com/legal/>；侵权通知：hi@diuci.com。
