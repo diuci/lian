@@ -29,7 +29,12 @@ export const DFS_BUDGET = 40000
 
 // 拆句用的标点集：中文全角为主，半角一并容错。
 export const PUNCT = /[，。；？！、：;!?“”‘’「」『』《》〈〉（）()【】[\]·—…\s]+/
-const HAN = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/
+const HAN = /\p{Script=Han}/u
+
+// 按码位算、按码位取字。三峡的「绝𪩘」、劝学的「𫐐」、谏逐客书的「𫘝𫘨」都在增补平面：
+// UTF-16 里一个字占两个码元，按码元切会把一个字劈成两半，盘面与原文就对不上了。
+export function charsOf(s) { return Array.from(String(s)) }
+export function lenOf(s) { return charsOf(s).length }
 
 export class PuzzleError extends Error {}
 
@@ -41,12 +46,12 @@ export function splitUnits(lines) {
       const cleaned = [...piece].filter((c) => HAN.test(c)).join('')
       if (!cleaned) continue
       // 单字不配成为一块：并进前一句
-      if (cleaned.length === 1 && out.length) out[out.length - 1] += cleaned
+      if (lenOf(cleaned) === 1 && out.length) out[out.length - 1] += cleaned
       else out.push(cleaned)
     }
   }
   // 首句就是单字：并进第二句
-  if (out.length > 1 && out[0].length === 1) {
+  if (out.length > 1 && lenOf(out[0]) === 1) {
     out[1] = out[0] + out[1]
     out.shift()
   }
@@ -55,10 +60,10 @@ export function splitUnits(lines) {
 
 /** 这篇能不能玩：至少 3 句、至少 20 字，且没有单字块。 */
 export function usability(units) {
-  const chars = units.reduce((n, u) => n + u.length, 0)
+  const chars = units.reduce((n, u) => n + lenOf(u), 0)
   if (units.length < MIN_UNITS) return { ok: false, reason: '句数不足 ' + MIN_UNITS, units, chars }
   if (chars < MIN_CHARS) return { ok: false, reason: '字数不足 ' + MIN_CHARS, units, chars }
-  if (units.some((u) => u.length < 2)) return { ok: false, reason: '有单字句块', units, chars }
+  if (units.some((u) => lenOf(u) < 2)) return { ok: false, reason: '有单字句块', units, chars }
   return { ok: true, reason: '', units, chars }
 }
 
@@ -67,7 +72,7 @@ export function usability(units) {
  * 先算最少段数，再按目标长度贪心装：切在句边界上，绝不把一句劈开。
  */
 export function chunkUnits(units, maxChars = MAX_CHARS) {
-  const total = units.reduce((n, u) => n + u.length, 0)
+  const total = units.reduce((n, u) => n + lenOf(u), 0)
   if (total <= maxChars) return [units.slice()]
   // 段数只能往多了试，不能定死：定死成 ceil(总字数 / 容量) 时，贪心装到最后一句
   // 会溢出（《登泰山记》全文 448 字按 5 段切，最后一段 101 字 > 96），
@@ -77,15 +82,15 @@ export function chunkUnits(units, maxChars = MAX_CHARS) {
     const out = [[]]
     let len = 0
     for (const u of units) {
-      if (len && len + u.length > target && out.length < parts) {
+      if (len && len + lenOf(u) > target && out.length < parts) {
         out.push([])
         len = 0
       }
       out[out.length - 1].push(u)
-      len += u.length
+      len += lenOf(u)
     }
     const segs = out.filter((p) => p.length)
-    const worst = Math.max(...segs.map((s) => s.reduce((n, u) => n + u.length, 0)))
+    const worst = Math.max(...segs.map((s) => s.reduce((n, u) => n + lenOf(u), 0)))
     if (worst <= maxChars) return segs
   }
   // 走到这里说明某一句本身就比整块盘还长：句子不许劈开，那就没法玩，照实返回
@@ -194,7 +199,7 @@ export function shuffle(arr, rng) {
  * 摆不出抛 PuzzleError，不静默降级。
  */
 export function makePuzzle(units, seed, rngFactory = (s) => seedrandom(s)) {
-  const chars = units.reduce((n, u) => n + u.length, 0)
+  const chars = units.reduce((n, u) => n + lenOf(u), 0)
   const rng = rngFactory(seed)
   for (const cols of COLS_LADDER) {
     const board = boardFor(cols, chars)
@@ -214,7 +219,7 @@ export function makePuzzle(units, seed, rngFactory = (s) => seedrandom(s)) {
 /** 沿路径铺开：句子按随机次序上盘，空格填本篇的字作干扰块。 */
 function layAlong(path, units, board, rng) {
   const area = board.cols * board.rows
-  const chars = units.reduce((n, u) => n + u.length, 0)
+  const chars = units.reduce((n, u) => n + lenOf(u), 0)
   const holes = area - chars
   if (holes < 0 || holes >= board.cols) return null
   const order = shuffle(units.map((_, i) => i), rng)
@@ -222,10 +227,12 @@ function layAlong(path, units, board, rng) {
   const gaps = shuffle(order.map((_, i) => i), rng).slice(0, holes)
   const cells = new Array(area)
   const placements = []
-  const pool = [...units.join('')]
+  // 干扰块记下它是从哪一句第几字抓来的：繁体那一遍按位置取字形，
+  // 只留一个字符就认不出它该长成哪个繁体字（同一个简体字在不同句里繁体形可以不同）。
+  const pool = units.flatMap((u, i) => charsOf(u).map((_, k) => ({ unit: i, k })))
   let p = 0
   order.forEach((unitIndex, position) => {
-    const text = units[unitIndex]
+    const text = charsOf(units[unitIndex])
     const cellsOfUnit = []
     for (let k = 0; k < text.length; k++) {
       const cell = path[p++]
@@ -237,7 +244,8 @@ function layAlong(path, units, board, rng) {
     if (gaps.includes(position)) {
       const cell = path[p++]
       if (cell === undefined) return null
-      cells[cell] = { ch: pool[Math.floor(rng() * pool.length)], unit: -1, k: -1 }
+      const src = pool[Math.floor(rng() * pool.length)]
+      cells[cell] = { ch: charsOf(units[src.unit])[src.k], unit: -1, k: -1, from: src }
     }
   })
   if (p !== area) return null
@@ -258,7 +266,7 @@ export function verifyPuzzle(puzzle, units) {
   const seen = new Set()
   for (const p of puzzle.placements) {
     if (p.unit < 0 || p.unit >= units.length) { problems.push('摆法引用了不存在的句 ' + p.unit); continue }
-    if (p.path.length !== units[p.unit].length) problems.push('第 ' + p.unit + ' 句长度不符')
+    if (p.path.length !== lenOf(units[p.unit])) problems.push('第 ' + p.unit + ' 句长度不符')
     for (let i = 1; i < p.path.length; i++) {
       if (!neighbors(p.path[i - 1], puzzle.cols, puzzle.rows).includes(p.path[i]))
         problems.push('第 ' + p.unit + ' 句在 ' + p.path[i - 1] + '→' + p.path[i] + ' 处不相邻')
@@ -268,7 +276,7 @@ export function verifyPuzzle(puzzle, units) {
       seen.add(c)
     }
   }
-  const chars = units.reduce((n, u) => n + u.length, 0)
+  const chars = units.reduce((n, u) => n + lenOf(u), 0)
   if (puzzle.cells.length > MAX_AREA) problems.push('盘面超过 ' + MAX_AREA + ' 格')
   if (puzzle.rows > MAX_ROWS) problems.push('行数超过 ' + MAX_ROWS)
   if (puzzle.cells.length - chars >= puzzle.cols) problems.push('空洞达到一整行')
@@ -279,7 +287,7 @@ export function verifyPuzzle(puzzle, units) {
   for (const p of puzzle.placements) {
     if (p.unit < 0) continue
     p.path.forEach((cell, k) => {
-      if (puzzle.cells[cell].ch !== units[p.unit][k]) problems.push('第 ' + p.unit + ' 句第 ' + k + ' 字与盘面不符')
+      if (puzzle.cells[cell].ch !== charsOf(units[p.unit])[k]) problems.push('第 ' + p.unit + ' 句第 ' + k + ' 字与盘面不符')
     })
   }
   return problems

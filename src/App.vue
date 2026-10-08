@@ -5,6 +5,8 @@ import TabBar from './components/TabBar.vue'
 import corpus from '~/data/corpus.json'
 import { dayKey, parseDayKey } from '~/logic/daily.mjs'
 import { KEYS, loadRecords, loadSettings, loadStage, loadPlayedPieces, saveSettings, saveStage } from '~/logic/store'
+import { hant, locale, setLocale, t, tf, toggleLocale } from '~/logic/locale'
+import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
 
 type View = 'daily' | 'browse' | 'stats' | 'help'
 
@@ -30,6 +32,13 @@ const day = (() => {
 })()
 
 const settings = ref(loadSettings())
+const isHant = computed(() => hant())
+const pieceById = new Map(pieces.map((p: any) => [p.id, p]))
+// 战绩里存的是简体篇名；繁体那一遍按 id 找回这篇的繁体标签，找不回就照简体摆。
+function titleOf(rec: any) {
+  const p = pieceById.get(rec.pieceId)
+  return p ? tradLabel(p, 'title', isHant.value) : rec.title
+}
 
 // 拼音是可选显示，默认关。所以读音表不在首屏包里：151 KB 的表不该为一个人不看的开关先下载。
 // 打开开关时才 import，Vite 会把它切成单独的 chunk。
@@ -103,28 +112,31 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
            主站在 84px，同一排链接的位置自然对不上。 -->
       <div class="top-in">
       <a class="brand" href="/">
-        <span class="mark">连</span>
+        <span class="mark">{{ t('brand.mark') }}</span>
         <span class="brand-tx">
-          <span class="name">连词成句</span>
+          <span class="name">{{ t('brand.name') }}</span>
           <span class="brand-sub">DIUCI</span>
         </span>
       </a>
       <!-- 六个乐园：与主站、汉兜、古诗文库同一组、同一顺序、同一措辞 -->
       <nav class="nav">
-        <button :class="['tab', view === 'daily' ? 'on' : '']" @click="backToDaily">今日</button>
-        <button :class="['tab', view === 'browse' ? 'on' : '']" @click="view = 'browse'">浏览</button>
-        <button :class="['tab', view === 'stats' ? 'on' : '']" @click="view = 'stats'">战绩</button>
-        <button :class="['tab', view === 'help' ? 'on' : '']" @click="view = 'help'">玩法</button>
+        <button :class="['tab', view === 'daily' ? 'on' : '']" @click="backToDaily">{{ t('nav.daily') }}</button>
+        <button :class="['tab', view === 'browse' ? 'on' : '']" @click="view = 'browse'">{{ t('nav.browse') }}</button>
+        <button :class="['tab', view === 'stats' ? 'on' : '']" @click="view = 'stats'">{{ t('nav.stats') }}</button>
+        <button :class="['tab', view === 'help' ? 'on' : '']" @click="view = 'help'">{{ t('nav.help') }}</button>
       </nav>
-      <nav class="parks" aria-label="六个乐园">
-        <a href="https://diuci.com/">首页</a>
-        <a href="https://k12.diuci.com/">学古诗</a>
-        <a href="https://lian.diuci.com/" aria-current="page" class="on">连词成句</a>
-        <a href="https://handle.diuci.com/">汉兜</a>
-        <a href="https://moon.diuci.com/">遗失月冕</a>
-        <a href="https://ink.diuci.com/">丢词大作战</a>
+      <nav class="parks" :aria-label="t('parks.aria')">
+        <a href="https://diuci.com/">{{ t('parks.home') }}</a>
+        <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
+        <a href="https://lian.diuci.com/" aria-current="page" class="on">{{ t('parks.lian') }}</a>
+        <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
+        <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
+        <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
       </nav>
-      <button class="theme" type="button" :title="dark ? '切回宣纸' : '切到夜墨'" :aria-label="dark ? '切回宣纸' : '切到夜墨'" @click="toggleTheme">
+      <button class="lang" type="button" :title="t('lang.aria')" :aria-label="t('lang.aria')" @click="toggleLocale">
+        {{ isHant ? t('lang.toHans') : t('lang.toHant') }}
+      </button>
+      <button class="theme" type="button" :title="dark ? t('theme.light') : t('theme.dark')" :aria-label="dark ? t('theme.light') : t('theme.dark')" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
           <path d="M12 2.4v2.1M12 19.5v2.1M2.4 12h2.1M19.5 12h2.1M5.2 5.2l1.5 1.5M17.3 17.3l1.5 1.5M18.8 5.2l-1.5 1.5M6.7 17.3l-1.5 1.5"/>
@@ -138,8 +150,8 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 
     <main class="main">
       <p v-if="badLink" class="notice">
-        链接里那一篇（{{ badLink }}）不在这份课文快照里，已经换成今天这一题。
-        可能是快照换过版本，去<a href="#" @click.prevent="view = 'browse'">浏览</a>挑一篇。
+        {{ tf('notice.badLink', { id: badLink }) }}
+        {{ t('notice.maybeVersion') }}<a href="#" @click.prevent="view = 'browse'">{{ t('notice.browse') }}</a>{{ t('notice.pickTail') }}
       </p>
       <GameView
         v-if="view === 'daily'"
@@ -155,32 +167,29 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       />
 
       <section v-else-if="view === 'browse'" class="panel">
-        <h2>按学段挑一篇</h2>
-        <p class="lead">
-          {{ corpus.count }} 篇能玩的课文，来自课标与统编教材的必背篇目。
-          超过一盘的篇目会分成几段，一段一盘。
-        </p>
+        <h2>{{ t('browse.title') }}</h2>
+        <p class="lead">{{ tf('browse.lead', { count: corpus.count }) }}</p>
         <div class="stages">
           <button v-for="s in ['小学', '初中', '高中']" :key="s"
-            :class="['pill', stage === s ? 'on' : '']" @click="setStage(s)">{{ s }}</button>
-          <span class="dim">{{ stageCount }} 篇</span>
+            :class="['pill', stage === s ? 'on' : '']" @click="setStage(s)">{{ tradStage(s, isHant) }}</button>
+          <span class="dim">{{ tf('browse.count', { n: stageCount }) }}</span>
         </div>
         <div v-for="[vol, list] in volumes" :key="vol" class="vol">
-          <h3>{{ vol }}</h3>
+          <h3>{{ tradVolume(vol, isHant) }}</h3>
           <ul>
             <li v-for="p in list" :key="p.id">
               <button class="piece" @click="play(p, 0)">
-                <b>{{ p.title }}</b>
-                <span class="dim">{{ p.dynasty }} · {{ p.author }}</span>
+                <b>{{ tradLabel(p, 'title', isHant) }}</b>
+                <span class="dim">{{ tradLabel(p, 'dynasty', isHant) }} · {{ tradLabel(p, 'author', isHant) }}</span>
                 <span class="tags">
-                  <span class="tag">{{ p.totalUnits }} 句</span>
-                  <span class="tag">{{ p.totalChars }} 字</span>
-                  <span v-if="p.parts.length > 1" class="tag">分 {{ p.parts.length }} 段</span>
-                  <span v-if="played[p.id]" class="tag played">玩过 {{ played[p.id] }}</span>
+                  <span class="tag">{{ tf('browse.units', { n: p.totalUnits }) }}</span>
+                  <span class="tag">{{ tf('browse.chars', { n: p.totalChars }) }}</span>
+                  <span v-if="p.parts.length > 1" class="tag">{{ tf('browse.parts', { n: p.parts.length }) }}</span>
+                  <span v-if="played[p.id]" class="tag played">{{ tf('browse.played', { n: played[p.id] }) }}</span>
                 </span>
               </button>
               <button v-for="pt in p.parts.slice(1)" :key="pt.index" class="partbtn" @click="play(p, pt.index)">
-                第 {{ pt.index + 1 }} 段
+                {{ tf('browse.partN', { n: pt.index + 1 }) }}
               </button>
             </li>
           </ul>
@@ -188,40 +197,44 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       </section>
 
       <section v-else-if="view === 'stats'" class="panel">
-        <h2>战绩</h2>
-        <p class="lead">只存在这台设备的浏览器里，没有账号，也没有服务器。</p>
+        <h2>{{ t('nav.stats') }}</h2>
+        <p class="lead">{{ t('stats.lead') }}</p>
         <div class="nums">
-          <div><b>{{ dailyCount }}</b><span>每日题</span></div>
-          <div><b>{{ solvedCount }}</b><span>连成</span></div>
-          <div><b>{{ records.streak }}</b><span>连续天数</span></div>
+          <div><b>{{ dailyCount }}</b><span>{{ t('stats.daily') }}</span></div>
+          <div><b>{{ solvedCount }}</b><span>{{ t('stats.solved') }}</span></div>
+          <div><b>{{ records.streak }}</b><span>{{ t('stats.streak') }}</span></div>
         </div>
-        <h3>最近</h3>
+        <h3>{{ t('stats.recent') }}</h3>
         <ul class="recent">
           <li v-for="(r, i) in records.days.slice(-12).reverse()" :key="i">
-            <span class="dim">{{ r.mode === 'daily' ? r.day : '练习' }}</span>
-            <b>{{ r.title }}</b>
-            <span class="dim">{{ r.units }} 句 · 错 {{ r.mistakes }} 次 · {{ r.solved ? '连成' : '没打完' }}</span>
+            <span class="dim">{{ r.mode === 'daily' ? r.day : t('stats.practice') }}</span>
+            <b>{{ titleOf(r) }}</b>
+            <span class="dim">{{ tf('stats.line', { units: r.units, mistakes: r.mistakes, state: r.solved ? t('stats.done') : t('stats.undone') }) }}</span>
           </li>
-          <li v-if="!records.days.length" class="dim">还没有记录。今天那一题就是第一篇。</li>
+          <li v-if="!records.days.length" class="dim">{{ t('stats.empty') }}</li>
         </ul>
-        <h3>设置</h3>
-        <label class="opt"><input type="checkbox" v-model="settings.showTarget" @change="save"> 找句时显示目标句子</label>
-        <label class="opt"><input type="checkbox" v-model="settings.showPinyin" @change="save"> 显示拼音</label>
-        <p class="dim">关掉「显示目标句子」后只给字数，难度高一档。</p>
+        <h3>{{ t('stats.settings') }}</h3>
+        <label class="opt"><input type="checkbox" v-model="settings.showTarget" @change="save"> {{ t('stats.optTarget') }}</label>
+        <label class="opt"><input type="checkbox" v-model="settings.showPinyin" @change="save"> {{ t('stats.optPinyin') }}</label>
+        <p class="dim">{{ t('stats.optNote') }}</p>
+        <p class="dim">{{ t('stats.locale') }}</p>
+        <div class="langs">
+          <button :class="['pill', !isHant ? 'on' : '']" @click="setLocale('hans')">{{ t('lang.hans') }}</button>
+          <button :class="['pill', isHant ? 'on' : '']" @click="setLocale('hant')">{{ t('lang.hant') }}</button>
+        </div>
       </section>
 
       <section v-else class="panel">
-        <h2>玩法</h2>
+        <h2>{{ t('nav.help') }}</h2>
         <ol class="rules">
-          <li><b>连句。</b>盘面上每个字都来自这篇课文。点住一个字，拖过<em>相邻</em>的字（横、竖、斜都算），
-            一条路不重复经过同一个格。连出来的字串如果正好是还没找到的那一句，它就当场被认出来。</li>
-          <li><b>排句。</b>句子全找齐之后，按原文顺序排好 —— 点两句交换位置。这一步靠的是你记不记得课文的先后。</li>
-          <li><b>每日一篇。</b>今天所有人玩的是同一篇同一段，题目由日期决定。想补玩过去的某天：<code>?d=2026-10-01</code>。</li>
-          <li><b>随便练。</b>「浏览」里按学段册次挑任意一篇，练习不计连续天数。</li>
+          <li><b>{{ t('help.r1b') }}</b>{{ t('help.r1a') }}<em>{{ t('help.r1em') }}</em>{{ t('help.r1z') }}</li>
+          <li><b>{{ t('help.r2b') }}</b>{{ t('help.r2') }}</li>
+          <li><b>{{ t('help.r3b') }}</b>{{ t('help.r3') }}<code>?d=2026-10-01</code>。</li>
+          <li><b>{{ t('help.r4b') }}</b>{{ t('help.r4') }}</li>
         </ol>
         <p class="lead">
-          篇目来自课标与统编教材的必背范围，原文都是公有领域（判定规则：作者卒年 ≤ 当前年 − 50，逐篇可核验）。
-          <a href="https://k12.diuci.com/legal">版权与免责</a> ·
+          {{ t('help.lead') }}
+          <a href="https://k12.diuci.com/legal">{{ t('help.legal') }}</a> ·
           <a href="mailto:hi@diuci.com">hi@diuci.com</a>
         </p>
       </section>
@@ -230,18 +243,18 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     <footer class="foot">
       <div class="foot-in">
       <div class="foot-l">
-        <a href="https://diuci.com/">丢词夺理 diuci.com</a> · 给孩子的古诗文<br>
-        课文快照 {{ corpus.contentVersion }} · 可玩 {{ corpus.count }} 篇
-        <template v-if="corpus.sourceTotal">（内容仓 {{ corpus.sourceTotal }} 篇，跳过 {{ (corpus.skipped || []).length }} 篇：太短或句子太少）</template><br>
-        <a href="https://k12.diuci.com/legal">原文公有领域 · 注释 CC BY 4.0 · 代码 MIT · 版权与免责</a>
+        <a href="https://diuci.com/">{{ t('foot.brand') }}</a> · {{ t('foot.sub') }}<br>
+        {{ tf('foot.snapshot', { version: corpus.contentVersion, count: corpus.count }) }}
+        <template v-if="corpus.sourceTotal">{{ tf('foot.repo', { total: corpus.sourceTotal, skipped: (corpus.skipped || []).length }) }}</template><br>
+        <a href="https://k12.diuci.com/legal">{{ t('foot.license') }}</a>
       </div>
-      <nav aria-label="六个乐园">
-        <a href="https://k12.diuci.com/">学古诗</a>
-        <a href="https://lian.diuci.com/">连词成句</a>
-        <a href="https://handle.diuci.com/">汉兜</a>
-        <a href="https://moon.diuci.com/">遗失月冕</a>
-        <a href="https://ink.diuci.com/">丢词大作战</a>
-        <a href="https://github.com/diuci/k12-chinese-poetry">内容仓库</a>
+      <nav :aria-label="t('parks.aria')">
+        <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
+        <a href="https://lian.diuci.com/">{{ t('parks.lian') }}</a>
+        <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
+        <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
+        <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
+        <a href="https://github.com/diuci/k12-chinese-poetry">{{ t('foot.contentRepo') }}</a>
       </nav>
       </div>
     </footer>
@@ -305,6 +318,14 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
   transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,color .25s
 }
 .theme:hover{color:var(--cinnabar);border-color:var(--cinnabar);transform:rotate(18deg) scale(1.08)}
+/* 繁简那一枚：与主题钮同尺寸，字用圆体 */
+.lang{
+  width:38px;height:38px;flex:0 0 38px;border-radius:50%;cursor:pointer;padding:0;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink);
+  font-family:var(--round);font-size:15px;display:grid;place-items:center
+}
+.lang:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.langs{display:flex;gap:8px;margin-top:6px}
 .theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .theme .i-sun{display:block}
 .theme .i-moon{display:none}

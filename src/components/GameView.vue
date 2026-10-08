@@ -4,6 +4,8 @@ import BoardGrid from './BoardGrid.vue'
 import StrandPanel from './StrandPanel.vue'
 import { useGame } from '~/logic/game'
 import { fmtTime, markPlayed, pushRecord, shareText } from '~/logic/store'
+import { hant, t, tf } from '~/logic/locale'
+import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
 
 const props = defineProps<{
   // 整份课文快照：词库 + 已发出去日子的冻结记录
@@ -23,11 +25,17 @@ const copied = ref(false)
 const shareBox = ref('')
 const shareRef = ref<unknown>(null)
 const orderWrong = ref(false)
+const isHant = computed(() => hant())
 
 const pieceLabel = computed(() => {
   const p = game.piece
-  const who = [p.dynasty, p.author].filter(Boolean).join(' · ')
-  return { title: p.title, who, where: p.stage + ' ' + p.volume, part: game.part }
+  const who = [tradLabel(p, 'dynasty', isHant.value), tradLabel(p, 'author', isHant.value)].filter(Boolean).join(' · ')
+  return {
+    title: tradLabel(p, 'title', isHant.value),
+    who,
+    where: tradStage(p.stage, isHant.value) + ' ' + tradVolume(p.volume, isHant.value),
+    part: game.part,
+  }
 })
 
 function tap(cell: number) {
@@ -68,7 +76,7 @@ function check() {
 
 async function share() {
   const text = shareText({
-    day: game.day, pieceId: game.piece.id, title: game.piece.title, part: game.part,
+    day: game.day, pieceId: game.piece.id, title: tradLabel(game.piece, 'title', isHant.value), part: game.part,
     units: game.units.length, chars: game.units.join('').length,
     mistakes: game.mistakes.value, orderAttempts: game.orderAttempts.value,
     seconds: game.seconds.value, solved: game.phase.value === 'done', mode: props.mode,
@@ -104,13 +112,13 @@ defineExpose({ game })
   <section class="game">
     <header class="meta">
       <div class="meta-l">
-        <span class="badge">{{ mode === 'daily' ? '今日 · ' + day : '练习 · ' + day }}</span>
-        <h2>{{ pieceLabel.title }}<em v-if="pieceLabel.part">第 {{ pieceLabel.part + 1 }} 段</em></h2>
+        <span class="badge">{{ tf(mode === 'daily' ? 'game.badgeDaily' : 'game.badgePractice', { day }) }}</span>
+        <h2>{{ pieceLabel.title }}<em v-if="pieceLabel.part">{{ tf('game.partN', { n: pieceLabel.part + 1 }) }}</em></h2>
         <p class="who">{{ pieceLabel.who }} · {{ pieceLabel.where }}</p>
       </div>
       <div class="meta-r">
-        <span>{{ game.units.length }} 句 · {{ game.units.join('').length }} 字</span>
-        <span v-if="game.mistakes.value" class="mis">连错 {{ game.mistakes.value }} 次</span>
+        <span>{{ tf('game.unitsChars', { units: game.units.length, chars: game.units.join('').length }) }}</span>
+        <span v-if="game.mistakes.value" class="mis">{{ tf('game.mistakes', { n: game.mistakes.value }) }}</span>
         <span v-if="game.phase.value === 'done'">{{ fmtTime(game.seconds.value) }}</span>
       </div>
     </header>
@@ -119,6 +127,8 @@ defineExpose({ game })
       :cols="game.puzzle.cols"
       :rows="game.puzzle.rows"
       :cells="game.puzzle.cells"
+      :units="game.units"
+      :hant="isHant"
       :locked="game.lockedCells.value"
       :path="game.path.value"
       :flash="game.flash.value"
@@ -129,24 +139,24 @@ defineExpose({ game })
 
     <div class="bar">
       <template v-if="game.phase.value === 'find'">
-        <button class="btn ghost" :disabled="!game.path.value.length" @click="game.undo()">撤销</button>
-        <button class="btn ghost" :disabled="!game.path.value.length" @click="game.clearPath()">清空</button>
-        <span class="cur">{{ game.currentString.value || '在盘面上连出一条相邻的字' }}</span>
-        <button class="btn" :disabled="!game.path.value.length" @click="game.commit()">连好了</button>
+        <button class="btn ghost" :disabled="!game.path.value.length" @click="game.undo()">{{ t('game.undo') }}</button>
+        <button class="btn ghost" :disabled="!game.path.value.length" @click="game.clearPath()">{{ t('game.clear') }}</button>
+        <span class="cur">{{ game.currentString.value || t('game.hintPath') }}</span>
+        <button class="btn" :disabled="!game.path.value.length" @click="game.commit()">{{ t('game.commit') }}</button>
       </template>
       <template v-else-if="game.phase.value === 'order'">
-        <span class="cur">{{ orderWrong ? '顺序还不对，再排一次' : '句子都连出来了，接下来排回原文顺序' }}</span>
-        <button class="btn" @click="check">核对顺序</button>
+        <span class="cur">{{ orderWrong ? t('game.orderWrong') : t('game.orderHint') }}</span>
+        <button class="btn" @click="check">{{ t('game.checkOrder') }}</button>
       </template>
       <template v-else>
-        <span class="cur okline">连好了。{{ game.mistakes.value }} 次连错，排序试了 {{ game.orderAttempts.value }} 次。</span>
-        <button class="btn ghost" @click="share">{{ copied ? '已复制' : '分享' }}</button>
-        <button class="btn" @click="emit('replay')">再来一篇</button>
+        <span class="cur okline">{{ tf('game.finished', { mistakes: game.mistakes.value, orders: game.orderAttempts.value }) }}</span>
+        <button class="btn ghost" @click="share">{{ copied ? t('game.copied') : t('game.share') }}</button>
+        <button class="btn" @click="emit('replay')">{{ t('game.another') }}</button>
       </template>
     </div>
 
     <label v-if="shareBox.value" class="share-box">
-      <span>复制这段发给同学：</span>
+      <span>{{ t('game.shareLabel') }}</span>
       <input ref="shareRef" readonly :value="shareBox.value" @focus="($event.target as HTMLInputElement).select()" />
     </label>
 
@@ -156,6 +166,7 @@ defineExpose({ game })
       :phase="game.phase.value"
       :order="game.order.value"
       :picked="picked"
+      :hant="isHant"
       :readings="readings"
       :show-target="showTarget"
       :show-pinyin="showPinyin"

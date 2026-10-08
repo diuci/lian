@@ -10,7 +10,7 @@ import { neighbors } from './layout.mjs'
 import { makePuzzle, verifyPuzzle } from './layout.mjs'
 import { puzzleFor, seedFor } from './daily.mjs'
 
-export type Cell = { ch: string, unit: number, k: number }
+export type Cell = { ch: string, unit: number, k: number, from?: { unit: number, k: number } }
 export type Puzzle = {
   cols: number
   rows: number

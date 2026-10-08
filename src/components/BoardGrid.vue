@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Cell } from '~/logic/game'
+import { tradGlyph } from '~/logic/trad'
 
 const props = defineProps<{
   cols: number
   rows: number
   cells: Cell[]
+  units: string[]
+  hant: boolean
   locked: Map<number, number>
   path: number[]
   flash: '' | 'ok' | 'mis'
@@ -28,6 +31,23 @@ const pathIndex = computed(() => {
   props.path.forEach((c, i) => m.set(c, i))
   return m
 })
+
+/**
+ * 盘面上画哪个字。玩法与判定全在简体那一遍上（按句子序号与位置匹配），
+ * 这里只是把同一个位置换成繁体字形 —— 换字形不改玩法，也不改答案。
+ * 干扰块没有句子序号，靠 from 记着的「哪一句第几字」取形。
+ */
+function glyph(c: Cell) {
+  if (!props.hant) return c.ch
+  const src = c.unit >= 0 ? { unit: c.unit, k: c.k } : c.from
+  if (!src || !props.units[src.unit]) return c.ch
+  return tradGlyph(props.units[src.unit], src.k, true)
+}
+
+/** 拼音按简体那个字读：读音表是以简体字为键的，繁体字形只是同一格的另一种写法。 */
+function pyOf(c: Cell) {
+  return props.readings[c.ch] ? props.readings[c.ch].common : ''
+}
 
 function cls(cell: number) {
   const inPath = pathIndex.value.has(cell)
@@ -62,6 +82,7 @@ if (typeof window !== 'undefined') {
 <template>
   <div
     class="board"
+    :data-script="hant ? 'hant' : 'hans'"
     :style="{
       gridTemplateColumns: 'repeat(' + cols + ', ' + tile + 'px)',
       gap: gap + 'px',
@@ -80,8 +101,8 @@ if (typeof window !== 'undefined') {
       @pointerenter="over(i)"
       @click="over(i)"
     >
-      <span v-if="showPinyin && readings[c.ch]" class="py">{{ readings[c.ch].common }}</span>
-      <span class="ch">{{ c.ch }}</span>
+      <span v-if="showPinyin && pyOf(c)" class="py">{{ pyOf(c) }}</span>
+      <span class="ch">{{ glyph(c) }}</span>
       <span v-if="pathIndex.has(i)" class="ord">{{ pathIndex.get(i)! + 1 }}</span>
     </button>
   </div>

@@ -2,6 +2,8 @@
 // 键名固定：lian-stage / lian-settings / lian-records / lian-pieces。
 // 改键名等于把所有人的战绩清零，所以这里只加不改。
 
+import { t, tf } from './locale'
+
 export const KEYS = {
   theme: 'dc-theme',
   stage: 'lian-stage',
@@ -135,17 +137,17 @@ export function markPlayed(pieceId: string) {
 
 export function shareText(rec: Record_, url: string) {
   const lines = [
-    '连词成句 ' + (rec.mode === 'daily' ? rec.day : '练习'),
-    '《' + rec.title + '》' + (rec.part > 0 ? ' 第 ' + (rec.part + 1) + ' 段' : ''),
+    t('share.title') + ' ' + (rec.mode === 'daily' ? rec.day : t('share.practice')),
+    '《' + rec.title + '》' + (rec.part > 0 ? tf('share.partN', { n: rec.part + 1 }) : ''),
     rec.solved
-      ? '找句 ' + rec.units + ' 句 · 错 ' + rec.mistakes + ' 次 · 排序试 ' + rec.orderAttempts + ' 次 · ' + fmtTime(rec.seconds)
-      : '没打完：找到 ' + rec.units + ' 句里的一部分',
+      ? tf('share.solved', { units: rec.units, mistakes: rec.mistakes, orders: rec.orderAttempts, time: fmtTime(rec.seconds) })
+      : tf('share.unsolved', { units: rec.units }),
     url,
   ]
   return lines.join('\n')
 }
 
 export function fmtTime(s: number) {
-  if (s < 60) return s + ' 秒'
-  return Math.floor(s / 60) + ' 分 ' + (s % 60) + ' 秒'
+  if (s < 60) return tf('time.sec', { n: s })
+  return tf('time.min', { m: Math.floor(s / 60), s: s % 60 })
 }

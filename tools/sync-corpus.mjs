@@ -146,11 +146,12 @@ export function eachDay(since, through) {
  * 把已经发出去的日子冻进 history：用「旧的」词库算出每一天摇到哪一篇哪一段。
  * 必须在写新词库之前做——先写新的再算，算出来的是新词库的题，历史就被就地改了。
  */
-export function freezeHistory(oldCorpus, oldHistory, today) {
+export function freezeHistory(oldCorpus, oldHistory, today, newCorpus) {
   const days = oldHistory && Array.isArray(oldHistory.days) ? oldHistory.days.slice() : []
   const pieces = oldHistory && oldHistory.pieces ? Object.assign({}, oldHistory.pieces) : {}
   const since = (oldHistory && oldHistory.since) || today
   const have = new Set(days.map((d) => d.day))
+  const retexted = (oldHistory && Array.isArray(oldHistory.retexted) ? oldHistory.retexted : []).slice()
   let added = 0
   if (oldCorpus && Array.isArray(oldCorpus.pieces) && oldCorpus.pieces.length) {
     for (const day of eachDay(since, today)) {
@@ -162,7 +163,24 @@ export function freezeHistory(oldCorpus, oldHistory, today) {
     }
   }
   days.sort((a, b) => a.day.localeCompare(b.day))
-  return { since, through: today, added, days, pieces }
+  // 冻下来的是「哪天玩哪一篇哪一段」，不是把当时的正文一起冻住。
+  // 内容仓后来改了这篇（删掉拼出来的句子、勘误用字），回放必须用改过的那份 ——
+  // 明知是错的还照原样端给第二天来背的人，这一条不能要。
+  const fresh = new Map(((newCorpus && newCorpus.pieces) || []).map((x) => [x.id, x]))
+  for (const id of Object.keys(pieces)) {
+    const now = fresh.get(id)
+    if (!now) { pieces[id].ghost = true; continue }
+    if (JSON.stringify(now) !== JSON.stringify(pieces[id])) {
+      retexted.push({
+        id,
+        title: now.title,
+        days: days.filter((d) => d.id === id).map((d) => d.day),
+        why: '内容仓在冻结之后改了这篇的正文，回放改用改过的版本',
+      })
+      pieces[id] = now
+    }
+  }
+  return { since, through: today, added, days, pieces, retexted }
 }
 
 /** 历史本身合不合法：日子必须连续、每条必须还能解出正文、昨天必须已经冻上。 */
@@ -243,6 +261,20 @@ function selftest() {
     const r = buildPiece({ id: 'p', title: '标点', linesPunct: ['a,b,c,d,e,f,g,h,i,j,k,l'.replace(/[a-z]/g, '字')] })
     return r.ok ? '全是单字本该被拒' : true
   })
+  add('冻结之后内容仓改了正文，回放改用改过的那份', () => {
+    const oldPiece = { id: 'z', title: '可玩', parts: [[{ units: ['旧句子甲', '旧句子乙'] }]], totalUnits: 2 }
+    const newPiece = { id: 'z', title: '可玩', parts: [[{ units: ['新句子甲', '新句子乙'] }]], totalUnits: 2 }
+    const h = freezeHistory({ pieces: [oldPiece] }, { since: '2026-10-07', through: '2026-10-07', days: [{ day: '2026-10-07', id: 'z', part: 0 }], pieces: { z: oldPiece } }, '2026-10-08', { pieces: [newPiece] })
+    if (JSON.stringify(h.pieces.z.units || h.pieces.z.parts[0][0].units) !== JSON.stringify(['新句子甲', '新句子乙']))
+      return '回放还在用旧正文：' + JSON.stringify(h.pieces.z)
+    if (!h.retexted.length || h.retexted[0].id !== 'z') return '改了正文却没留痕'
+    return true
+  })
+  add('内容仓里没了的篇目标成幽灵', () => {
+    const oldPiece = { id: 'g', title: '幽灵', parts: [[{ units: ['句子甲乙', '句子丙丁'] }]] }
+    const h = freezeHistory({ pieces: [oldPiece] }, { since: '2026-10-07', through: '2026-10-07', days: [{ day: '2026-10-07', id: 'g', part: 0 }], pieces: { g: oldPiece } }, '2026-10-08', { pieces: [] })
+    return h.pieces.g.ghost === true ? true : '没了的篇目没标 ghost'
+  })
   console.log('[ok] sync-corpus --selftest 通过（' + cases.length + ' 项：' + cases.join('、') + '）')
   return process.exitCode || 0
 }
@@ -256,7 +288,7 @@ if (isEntry) {
     let oldCorpus = null
     try { oldCorpus = JSON.parse(readFileSync(OUT_CORPUS, 'utf8')) } catch {}
     const corpus = buildSnapshot()
-    const history = freezeHistory(oldCorpus, oldCorpus && oldCorpus.history, dayKey(new Date()))
+    const history = freezeHistory(oldCorpus, oldCorpus && oldCorpus.history, dayKey(new Date()), corpus)
     corpus.history = history
     mkdirSync(dirname(OUT_CORPUS), { recursive: true })
     writeFileSync(OUT_CORPUS, JSON.stringify(corpus) + '\n', 'utf8')

@@ -54,6 +54,12 @@ jobs:
       - name: 产物体检
         run: npm run check:build
 
+      - name: 繁体这一侧
+        # CI 不 clone 内容仓（分站之间零依赖），所以这里跑的是不依赖它的那一半：
+        # 产物自洽、界面词典两边齐、组件用到的词条都在。
+        # 工具会当场说明「与内容仓逐句比字」「繁体里不许留简体专用字」这两条没跑 —— 不许默默跳过。
+        run: npm run check:trad
+
       - name: 冒烟：真开浏览器把当天这题连到完成态
         run: |
           npm run preview -- --port 4173 --host 127.0.0.1 &

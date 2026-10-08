@@ -1,19 +1,25 @@
 <script setup lang="ts">
+import { t, tf } from '~/logic/locale'
+import { tradUnit } from '~/logic/trad'
+
 const props = defineProps<{
   units: string[]
   found: number[]
   phase: 'find' | 'order' | 'done'
   order: number[]
   picked: number
+  hant: boolean
   readings: Record<string, { common: string }>
   showTarget: boolean
   showPinyin: boolean
 }>()
 const emit = defineEmits<{ (e: 'pick', i: number): void }>()
 
-function text(unitIndex: number) { return props.units[unitIndex] }
+/** 给玩家看的那一句：繁体时换成繁体字形，玩法与判定仍用简体那份。 */
+function text(unitIndex: number) { return tradUnit(props.units[unitIndex], props.hant) }
+function plain(unitIndex: number) { return props.units[unitIndex] }
 function pinyin(unitIndex: number) {
-  return [...text(unitIndex)].map((ch) => props.readings[ch]?.common || '').join(' ')
+  return [...plain(unitIndex)].map((ch) => props.readings[ch]?.common || '').join(' ')
 }
 </script>
 
@@ -21,8 +27,8 @@ function pinyin(unitIndex: number) {
   <div class="strands">
     <template v-if="phase === 'find'">
       <div class="head">
-        <b>找句</b>
-        <span class="dim">已找到 {{ found.length }} / {{ units.length }}</span>
+        <b>{{ t('strand.findTitle') }}</b>
+        <span class="dim">{{ tf('strand.found', { got: found.length, total: units.length }) }}</span>
       </div>
       <ol class="list">
         <li
@@ -36,16 +42,16 @@ function pinyin(unitIndex: number) {
             {{ text(i) }}
             <em v-if="showPinyin" class="pyline">{{ pinyin(i) }}</em>
           </span>
-          <span v-else class="txt dim">{{ text(i).length }} 字</span>
-          <span v-if="found.includes(i)" class="tick">已连出</span>
+          <span v-else class="txt dim">{{ tf('strand.chars', { n: plain(i).length }) }}</span>
+          <span v-if="found.includes(i)" class="tick">{{ t('strand.done') }}</span>
         </li>
       </ol>
     </template>
 
     <template v-else>
       <div class="head">
-        <b>排句</b>
-        <span class="dim">按原文顺序排好，点两句交换位置</span>
+        <b>{{ t('strand.orderTitle') }}</b>
+        <span class="dim">{{ t('strand.orderHint') }}</span>
       </div>
       <ol class="list order">
         <li
