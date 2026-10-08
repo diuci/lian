@@ -132,9 +132,18 @@ function selftest() {
   const ghost = { since: '2026-10-08', through: today, days: [{ day: '2026-10-08', id: 'ghost', part: 0 }, { day: '2026-10-09', id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
   if (!checkHistory(ghost, today).length) { console.error('[!!] 历史指向记录里没有的篇目没被抓到'); return 1 }
   cases.push('历史里的幽灵篇目被抓')
-  const stale = { since: '2026-10-07', through: '2026-10-07', days: [{ day: '2026-10-07', id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  const shift = (n) => dayKey(new Date(new Date(today + 'T00:00:00').getTime() + n * DAY_MS))
+  // 日子全部按 today 推出来：写死日期的自检会在某一天变成永远抓不住东西的空检查
+  const stale = { since: shift(-3), through: shift(-2), days: [{ day: shift(-3), id: 'good', part: 0 }, { day: shift(-2), id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
   if (!checkHistory(stale, today).length) { console.error('[!!] 历史没冻到昨天没被抓到'); return 1 }
   cases.push('历史没冻到昨天被抓')
+  const future = { since: shift(-1), through: shift(2), days: [{ day: shift(-1), id: 'good', part: 0 }, { day: today, id: 'good', part: 0 }, { day: shift(1), id: 'good', part: 0 }, { day: shift(2), id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  if (!checkHistory(future, today).filter((p) => p.includes('冻到了未来')).length) { console.error('[!!] 历史冻到两天以后没被抓到'); return 1 }
+  cases.push('历史冻到两天以后被抓')
+  // 冻结按本地日子写、CI 按 UTC 算今天：本地比 UTC 早一天的机器冻到「本地今天」，在 CI 眼里是明天
+  const skewed = { since: shift(-1), through: shift(1), days: [{ day: shift(-1), id: 'good', part: 0 }, { day: today, id: 'good', part: 0 }, { day: shift(1), id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  if (checkHistory(skewed, today).length) { console.error('[!!] 时区差一天的冻结被误伤：' + checkHistory(skewed, today)[0]); return 1 }
+  cases.push('时区差一天的冻结不误伤')
   const frozenCorpus = { contentVersion: 'selftest', pieces: corpus.pieces.concat([other]), history: goodHist }
   const built = puzzleFor(frozenCorpus, '2026-10-08')
   if (!built.frozen || built.piece.id !== 'other') { console.error('[!!] 冻在记录里的日子没有按记录出（出来的是 ' + built.piece.id + '）'); return 1 }

@@ -1,9 +1,6 @@
 // 繁体这一层的断言。check-trad 查的是产物与词典，这里查的是运行时那三个函数
 // 真的按码位取形、真的不会静默端出简体。
 import { describe, expect, it } from 'vitest'
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import trad from '../src/data/traditional.json'
 import corpus from '../src/data/corpus.json'
 import zhCn from '../src/locales/zh-cn.json'
@@ -12,8 +9,6 @@ import { charsOf } from '../src/logic/layout.mjs'
 import { tradGlyph, tradUnit, tradLabel, tradStage, tradVolume } from '../src/logic/trad'
 import { t, tf, localeKeys } from '../src/logic/locale'
 import { lineGroups, unitMap } from '../tools/build-traditional.mjs'
-
-const ROOT = resolve(fileURLToPath(import.meta.url), '..', '..')
 
 const UNITS = (trad as any).units as Record<string, string>
 const SAME = new Set<string>((trad as any).same || [])
@@ -37,20 +32,19 @@ describe('繁体字形', () => {
     expect(bad).toEqual([])
   })
   it('增补平面字那一行：整组切完仍逐码位等长，取字不错位', () => {
-    // 三峡「绝𪩘多生怪柏」：𪩘 在增补平面（UTF-16 里两个码元），繁体作「絕巘」。
-    // 按码元切会把一个字劈成两半，句子数与字数全都会错 —— 这条断言盯的就是这个。
-    const poems = JSON.parse(readFileSync(resolve(ROOT, '..', 'k12-chinese-poetry/data/poems.json'), 'utf8')).poems
-    const rows: Record<string, any> = {}
-    for (const r of JSON.parse(readFileSync(resolve(ROOT, '..', 'k12-chinese-poetry/data/traditional.json'), 'utf8')).rows) rows[r.id] = r
-    const poem = poems.find((x: any) => x.id === 'sanxia')
-    const groups = lineGroups([poem], rows)
+    // 这一条测的是机制，不是事实：事实（哪一行写作什么）由 check-trad 对着内容仓核。
+    // 样本照三峡「绝𪩘多生怪柏」的形状造 —— 𪩘 在增补平面，UTF-16 里占两个码元，
+    // 按码元切会把一个字劈成两半，句子数与字数全都会错。CI 里没有内容仓，所以样本自带。
+    const groups = lineGroups(
+      [{ id: 'probe', title: '样本', fullLinesPunct: ['绝𪩘多生怪柏，悬泉瀑布。'], linesPunct: [] }],
+      { probe: { id: 'probe', text_trad: ['絕巘多生怪柏，懸泉瀑布。'], sections_trad: {} } },
+    )
     const map = unitMap(groups)
     const key = [...map.keys()].find((u: string) => u.includes('𪩘'))
     expect(key).toBeTruthy()
     const value = map.get(key!)
     expect(charsOf(key!).length).toBe(charsOf(value).length)
-    const k = charsOf(key!).indexOf('𪩘')
-    expect(charsOf(value)[k]).toBe('巘')
+    expect(charsOf(value)[charsOf(key!).indexOf('𪩘')]).toBe('巘')
   })
   it('同一句只有一种繁体形', () => {
     const seen = new Map<string, string>()

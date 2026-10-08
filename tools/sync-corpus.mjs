@@ -202,7 +202,11 @@ export function checkHistory(h, today) {
   const yesterday = dayKey(new Date(new Date(today + 'T00:00:00').getTime() - DAY_MS))
   if (String(h.through) < yesterday)
     problems.push('history 只冻到 ' + h.through + '，昨天（' + yesterday + '）还没冻：词库一改，已经玩过的日子会被换题')
-  if (String(h.through) > today) problems.push('history 冻到了未来：' + h.through + ' 晚于今天 ' + today)
+  // 允许 through 比「今天」多一天：冻结用的是本地日子（玩家在哪个日子玩的就是哪天），
+  // CI 那台机器按 UTC 算今天。UTC+8 的机器冻到本地今天时，UTC 那边还差一天 —— 这不是冻到未来。
+  // 多两天以上就是真说不通了，照旧报错。
+  const tomorrow = dayKey(new Date(new Date(today + 'T00:00:00').getTime() + DAY_MS))
+  if (String(h.through) > tomorrow) problems.push('history 冻到了未来：' + h.through + ' 晚于今天 ' + today)
   return problems
 }
 
