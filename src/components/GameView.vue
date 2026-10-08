@@ -6,7 +6,8 @@ import { useGame } from '~/logic/game'
 import { fmtTime, markPlayed, pushRecord, shareText } from '~/logic/store'
 
 const props = defineProps<{
-  pieces: any[]
+  // 整份课文快照：词库 + 已发出去日子的冻结记录
+  source: any
   day: string
   mode: 'daily' | 'practice'
   readings: Record<string, { common: string }>
@@ -16,7 +17,7 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{ (e: 'replay'): void }>()
 
-const game = useGame(props.pieces, props.day, props.pick)
+const game = useGame(props.source, props.day, props.pick)
 const picked = ref(-1)
 const copied = ref(false)
 const shareBox = ref('')

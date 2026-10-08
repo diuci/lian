@@ -12,6 +12,7 @@
     "sync:corpus": "node tools/sync-corpus.mjs",
     "build:readings": "node tools/build-readings.mjs",
     "check:puzzle": "node tools/check-puzzle.mjs",
+    "check:corpus": "node tools/sync-corpus.mjs --check",
     "check:build": "node tools/check-build.mjs",
     "check:legal": "node tools/check-legal.mjs",
     "smoke": "node tools/smoke-lian.mjs",

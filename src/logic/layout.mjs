@@ -20,7 +20,10 @@ export const MAX_ROWS = 12
 export const MAX_AREA = 96
 export const MAX_CHARS = 96
 export const MIN_UNITS = 3
-export const MIN_CHARS = 20
+// 20 改 18：《咏鹅》正文 18 字（鹅鹅鹅／曲项向天歌／白毛浮绿水／红掌拨清波），
+// 一年级必背篇目，6×3 的盘恰好铺满。卡在 20 字等于把这篇挡在门外，
+// 而它玩起来一点都不比 20 字的篇目差。
+export const MIN_CHARS = 18
 export const MAX_ATTEMPTS = 40
 export const DFS_BUDGET = 40000
 
@@ -66,19 +69,27 @@ export function usability(units) {
 export function chunkUnits(units, maxChars = MAX_CHARS) {
   const total = units.reduce((n, u) => n + u.length, 0)
   if (total <= maxChars) return [units.slice()]
-  const parts = Math.ceil(total / maxChars)
-  const target = Math.ceil(total / parts)
-  const out = [[]]
-  let len = 0
-  for (const u of units) {
-    if (len && len + u.length > target && out.length < parts) {
-      out.push([])
-      len = 0
+  // 段数只能往多了试，不能定死：定死成 ceil(总字数 / 容量) 时，贪心装到最后一句
+  // 会溢出（《登泰山记》全文 448 字按 5 段切，最后一段 101 字 > 96），
+  // 而溢出的一段在盘面上根本摆不出来。多切一段就装得下了。
+  for (let parts = Math.ceil(total / maxChars); parts <= units.length; parts++) {
+    const target = Math.ceil(total / parts)
+    const out = [[]]
+    let len = 0
+    for (const u of units) {
+      if (len && len + u.length > target && out.length < parts) {
+        out.push([])
+        len = 0
+      }
+      out[out.length - 1].push(u)
+      len += u.length
     }
-    out[out.length - 1].push(u)
-    len += u.length
+    const segs = out.filter((p) => p.length)
+    const worst = Math.max(...segs.map((s) => s.reduce((n, u) => n + u.length, 0)))
+    if (worst <= maxChars) return segs
   }
-  return out.filter((p) => p.length)
+  // 走到这里说明某一句本身就比整块盘还长：句子不许劈开，那就没法玩，照实返回
+  return [units.slice()]
 }
 
 export function neighbors(cell, cols, rows) {

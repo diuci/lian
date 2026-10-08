@@ -144,7 +144,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       <GameView
         v-if="view === 'daily'"
         :key="gameDay + '|' + practicePiece + '|' + replayKey"
-        :pieces="pieces"
+        :source="corpus"
         :day="gameDay"
         :mode="mode"
         :pick="pick"

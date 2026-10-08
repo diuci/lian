@@ -2,6 +2,11 @@
 //
 // 规则：同一天永远同一篇、同一段；日期可回放（?d=YYYY-MM-DD）。
 // 选篇不排难度、不排重：rng 由日期决定，人不能挑，挑了就不是「今天这一题」。
+//
+// 已经发出去的日子记在 data/daily-history.json 里，回放一律按那份记录走。
+// 为什么必须记下来：选篇是「日期 → 词库里的第几篇」，词库一变（内容仓补了篇目、
+// 改了顺序、改了正文），同一天的题就跟着变。玩家上周玩过的那一题，这周回放变成另一篇，
+// 那不叫回放，那叫换题。所以过去的日子钉死在记录里，只有还没玩过的日子跟着词库走。
 
 import seedrandom from 'seedrandom'
 import { COLS_LADDER, MAX_AREA, MAX_CHARS, MAX_ROWS, PuzzleError, boardFor, chunkUnits, makePuzzle, splitUnits, usability, verifyPuzzle } from './layout.mjs'
@@ -41,15 +46,31 @@ export function pickDaily(pieces, day) {
   return { piece, part: Math.min(part, piece.parts.length - 1), day }
 }
 
+/** 这一天冻在记录里吗？冻着就必须按记录的那一篇那一段出，不许重新摇。 */
+export function frozenFor(source, day) {
+  const h = source && !Array.isArray(source) ? source.history : null
+  if (!h || !Array.isArray(h.days)) return null
+  const hit = h.days.find((x) => x.day === day)
+  if (!hit) return null
+  const piece = (h.pieces || {})[hit.id]
+  if (!piece) throw new PuzzleError(day + ' 冻在记录里，指向「' + hit.id + '」，可记录里没有这篇的正文')
+  if (!Array.isArray(piece.parts) || !piece.parts.length) throw new PuzzleError(day + ' 冻的那一篇（' + piece.title + '）没有段')
+  const part = Math.min(hit.part, piece.parts.length - 1)
+  return { piece, part }
+}
+
 /** 一个可玩的题面：选篇 + 生成 + 自检。CI 与客户端走同一条路。 */
-export function puzzleFor(pieces, day) {
-  const { piece, part } = pickDaily(pieces, day)
+export function puzzleFor(source, day) {
+  const pieces = Array.isArray(source) ? source : (source && source.pieces)
+  if (!pieces || !pieces.length) throw new PuzzleError('课文快照是空的')
+  const frozen = frozenFor(source, day)
+  const { piece, part } = frozen || pickDaily(pieces, day)
   const units = piece.parts[part].units
   const seed = seedFor(day, piece.id, part)
   const puzzle = makePuzzle(units, seed, (s) => seedrandom(s))
   const problems = verifyPuzzle(puzzle, units)
   if (problems.length) throw new PuzzleError('盘面不自洽：' + piece.title + ' —— ' + problems[0])
-  return { piece, part, units, puzzle, seed }
+  return { piece, part, units, puzzle, seed, frozen: !!frozen }
 }
 
 export { COLS_LADDER, MAX_AREA, MAX_CHARS, MAX_ROWS, boardFor, chunkUnits, splitUnits, usability }

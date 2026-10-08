@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url'
 import seedrandom from 'seedrandom'
 import { PuzzleError, boardFor, makePuzzle, verifyPuzzle } from '../src/logic/layout.mjs'
 import { DAY_MS, dayKey, parseDayKey, puzzleFor } from '../src/logic/daily.mjs'
+import { checkHistory } from './sync-corpus.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const CORPUS = resolve(HERE, '../src/data/corpus.json')
@@ -56,6 +57,20 @@ export function run(days = 30) {
       problems.push(day + ' 两次生成的盘面不一样')
   }
 
+  // 已经发出去的日子：回放必须还是那一篇那一段，不许跟着词库重新摇
+  const hist = corpus.history
+  for (const q of checkHistory(hist, dayKey(new Date()))) problems.push(q)
+  if (hist && Array.isArray(hist.days)) {
+    for (const rec of hist.days) {
+      let built
+      try { built = puzzleFor(corpus, rec.day) }
+      catch (e) { problems.push(rec.day + ' 冻结的那一题生成失败：' + e.message); continue }
+      if (!built.frozen) problems.push(rec.day + ' 明明冻在记录里，却没走冻结那条路（选篇跟着词库摇）')
+      if (built.piece.id !== rec.id || built.part !== rec.part)
+        problems.push(rec.day + ' 回放出来的是「' + built.piece.title + '」第 ' + (built.part + 1) + ' 段，记录里写的是 ' + rec.id + ' 第 ' + (rec.part + 1) + ' 段')
+    }
+  }
+
   if (problems.length) {
     for (const p of problems.slice(0, 40)) console.error('[!!] ' + p)
     if (problems.length > 40) console.error('    …共 ' + problems.length + ' 条')
@@ -66,6 +81,8 @@ export function run(days = 30) {
   console.log('     列数分布：' + Object.entries(colsHist).sort((a, b) => a[0] - b[0])
     .map(([c, n]) => c + ' 列 ' + n).join(' · '))
   console.log('     最近 ' + days + ' 天的每日题都能生成，且可复现')
+  if (hist && Array.isArray(hist.days))
+    console.log('     已发出去的日子冻在记录里：' + hist.since + ' 至 ' + hist.through + ' 共 ' + hist.days.length + ' 天，回放逐条核过')
   return 0
 }
 
@@ -97,6 +114,31 @@ function selftest() {
   if (parseDayKey('2026-13-45') === null && parseDayKey('不是日期') === null) cases.push('非法日期被拒')
   else { console.error('[!!] 非法日期没被拒'); return 1 }
   if (parseDayKey('2026-10-06') === null) { console.error('[!!] 合法日期被误拒'); return 1 }
+
+  // 历史冻结：合法的不误伤，坏的必须每一条都抓到
+  const today = '2026-10-09'
+  const other = { id: 'other', title: '另一篇', parts: [{ index: 0, units: ['床前明月光疑是地上霜', '举头望明月低头思故乡', '大风起兮云飞扬', '威加海内兮归故乡'], chars: 28 }] }
+  const goodHist = { since: '2026-10-07', through: today, days: [
+    { day: '2026-10-07', id: 'good', part: 0 }, { day: '2026-10-08', id: 'other', part: 0 }, { day: '2026-10-09', id: 'good', part: 0 }],
+    pieces: { good: corpus.pieces[0], other } }
+  const goodProblems = checkHistory(goodHist, today)
+  if (goodProblems.length) { console.error('[!!] 合法的历史被误报：' + goodProblems[0]); return 1 }
+  cases.push('合法历史不误伤')
+  if (!checkHistory(undefined, today).length) { console.error('[!!] 没有历史没被抓到'); return 1 }
+  cases.push('缺历史被抓')
+  const hole = { since: '2026-10-07', through: today, days: [{ day: '2026-10-07', id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  if (!checkHistory(hole, today).length) { console.error('[!!] 历史中间少了两天没被抓到'); return 1 }
+  cases.push('历史有洞被抓')
+  const ghost = { since: '2026-10-08', through: today, days: [{ day: '2026-10-08', id: 'ghost', part: 0 }, { day: '2026-10-09', id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  if (!checkHistory(ghost, today).length) { console.error('[!!] 历史指向记录里没有的篇目没被抓到'); return 1 }
+  cases.push('历史里的幽灵篇目被抓')
+  const stale = { since: '2026-10-07', through: '2026-10-07', days: [{ day: '2026-10-07', id: 'good', part: 0 }], pieces: { good: corpus.pieces[0] } }
+  if (!checkHistory(stale, today).length) { console.error('[!!] 历史没冻到昨天没被抓到'); return 1 }
+  cases.push('历史没冻到昨天被抓')
+  const frozenCorpus = { contentVersion: 'selftest', pieces: corpus.pieces.concat([other]), history: goodHist }
+  const built = puzzleFor(frozenCorpus, '2026-10-08')
+  if (!built.frozen || built.piece.id !== 'other') { console.error('[!!] 冻在记录里的日子没有按记录出（出来的是 ' + built.piece.id + '）'); return 1 }
+  cases.push('冻结的日子按记录出')
   console.log('[ok] check-puzzle --selftest 通过（' + cases.length + ' 项：' + cases.join('、') + '）')
   return 0
 }

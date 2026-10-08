@@ -29,6 +29,15 @@ describe('切段与容量', () => {
     for (const p of parts) expect(p.reduce((n, u) => n + u.length, 0)).toBeLessThanOrEqual(MAX_CHARS)
     expect(parts.flat().join('')).toBe(many.join(''))
   })
+  it('切段不许留下比整块盘还长的一段（登泰山记那种形状）', () => {
+    // 《登泰山记》全文切出来是 90 句 448 字。按最少段数（5 段）贪心装，最后一段溢出到 101 字 ——
+    // 盘面最多 96 格，那一段根本摆不出来。多切一段才装得下。
+    const lens = [4, 4, 2, 4, 5, 5, 6, 4, 5, 7, 11, 6, 3, 2, 6, 5, 4, 4, 12, 4, 6, 6, 8, 7, 8, 5, 3, 3, 4, 4, 4, 4, 4, 3, 7, 5, 8, 5, 7, 6, 5, 3, 4, 4, 6, 2, 4, 8, 3, 2, 7, 3, 7, 8, 12, 2, 7, 5, 2, 4, 8, 2, 4, 7, 5, 4, 4, 5, 7, 11, 7, 6, 7, 5, 4, 3, 2, 4, 3, 2, 3, 2, 3, 3, 2, 3, 5, 8, 6, 5]
+    const units = lens.map((n) => '字'.repeat(n))
+    const parts = chunkUnits(units, MAX_CHARS)
+    for (const p of parts) expect(p.reduce((n, u) => n + u.length, 0)).toBeLessThanOrEqual(MAX_CHARS)
+    expect(parts.flat().join('')).toBe(units.join(''))
+  })
   it('装不下的就是装不下', () => {
     expect(boardFor(8, 97)).toBeFalsy()
     const ok = boardFor(8, 96)

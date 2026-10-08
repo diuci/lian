@@ -5,7 +5,7 @@
 // 所以快照里带 contentVersion、来源文件的 sha256、每篇的 authorDied / authorEraEnd。
 //
 // 用法：
-//   node tools/sync-corpus.mjs           重新快照并写入
+//   node tools/sync-corpus.mjs           重新快照并写入（先把已发出的日子冻进 history）
 //   node tools/sync-corpus.mjs --check   只比对，不写；漂移就失败
 //   node tools/sync-corpus.mjs --selftest 用假数据证明过滤逻辑真的会拒
 
@@ -13,7 +13,8 @@ import { createHash } from 'node:crypto'
 import { readFileSync, unlinkSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { chunkUnits, splitUnits, usability } from '../src/logic/layout.mjs'
+import { MAX_CHARS, chunkUnits, splitUnits, usability } from '../src/logic/layout.mjs'
+import { DAY_MS, dayKey, pickDaily } from '../src/logic/daily.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(HERE, '..')
@@ -31,22 +32,41 @@ function readSource() {
   return { data, sha256: createHash('sha256').update(raw).digest('hex') }
 }
 
+/**
+ * 这一篇玩的是哪一份正文。口径跟着内容仓的 recite（教材的背诵要求），不自作主张：
+ *   recite=full   → 教材要求背诵全文，玩的就是全文（fullLinesPunct）；
+ *   recite=section/line/none → 教材只要求背段落或名句，玩的是必背单元（linesPunct）。
+ * 之前一律玩 linesPunct：醉翁亭记、将进酒、蜀道难这些写着「背全文」的篇目，
+ * 在站上只连得出 44 字的名句——那是把「背全文」悄悄缩成「背两句」。
+ */
+export function textLinesFor(poem) {
+  const full = (Array.isArray(poem.fullLinesPunct) ? poem.fullLinesPunct : []).filter((x) => String(x || '').trim())
+  const mingju = Array.isArray(poem.linesPunct) && poem.linesPunct.length ? poem.linesPunct : (poem.lines || [])
+  if (poem.recite === 'full' && full.length) return { lines: full, source: 'full' }
+  return { lines: mingju, source: 'mingju' }
+}
+
 /** 一篇 → 可玩的段；不可玩给出原因，不静默丢掉。 */
 export function buildPiece(poem) {
-  const lines = Array.isArray(poem.linesPunct) && poem.linesPunct.length ? poem.linesPunct : (poem.lines || [])
-  if (!lines.length) return { ok: false, reason: '没有原文行', parts: [] }
+  const picked = textLinesFor(poem)
+  const lines = picked.lines
+  if (!lines.length) return { ok: false, reason: '没有原文行', parts: [], textSource: picked.source }
   const units = splitUnits(lines)
   const whole = usability(units)
-  if (!whole.ok) return { ok: false, reason: whole.reason, parts: [] }
+  if (!whole.ok) return { ok: false, reason: whole.reason + '（' + picked.source + ' ' + whole.chars + ' 字）', parts: [], textSource: picked.source, playedChars: whole.chars }
   const parts = chunkUnits(units).map((u, i) => {
     const u2 = usability(u)
-    return { index: i, units: u, chars: u2.chars, ok: u2.ok, reason: u2.reason }
+    // 切完还得再卡一次盘面容量：贪心切段可能留下一段比整块盘还长
+    const fits = u2.ok && u2.chars <= MAX_CHARS
+    return { index: i, units: u, chars: u2.chars, ok: fits, reason: fits ? u2.reason : '这一段 ' + u2.chars + ' 字，超过盘面容量 ' + MAX_CHARS }
   })
   const usable = parts.filter((p) => p.ok)
-  if (!usable.length) return { ok: false, reason: '每一段都不够玩', parts }
+  if (!usable.length) return { ok: false, reason: '每一段都不够玩', parts, textSource: picked.source }
   return {
     ok: true,
     reason: '',
+    textSource: picked.source,
+    playedChars: whole.chars,
     parts: usable.map((p) => ({ index: p.index, units: p.units, chars: p.chars })),
     totalUnits: units.length,
     totalChars: whole.chars,
@@ -57,9 +77,17 @@ export function buildSnapshot() {
   const { data, sha256 } = readSource()
   const pieces = []
   const skipped = []
+  const skippedNote = []
   for (const poem of data.poems) {
     const built = buildPiece(poem)
     if (!built.ok) { skipped.push({ id: poem.id, title: poem.title, reason: built.reason }); continue }
+    // 只有「仓内另有更长的正文、而本站玩的是短的那份」才算范围偏窄。
+    // 小学那些短篇没有全文小节，linesPunct 本身就是全文——把它们列进这份清单，
+    // 等于对着读者喊「这里少了」，其实一个字没少。
+    const avail = [built.linesChars || 0,
+      (poem.fullLinesPunct || []).reduce((n, x) => n + [...String(x || '')].filter((c) => /[\\u3400-\\u9fff]/.test(c)).length, 0)]
+    if (poem.recite === 'full' && built.ok && built.playedChars < Math.max(...avail))
+      skippedNote.push({ id: poem.id, title: poem.title, reason: '教材要求背诵全文，本站只连得出 ' + built.playedChars + ' 字（仓内另有 ' + Math.max(...avail) + ' 字）' })
     pieces.push({
       id: poem.id,
       title: poem.title,
@@ -78,6 +106,10 @@ export function buildSnapshot() {
       parts: built.parts,
       totalUnits: built.totalUnits,
       totalChars: built.totalChars,
+      // 玩的是全文还是必背单元，跟着每篇写清楚：读者问「这段是不是课文」时有据可查
+      textSource: built.textSource,
+      // 切出来太长、装不进盘面的段：不静默丢，写下为什么丢
+      dropped: (built.parts || []).filter((p) => !p.ok).map((p) => ({ index: p.index, chars: p.chars, reason: p.reason })),
     })
   }
   pieces.sort((a, b) => a.stage.localeCompare(b.stage, 'zh')
@@ -93,9 +125,67 @@ export function buildSnapshot() {
     count: pieces.length,
     sourceTotal: data.poems.length,
     skipped: skippedSorted,
+    // 只登记不丢件：这类篇目照样能玩，玩的范围比教材要求窄，必须写在明面上
+    narrow: skippedNote,
     stages: pieces.reduce((m, p) => { m[p.stage] = (m[p.stage] || 0) + 1; return m }, {}),
     pieces,
   }
+}
+
+/** 逐日枚举：冻结记录必须一天不漏，所以按日期走，不按数组走。 */
+export function eachDay(since, through) {
+  const start = new Date(since + 'T00:00:00')
+  const end = new Date(through + 'T00:00:00')
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return []
+  const out = []
+  for (let d = start; d <= end; d = new Date(d.getTime() + DAY_MS)) out.push(dayKey(d))
+  return out
+}
+
+/**
+ * 把已经发出去的日子冻进 history：用「旧的」词库算出每一天摇到哪一篇哪一段。
+ * 必须在写新词库之前做——先写新的再算，算出来的是新词库的题，历史就被就地改了。
+ */
+export function freezeHistory(oldCorpus, oldHistory, today) {
+  const days = oldHistory && Array.isArray(oldHistory.days) ? oldHistory.days.slice() : []
+  const pieces = oldHistory && oldHistory.pieces ? Object.assign({}, oldHistory.pieces) : {}
+  const since = (oldHistory && oldHistory.since) || today
+  const have = new Set(days.map((d) => d.day))
+  let added = 0
+  if (oldCorpus && Array.isArray(oldCorpus.pieces) && oldCorpus.pieces.length) {
+    for (const day of eachDay(since, today)) {
+      if (have.has(day)) continue
+      const { piece, part } = pickDaily(oldCorpus.pieces, day)
+      days.push({ day, id: piece.id, part })
+      if (!pieces[piece.id]) pieces[piece.id] = piece
+      added++
+    }
+  }
+  days.sort((a, b) => a.day.localeCompare(b.day))
+  return { since, through: today, added, days, pieces }
+}
+
+/** 历史本身合不合法：日子必须连续、每条必须还能解出正文、昨天必须已经冻上。 */
+export function checkHistory(h, today) {
+  const problems = []
+  if (!h || !Array.isArray(h.days) || !h.days.length)
+    return ['快照里没有 history：每日题的历史冻结没接上（跑一次 node tools/sync-corpus.mjs 会补上）']
+  const want = eachDay(h.since, h.through)
+  if (want.length !== h.days.length)
+    problems.push('history 有洞：' + h.since + ' 到 ' + h.through + ' 应有 ' + want.length + ' 天，记录里 ' + h.days.length + ' 天')
+  else {
+    for (let i = 0; i < want.length; i++) {
+      if (h.days[i].day !== want[i]) { problems.push('history 第 ' + (i + 1) + ' 天应是 ' + want[i] + '，记录里是 ' + h.days[i].day); break }
+    }
+  }
+  for (const rec of h.days) {
+    if (!(h.pieces || {})[rec.id]) problems.push('history 里 ' + rec.day + ' 指向「' + rec.id + '」，可记录里没有这篇的正文')
+  }
+  const yesterday = dayKey(new Date(new Date(today + 'T00:00:00').getTime() - DAY_MS))
+  if (String(h.through) < yesterday)
+    problems.push('history 只冻到 ' + h.through + '，昨天（' + yesterday + '）还没冻：词库一改，已经玩过的日子会被换题')
+  if (String(h.through) > today) problems.push('history 冻到了未来：' + h.through + ' 晚于今天 ' + today)
+  return problems
 }
 
 function same(a, b) { return JSON.stringify(a) === JSON.stringify(b) }
@@ -112,6 +202,8 @@ function check() {
     problems.push('来源文件 sha256 漂移：内容仓 poems.json 变了但快照没重跑')
   if (!same(existing.pieces, corpus.pieces)) problems.push('篇目内容与内容仓不一致')
   if (!same(existing.skipped, corpus.skipped)) problems.push('跳过清单与重新生成结果不一致')
+  if (!same(existing.narrow || [], corpus.narrow)) problems.push('「玩的范围比教材窄」这份清单与重新生成结果不一致')
+  for (const q of checkHistory(existing.history, dayKey(new Date()))) problems.push(q)
   if (problems.length) {
     for (const p of problems) console.error('[!!] ' + p)
     console.error('    跑 node tools/sync-corpus.mjs 重新快照')
@@ -160,7 +252,12 @@ if (isEntry) {
   if (process.argv.includes('--selftest')) process.exitCode = selftest()
   else if (process.argv.includes('--check')) process.exitCode = check()
   else {
+    // 先拿旧词库把已发出的日子冻下来，再写新词库
+    let oldCorpus = null
+    try { oldCorpus = JSON.parse(readFileSync(OUT_CORPUS, 'utf8')) } catch {}
     const corpus = buildSnapshot()
+    const history = freezeHistory(oldCorpus, oldCorpus && oldCorpus.history, dayKey(new Date()))
+    corpus.history = history
     mkdirSync(dirname(OUT_CORPUS), { recursive: true })
     writeFileSync(OUT_CORPUS, JSON.stringify(corpus) + '\n', 'utf8')
     // 旧的摘要文件如果还在，删掉：留着它，下一个读它的人不知道该信哪个
@@ -168,6 +265,9 @@ if (isEntry) {
     console.log('[ok] 已快照 ' + corpus.count + ' 篇 / 内容仓 ' + corpus.sourceTotal + ' 篇（跳过 '
       + corpus.skipped.length + '），contentVersion ' + corpus.contentVersion)
     console.log('     ' + Object.entries(corpus.stages).map(([k, v]) => k + ' ' + v).join(' · '))
+    console.log('     每日题历史冻到 ' + history.through + '（' + history.since + ' 起共 ' + history.days.length + ' 天，本次新增 ' + history.added + ' 天）')
+    if (corpus.narrow.length)
+      console.log('     教材要求背全文、仓内没有全文正文因而退回必背单元：' + corpus.narrow.map((x) => x.title).join('、'))
     process.exitCode = 0
   }
 }

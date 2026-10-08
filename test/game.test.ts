@@ -106,8 +106,21 @@ describe('玩法', () => {
     expect(() => buildPieceGame(corpus.pieces, '不存在', 0, '2026-10-06')).toThrow()
   })
   it('每日题生成出来必须自洽（buildGame 内部已校验）', () => {
-    const g = buildGame(corpus.pieces, '2026-10-06')
+    const g = buildGame(corpus, '2026-10-06')
     expect(verifyPuzzle(g.puzzle, g.units)).toEqual([])
     expect(() => puzzleFor([], '2026-10-06')).toThrow()
+  })
+  it('冻在记录里的日子，回放必须是记录里那一篇那一段', () => {
+    const withHistory = {
+      ...corpus,
+      history: {
+        since: '2026-10-06', through: '2026-10-06',
+        days: [{ day: '2026-10-06', id: 'yueyang', part: 0 }],
+        pieces: { yueyang: corpus.pieces[1] },
+      },
+    }
+    const g = buildGame(withHistory, '2026-10-06')
+    expect(g.piece.id).toBe('yueyang')
+    expect(g.units).toEqual(corpus.pieces[1].parts[0].units)
   })
 })

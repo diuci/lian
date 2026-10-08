@@ -21,8 +21,9 @@ export type Puzzle = {
 }
 export type Phase = 'find' | 'order' | 'done'
 
-export function buildGame(pieces: any[], day: string) {
-  const { piece, part, units, puzzle, seed } = puzzleFor(pieces, day)
+/** 传整份快照（含 history）进来：已经发出去的日子要按冻结记录出，不能只给词库。 */
+export function buildGame(source: any, day: string) {
+  const { piece, part, units, puzzle, seed } = puzzleFor(source, day)
   return { piece, part, units, puzzle: puzzle as Puzzle, seed, day }
 }
 
@@ -39,10 +40,10 @@ export function buildPieceGame(pieces: any[], pieceId: string, part: number, day
   return { piece, part: idx, units, puzzle, seed, day }
 }
 
-export function useGame(pieces: any[], day: string, pick?: { pieceId: string, part?: number }) {
+export function useGame(source: any, day: string, pick?: { pieceId: string, part?: number }) {
   const built = pick
-    ? buildPieceGame(pieces, pick.pieceId, pick.part || 0, day)
-    : buildGame(pieces, day)
+    ? buildPieceGame(Array.isArray(source) ? source : source.pieces, pick.pieceId, pick.part || 0, day)
+    : buildGame(source, day)
   const units = built.units
   const puzzle = built.puzzle
 
