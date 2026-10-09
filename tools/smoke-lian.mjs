@@ -32,6 +32,24 @@ function findChrome() {
   return null
 }
 
+// 顶栏两枚圆钮（规范 §2 §3）：判定做成纯函数，坏例子不必先开浏览器。
+export function buttonProblems(geo) {
+  const problems = []
+  if (!geo) { problems.push('顶栏没有量到圆钮'); return problems }
+  if (!geo.lang) problems.push('顶栏没有繁简按钮 .dc-lang-btn（规范 §3：繁简钮必须在顶栏）')
+  if (!geo.theme) problems.push('顶栏没有明暗按钮 .dc-theme-btn')
+  if (geo.lang && geo.theme) {
+    if (geo.lang.x >= geo.theme.x)
+      problems.push('繁简钮不在明暗钮左边：繁简 x=' + Math.round(geo.lang.x) + ' / 明暗 x=' + Math.round(geo.theme.x))
+    if (Math.abs(geo.lang.w - geo.theme.w) > 0.5 || Math.abs(geo.lang.h - geo.theme.h) > 0.5)
+      problems.push('两枚圆钮尺寸不同：繁简 ' + geo.lang.w + '×' + geo.lang.h + ' / 明暗 ' + geo.theme.w + '×' + geo.theme.h)
+  }
+  const label = ((geo.lang && geo.lang.text) || '').trim()
+  if (geo.lang && label !== '繁' && label !== '简')
+    problems.push('繁简钮的文案必须是单字「繁」或「简」，现在是「' + label + '」')
+  return problems
+}
+
 /** 盘面上这一格应该画哪个字：按码位取，所以增补平面字（𪩘、𫐐）不会错位。 */
 export function expectedGlyph(units, cell, tradUnits, hant) {
   const unit = units[cell.unit]
@@ -101,6 +119,19 @@ export async function run(url) {
       }
       const got = await page.evaluate(() => localStorage.getItem('lian-locale'))
       if (got !== want) { problems.push(round.label + '轮：语言开关没落到 ' + want + '（现在是 ' + got + '）'); break }
+
+      // 顶栏两枚圆钮：只在简体轮量一次（同一页量两遍只会多噪音）
+      if (!round.hant) {
+        const geo = {}
+        for (const [key, sel] of [['lang', '.dc-lang-btn'], ['theme', '.dc-theme-btn']]) {
+          const el = await page.$(sel)
+          if (!el) continue
+          const box = await el.boundingBox()
+          if (!box) continue
+          geo[key] = { x: box.x, w: box.width, h: box.height, text: (await el.evaluate(n => n.textContent)) || '' }
+        }
+        problems.push(...buttonProblems(geo).map(p => round.label + '轮：' + p))
+      }
 
       const tiles = await page.$$eval('.tile', (els) => els.length)
       if (!tiles) { problems.push(round.label + '轮：盘面一个字块都没有'); break }
@@ -223,6 +254,15 @@ function selftest() {
     const got = [0, 1, 2].map((k) => expectedGlyph([u], { unit: 0, k }, { [u]: t }, true)).join('')
     return got === '絕巘無'
   })())
+  // 两枚圆钮的坏例子：不必开浏览器，直接喂量出来的盒子
+  const good = { lang: { x: 300, w: 34, h: 34, text: '繁' }, theme: { x: 340, w: 34, h: 34, text: '' } }
+  add('繁简钮跑到明暗钮右边会被抓到', buttonProblems({ lang: { x: 380, w: 34, h: 34, text: '繁' }, theme: { x: 340, w: 34, h: 34, text: '' } }).length > 0)
+  add('两枚钮尺寸不一样会被抓到', buttonProblems({ lang: { x: 300, w: 28, h: 28, text: '繁' }, theme: { x: 340, w: 34, h: 34, text: '' } }).length > 0)
+  add('文案写成「繁體」会被抓到', buttonProblems({ lang: { x: 300, w: 34, h: 34, text: '繁體' }, theme: { x: 340, w: 34, h: 34, text: '' } }).length > 0)
+  add('繁简钮不见了会被抓到', buttonProblems({ theme: { x: 340, w: 34, h: 34, text: '' } }).length > 0)
+  add('明暗钮不见了会被抓到', buttonProblems({ lang: { x: 300, w: 34, h: 34, text: '繁' } }).length > 0)
+  add('合规的两枚圆钮不误伤', buttonProblems(good).length === 0)
+
   add('真产物与简体期望不误伤', (() => {
     const dom = Array.from(simp)
     const exp = Array.from(simp).map((_, k) => expectedGlyph(units, { unit: 0, k }, tradUnits, false))
