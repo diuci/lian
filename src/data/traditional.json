@@ -1,8 +1,8 @@
 {
  "contentVersion": "2026.10.03",
- "corpusSha256": "b82819989a078d27ac5cb1dd05f3f217dc2cc5720c09fee54a5f7b608dc502d8",
+ "corpusSha256": "2264820a995286dda6b0a0e8c3d902da0967a9935c94df1e8346d6c4f12734a0",
  "sourceFile": "k12-chinese-poetry/data/traditional.json",
- "sourceSha256": "39d87468240ee61a66aef3dd8df93d3d0876f5c0cc7afbb58dbaa2aed2690d7e",
+ "sourceSha256": "831c14744755abe7727d7efbd13ffb306dab25811c50bae9499c5596843c5546",
  "note": "繁体形全部取自内容仓派生好的那一份；本站不第二次转换。",
  "units": {
   "明月几时有": "明月幾時有",
@@ -2362,7 +2362,7 @@
    "author": "辛棄疾"
   },
   "shiwucongjunzheng": {
-   "title": "十五從軍徵",
+   "title": "十五從軍征",
    "dynasty": "漢"
   },
   "songdongyang": {
@@ -2618,7 +2618,6 @@
   },
   "hua": {
    "title": "畫",
-   "author": "王維",
    "stage": "小學"
   },
   "jiangnan": {
