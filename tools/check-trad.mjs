@@ -105,7 +105,7 @@ export function checkKeysUsed(files, cn, tw) {
   return problems
 }
 
-export function dictProblems(cn, tw) {
+export function dictProblems(cn, tw, allow = UI_WORD_ALLOW) {
   const problems = []
   for (const k of Object.keys(cn)) if (!(k in tw)) problems.push('zh-tw 少了界面词条：' + k)
   for (const k of Object.keys(tw)) if (!(k in cn)) problems.push('zh-cn 少了界面词条：' + k)
@@ -117,17 +117,37 @@ export function dictProblems(cn, tw) {
   }
   const simpOnly = simpOnlyKeys(loadTable(STC))
   const allowed = allowedLeftovers()
+  const usedAllow = new Set()
   for (const [k, v] of Object.entries(tw)) {
     for (const ch of Array.from(v)) {
-      if (simpOnly.has(ch) && !allowed.has(ch))
+      if (simpOnly.has(ch) && !allowed.has(ch)) {
+        if (k in allow) { usedAllow.add(k); continue }
         problems.push('繁体界面词条 ' + k + ' 里留下简体专用字「' + ch + '」：表要求换成 ' + simpOnly.get(ch).join('/'))
+      }
     }
+  }
+  // 放行表自己也要被审：没写理由、词条已经不存在、值里根本没有该放行的字，都算问题
+  for (const [k, why] of Object.entries(allow)) {
+    if (!String(why || '').trim()) problems.push('界面词放行表里的「' + k + '」没写为什么放行')
+    else if (!(k in tw)) problems.push('界面词放行表里的「' + k + '」在 zh-tw 里已经没有这一条')
+    else if (!usedAllow.has(k)) problems.push('界面词放行表里的「' + k + '」已经用不上：值里没有简体专用字，这一条放行该删')
   }
   const tradOnly = simpOnlyKeys(loadTable(TSC))
   for (const [k, v] of Object.entries(cn)) {
     for (const ch of Array.from(v)) if (tradOnly.has(ch)) problems.push('简体界面词条 ' + k + ' 里出现繁体专用字「' + ch + '」')
   }
   return problems
+}
+
+/*
+  界面词里有意留着的简体字形：按词条放行，每条必须写清为什么。
+  lang.toHans —— 繁简钮写的是「切过去那一档」的名字，用那一档自己的字形：
+  简体侧写「繁」，繁体侧写「简」。主站、汉兜同一写法；连句若跟着繁体把它写成「簡」，
+  四站在繁体侧就长得不一样（线上复核当场抓到过一次，这就是那一条）。
+  放行表里的条目用不上也要报：留着一条没人需要的放行，等于给以后随便开后门。
+*/
+const UI_WORD_ALLOW = {
+  'lang.toHans': '钮上是「切过去那一档」的名字，用那一档自己的字形：繁体侧写「简」；四站同一写法（主站、汉兜同）。',
 }
 
 /** 一份「产物」过一遍产物闸门（用来喂坏样本，不碰磁盘上的真产物）。 */
@@ -315,6 +335,13 @@ function selftest() {
   add('参数占位符对不上', dictProblems(cn, { ...tw, [kp]: tw[kp].replace(/\{[a-z]+\}/g, '') }), '参数对不上')
   const kd = Object.keys(tw).find((k) => tw[k] !== cn[k])
   add('繁体界面词条留简体字', dictProblems(cn, { ...tw, [kd]: cn[kd] }), '简体专用字')
+  // 放行表这一层也要有坏样本：空着的放行表、没写理由的放行、用不上的放行
+  add('放行表空着时繁体界面词条留简体字要被抓', dictProblems(cn, { ...tw, 'lang.toHans': '简' }, {}), '简体专用字')
+  add('放行表里没写理由要被抓', dictProblems(cn, { ...tw, 'lang.toHans': '简' }, { 'lang.toHans': '' }), '没写为什么放行')
+  add('放行表里留着用不上的条目要被抓', dictProblems(cn, tw, { 'lang.toHans': '写了理由', [Object.keys(tw).find((k) => tw[k] === cn[k]) || Object.keys(tw)[0]]: '写了理由' }), '已经用不上')
+  if (dictProblems(cn, tw).length) { console.error('[!!] 真界面词典与放行表不误伤却报了：' + dictProblems(cn, tw)[0]); process.exitCode = 1 }
+  else cases.push('真界面词典与放行表不误伤')
+
   add('组件用了不存在的词条', checkKeysUsed([{ name: 'X.vue', text: "x = t('no.such.key') + tf('game.undo', {})" }], cn, tw), '没有的词条')
   // 没有内容仓时的那一半（CI 跑的就是这一半），也要有坏样本：不然 CI 里那一半就是空过的
   add('CI 那一半也抓得住缺繁体形', docProblemsLocal({ ...good, units: Object.fromEntries(Object.entries(good.units).filter(([k]) => k !== changed.unit)), same: (good.same || []).filter((u) => u !== changed.unit) }, corpus), '没有繁体形')
