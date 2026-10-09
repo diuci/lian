@@ -1,5 +1,14 @@
 /* 连词成句：站点级样式。颜色一律走 tokens.css 的变量，不在这里写死色值。 */
 
+/* 本站语义色：名字是本站的，值一律 var() 指向正本（规范 §1）。
+   连句的主色是朱砂——这一层映射归本站决定，正本不替各站决定。 */
+:root{
+  --c-primary:var(--cinnabar);
+  --c-primary-deep:var(--cinnabar-deep);
+  --c-ok:var(--celadon);
+  --c-mis:var(--gold);
+}
+
 html,body,#app{height:100%;margin:0;padding:0}
 
 body{

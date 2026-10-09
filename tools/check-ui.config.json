@@ -1,0 +1,67 @@
+{
+  "tokens": "src/styles/tokens.css",
+  "tokensSha256": "75984d334e4fc6d2107bc9ed12a770fbad74c6f643bdb014c2cc33786120453b",
+  "css": [
+    "src/styles/main.css",
+    "src/App.vue"
+  ],
+  "nav": [
+    {
+      "file": "src/App.vue",
+      "start": "<header",
+      "end": "</header>"
+    }
+  ],
+  "footer": [
+    {
+      "file": "src/App.vue",
+      "start": "<footer class=\"foot\">",
+      "end": "</footer>"
+    }
+  ],
+  "sidebar": [],
+  "parkOrder": [
+    {
+      "file": "src/App.vue",
+      "start": "<header",
+      "end": "</header>"
+    },
+    {
+      "file": "src/App.vue",
+      "start": "<footer class=\"foot\">",
+      "end": "</footer>"
+    },
+    {
+      "file": "src/components/TabBar.vue",
+      "start": "<nav class=\"dc-tabbar\" :aria-label=\"t('tabbar.aria')\">",
+      "end": "</nav>"
+    }
+  ],
+  "legalLinks": [
+    "/sources",
+    "/accuracy",
+    "/legal"
+  ],
+  "parks": [
+    "首页",
+    "学古诗",
+    "连词成句",
+    "汉兜",
+    "遗失月冕",
+    "丢词大作战"
+  ],
+  "localeLabels": {
+    "parks.home": "首页",
+    "parks.k12": "学古诗",
+    "parks.lian": "连词成句",
+    "parks.handle": "汉兜",
+    "parks.moon": "遗失月冕",
+    "parks.ink": "丢词大作战"
+  },
+  "langBtnClass": "dc-lang-btn",
+  "themeBtnClass": "dc-theme-btn",
+  "sidebarSelectors": [
+    ".dc-sidebar",
+    ".VPSidebar"
+  ]
+}

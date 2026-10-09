@@ -133,10 +133,10 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
         <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
       </nav>
-      <button class="lang" type="button" :title="t('lang.aria')" :aria-label="t('lang.aria')" @click="toggleLocale">
+      <button class="dc-lang-btn" type="button" :title="t('lang.aria')" :aria-label="t('lang.aria')" @click="toggleLocale">
         {{ isHant ? t('lang.toHans') : t('lang.toHant') }}
       </button>
-      <button class="theme" type="button" :title="dark ? t('theme.light') : t('theme.dark')" :aria-label="dark ? t('theme.light') : t('theme.dark')" @click="toggleTheme">
+      <button class="dc-theme-btn" type="button" :title="dark ? t('theme.light') : t('theme.dark')" :aria-label="dark ? t('theme.light') : t('theme.dark')" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
           <path d="M12 2.4v2.1M12 19.5v2.1M2.4 12h2.1M19.5 12h2.1M5.2 5.2l1.5 1.5M17.3 17.3l1.5 1.5M18.8 5.2l-1.5 1.5M6.7 17.3l-1.5 1.5"/>
@@ -246,7 +246,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a href="https://diuci.com/">{{ t('foot.brand') }}</a> · {{ t('foot.sub') }}<br>
         {{ tf('foot.snapshot', { version: corpus.contentVersion, count: corpus.count }) }}
         <template v-if="corpus.sourceTotal">{{ tf('foot.repo', { total: corpus.sourceTotal, skipped: (corpus.skipped || []).length }) }}</template><br>
-        <a href="https://k12.diuci.com/legal">{{ t('foot.license') }}</a>
+        <a href="https://k12.diuci.com/legal">{{ t('foot.license') }}</a><br>
+        <a href="https://k12.diuci.com/accuracy">{{ t('foot.accuracy') }}</a> · 
+        <a href="https://k12.diuci.com/sources">{{ t('foot.sources') }}</a>
       </div>
       <nav :aria-label="t('parks.aria')">
         <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
@@ -310,27 +312,27 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 }
 .tab:hover{opacity:.9}
 .tab.on{opacity:1;background:var(--tag-bg);color:var(--ink)}
-/* 主站那枚圆钮：38px、描边、surface 底、太阳/月亮 SVG 互换 */
-.theme{
-  width:38px;height:38px;flex:0 0 38px;border-radius:50%;cursor:pointer;padding:0;
+/* 主站那枚圆钮：尺寸吃正本令牌、描边、surface 底、太阳/月亮 SVG 互换 */
+.dc-theme-btn{
+  width:var(--btn-round);height:var(--btn-round);flex:0 0 var(--btn-round);border-radius:50%;cursor:pointer;padding:0;
   background:var(--surface);border:1px solid var(--line);color:var(--ink);
   display:grid;place-items:center;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,color .25s
 }
-.theme:hover{color:var(--cinnabar);border-color:var(--cinnabar);transform:rotate(18deg) scale(1.08)}
-/* 繁简那一枚：与主题钮同尺寸，字用圆体 */
-.lang{
-  width:38px;height:38px;flex:0 0 38px;border-radius:50%;cursor:pointer;padding:0;
+.dc-theme-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar);transform:rotate(18deg) scale(1.08)}
+/* 繁简那一枚：与明暗钮同尺寸同描边，字用圆体（规范 §2、§3） */
+.dc-lang-btn{
+  width:var(--btn-round);height:var(--btn-round);flex:0 0 var(--btn-round);border-radius:50%;cursor:pointer;padding:0;
   background:var(--surface);border:1px solid var(--line);color:var(--ink);
   font-family:var(--round);font-size:15px;display:grid;place-items:center
 }
-.lang:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+.dc-lang-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
 .langs{display:flex;gap:8px;margin-top:6px}
-.theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.theme .i-sun{display:block}
-.theme .i-moon{display:none}
-:root[data-theme="dark"] .theme .i-sun{display:none}
-:root[data-theme="dark"] .theme .i-moon{display:block}
+.dc-theme-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dc-theme-btn .i-sun{display:block}
+.dc-theme-btn .i-moon{display:none}
+:root[data-theme="dark"] .dc-theme-btn .i-sun{display:none}
+:root[data-theme="dark"] .dc-theme-btn .i-moon{display:block}
 .main{flex:1;padding-bottom:78px}
 .notice{
   margin:0 0 14px;padding:10px 14px;border-radius:10px;
@@ -398,8 +400,8 @@ code{background:var(--tag-bg);padding:1px 6px;border-radius:6px;font-size:12.5px
   .mark{width:34px;height:34px;flex:0 0 34px;font-size:20px}
   .name{font-size:18px}
   .brand-sub{font-size:9px;letter-spacing:.2em}
-  .theme{width:34px;height:34px;flex:0 0 34px}
-  .theme svg{width:17px;height:17px}
+  .dc-theme-btn,.dc-lang-btn{width:var(--btn-round-sm);height:var(--btn-round-sm);flex:0 0 var(--btn-round-sm)}
+  .dc-theme-btn svg{width:17px;height:17px}
   .nav{gap:0}
   .tab{padding:6px 7px;font-size:13px}
 }
