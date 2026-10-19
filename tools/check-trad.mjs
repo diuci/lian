@@ -321,7 +321,11 @@ function selftest() {
   add('句子缺繁体形', docProblems({ ...good, units: Object.fromEntries(Object.entries(good.units).filter(([k]) => k !== changed.unit)), same: (good.same || []).filter((u) => u !== changed.unit) }, corpus, full), '没有繁体形')
   add('繁简不等长', docProblems({ ...good, units: { ...good.units, [changed.unit]: cut(full.get(changed.unit), 1) } }, corpus, full), '不等长')
   add('繁体形与内容仓不一致', docProblems({ ...good, units: { ...good.units, [changed.unit]: '其' + cut(full.get(changed.unit), 1) } }, corpus, full), '与内容仓不一致')
-  add('繁体里留简体专用字', docProblems({ ...good, units: { ...good.units, [changed.unit]: '发' + cut(full.get(changed.unit), 1) } }, corpus, full), '简体专用字')
+  // 注意：正文句子这一层**没有**「简体专用字」判定（那条只在界面词条层，见 dictProblems 的 simpOnly）。
+  // 原来这里挂了一条「繁体里留简体专用字」的坏样本，但它实际只会触发「与内容仓不一致」，
+  // 与上一条重复 —— 坏例子名不副实，闸门自己报了出来。
+  // 简体专用字真要盯正文，那是一条独立的规则；现阶段不假装它存在。
+  add('繁体里换成简体字（与内容仓不一致一并抓到）', docProblems({ ...good, units: { ...good.units, [changed.unit]: '发' + cut(full.get(changed.unit), 1) } }, corpus, full), '与内容仓不一致')
   add('产物里有多余映射', docProblems({ ...good, units: { ...good.units, '这一句词库里没有': '這一句詞庫裡沒有' } }, corpus, full), '词库用不到')
   add('繁简同形却写进产物', docProblems({ ...good, units: { ...good.units, [same.unit]: same.unit }, same: (good.same || []).filter((u) => u !== same.unit) }, corpus, full), '完全相同')
   add('同形登记错了', docProblems({ ...good, units: Object.fromEntries(Object.entries(good.units).filter(([k]) => k !== changed.unit)), same: [...(good.same || []), changed.unit] }, corpus, full), '登记成繁简同形')

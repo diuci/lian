@@ -128,7 +128,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       <nav class="parks" :aria-label="t('parks.aria')">
         <a href="https://diuci.com/">{{ t('parks.home') }}</a>
         <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
+        <a href="https://jiagu.diuci.com/">{{ t('parks.jiagu') }}</a>
         <a href="https://lian.diuci.com/" aria-current="page" class="on">{{ t('parks.lian') }}</a>
+        <a href="https://zimi.diuci.com/">{{ t('parks.zimi') }}</a>
         <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
         <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
         <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
@@ -252,7 +254,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       </div>
       <nav :aria-label="t('parks.aria')">
         <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
+        <a href="https://jiagu.diuci.com/">{{ t('parks.jiagu') }}</a>
         <a href="https://lian.diuci.com/">{{ t('parks.lian') }}</a>
+        <a href="https://zimi.diuci.com/">{{ t('parks.zimi') }}</a>
         <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
         <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
         <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>

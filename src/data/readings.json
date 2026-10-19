@@ -1,7 +1,7 @@
 {
   "contentVersion": "2026.10.03",
-  "sourceSha256": "f6a5f4a3bf6256daffe4d3c8fd83226fa52feae142f14db0dc307aeae57fdf27",
-  "count": 1994,
+  "sourceSha256": "e314d323a19608b405917b0915d8d31817dada99211da040cad80f752ecb052d",
+  "count": 2396,
   "chars": {
     "一": {
       "readings": [
@@ -136,6 +136,12 @@
       ],
       "common": "liǎng"
     },
+    "严": {
+      "readings": [
+        "yán"
+      ],
+      "common": "yán"
+    },
     "个": {
       "readings": [
         "gè",
@@ -224,6 +230,12 @@
       ],
       "common": "wū"
     },
+    "乍": {
+      "readings": [
+        "zhà"
+      ],
+      "common": "zhà"
+    },
     "乎": {
       "readings": [
         "hū"
@@ -288,11 +300,23 @@
       ],
       "common": "shū"
     },
+    "买": {
+      "readings": [
+        "mǎi"
+      ],
+      "common": "mǎi"
+    },
     "乱": {
       "readings": [
         "luàn"
       ],
       "common": "luàn"
+    },
+    "乳": {
+      "readings": [
+        "rǔ"
+      ],
+      "common": "rǔ"
     },
     "乾": {
       "readings": [
@@ -351,6 +375,12 @@
       ],
       "common": "yún"
     },
+    "互": {
+      "readings": [
+        "hù"
+      ],
+      "common": "hù"
+    },
     "五": {
       "readings": [
         "wǔ"
@@ -362,6 +392,12 @@
         "jǐng"
       ],
       "common": "jǐng"
+    },
+    "亚": {
+      "readings": [
+        "yà"
+      ],
+      "common": "yà"
     },
     "些": {
       "readings": [
@@ -458,6 +494,12 @@
       ],
       "common": "cóng"
     },
+    "仓": {
+      "readings": [
+        "cāng"
+      ],
+      "common": "cāng"
+    },
     "他": {
       "readings": [
         "tā"
@@ -469,6 +511,12 @@
         "zhàng"
       ],
       "common": "zhàng"
+    },
+    "付": {
+      "readings": [
+        "fù"
+      ],
+      "common": "fù"
     },
     "仙": {
       "readings": [
@@ -607,6 +655,12 @@
       ],
       "common": "líng"
     },
+    "伸": {
+      "readings": [
+        "shēn"
+      ],
+      "common": "shēn"
+    },
     "似": {
       "readings": [
         "sì",
@@ -638,6 +692,12 @@
         "zhù"
       ],
       "common": "zhù"
+    },
+    "佐": {
+      "readings": [
+        "zuǒ"
+      ],
+      "common": "zuǒ"
     },
     "体": {
       "readings": [
@@ -681,6 +741,13 @@
       ],
       "common": "nǐ"
     },
+    "佣": {
+      "readings": [
+        "yōng",
+        "yòng"
+      ],
+      "common": "yōng"
+    },
     "佳": {
       "readings": [
         "jiā"
@@ -698,6 +765,12 @@
         "shǐ"
       ],
       "common": "shǐ"
+    },
+    "侈": {
+      "readings": [
+        "chǐ"
+      ],
+      "common": "chǐ"
     },
     "供": {
       "readings": [
@@ -752,6 +825,18 @@
       ],
       "common": "cù"
     },
+    "俄": {
+      "readings": [
+        "é"
+      ],
+      "common": "é"
+    },
+    "俎": {
+      "readings": [
+        "zǔ"
+      ],
+      "common": "zǔ"
+    },
     "俗": {
       "readings": [
         "sú"
@@ -777,6 +862,12 @@
         "yǎn"
       ],
       "common": "yǎn"
+    },
+    "俭": {
+      "readings": [
+        "jiǎn"
+      ],
+      "common": "jiǎn"
     },
     "修": {
       "readings": [
@@ -859,6 +950,12 @@
       ],
       "common": "piān"
     },
+    "偕": {
+      "readings": [
+        "xié"
+      ],
+      "common": "xié"
+    },
     "做": {
       "readings": [
         "zuò"
@@ -870,6 +967,12 @@
         "tíng"
       ],
       "common": "tíng"
+    },
+    "偶": {
+      "readings": [
+        "ǒu"
+      ],
+      "common": "ǒu"
     },
     "偷": {
       "readings": [
@@ -883,6 +986,19 @@
         "lóu"
       ],
       "common": "lǚ"
+    },
+    "傀": {
+      "readings": [
+        "guī",
+        "kuǐ"
+      ],
+      "common": "kuǐ"
+    },
+    "傅": {
+      "readings": [
+        "fù"
+      ],
+      "common": "fù"
     },
     "傍": {
       "readings": [
@@ -908,11 +1024,23 @@
       ],
       "common": "ào"
     },
+    "僚": {
+      "readings": [
+        "liáo"
+      ],
+      "common": "liáo"
+    },
     "僧": {
       "readings": [
         "sēng"
       ],
       "common": "sēng"
+    },
+    "僵": {
+      "readings": [
+        "jiāng"
+      ],
+      "common": "jiāng"
     },
     "僻": {
       "readings": [
@@ -1088,6 +1216,12 @@
       ],
       "common": "jù"
     },
+    "典": {
+      "readings": [
+        "diǎn"
+      ],
+      "common": "diǎn"
+    },
     "兹": {
       "readings": [
         "cí",
@@ -1113,6 +1247,12 @@
       ],
       "common": "shòu"
     },
+    "冀": {
+      "readings": [
+        "jì"
+      ],
+      "common": "jì"
+    },
     "内": {
       "readings": [
         "nèi",
@@ -1131,6 +1271,13 @@
         "zài"
       ],
       "common": "zài"
+    },
+    "冒": {
+      "readings": [
+        "mào",
+        "mò"
+      ],
+      "common": "mào"
     },
     "军": {
       "readings": [
@@ -1169,6 +1316,13 @@
       ],
       "common": "dōng"
     },
+    "冯": {
+      "readings": [
+        "féng",
+        "píng"
+      ],
+      "common": "féng"
+    },
     "冰": {
       "readings": [
         "bīng"
@@ -1187,6 +1341,12 @@
         "jué"
       ],
       "common": "jué"
+    },
+    "况": {
+      "readings": [
+        "kuàng"
+      ],
+      "common": "kuàng"
     },
     "冷": {
       "readings": [
@@ -1323,6 +1483,12 @@
       ],
       "common": "dāo"
     },
+    "刃": {
+      "readings": [
+        "rèn"
+      ],
+      "common": "rèn"
+    },
     "分": {
       "readings": [
         "fēn",
@@ -1336,6 +1502,12 @@
         "qiè"
       ],
       "common": "qiē"
+    },
+    "刑": {
+      "readings": [
+        "xíng"
+      ],
+      "common": "xíng"
     },
     "列": {
       "readings": [
@@ -1380,6 +1552,12 @@
       ],
       "common": "bié"
     },
+    "刮": {
+      "readings": [
+        "guā"
+      ],
+      "common": "guā"
+    },
     "到": {
       "readings": [
         "dào"
@@ -1391,6 +1569,13 @@
         "zhì"
       ],
       "common": "zhì"
+    },
+    "刷": {
+      "readings": [
+        "shuā",
+        "shuà"
+      ],
+      "common": "shuā"
     },
     "刺": {
       "readings": [
@@ -1431,6 +1616,18 @@
       ],
       "common": "bāo"
     },
+    "剧": {
+      "readings": [
+        "jù"
+      ],
+      "common": "jù"
+    },
+    "剩": {
+      "readings": [
+        "shèng"
+      ],
+      "common": "shèng"
+    },
     "剪": {
       "readings": [
         "jiǎn"
@@ -1442,6 +1639,13 @@
         "gē"
       ],
       "common": "gē"
+    },
+    "劈": {
+      "readings": [
+        "pī",
+        "pǐ"
+      ],
+      "common": "pī"
     },
     "力": {
       "readings": [
@@ -1497,6 +1701,12 @@
         "jié"
       ],
       "common": "jié"
+    },
+    "励": {
+      "readings": [
+        "lì"
+      ],
+      "common": "lì"
     },
     "劲": {
       "readings": [
@@ -1561,6 +1771,12 @@
       ],
       "common": "bāo"
     },
+    "匈": {
+      "readings": [
+        "xiōng"
+      ],
+      "common": "xiōng"
+    },
     "化": {
       "readings": [
         "huà",
@@ -1575,11 +1791,24 @@
       ],
       "common": "běi"
     },
+    "匝": {
+      "readings": [
+        "zā"
+      ],
+      "common": "zā"
+    },
     "匪": {
       "readings": [
         "fěi"
       ],
       "common": "fěi"
+    },
+    "匮": {
+      "readings": [
+        "guì",
+        "kuì"
+      ],
+      "common": "kuì"
     },
     "匹": {
       "readings": [
@@ -1665,6 +1894,13 @@
       ],
       "common": "bó"
     },
+    "卜": {
+      "readings": [
+        "bǔ",
+        "bo"
+      ],
+      "common": "bǔ"
+    },
     "占": {
       "readings": [
         "zhān",
@@ -1739,6 +1975,12 @@
       ],
       "common": "lì"
     },
+    "厉": {
+      "readings": [
+        "lì"
+      ],
+      "common": "lì"
+    },
     "压": {
       "readings": [
         "yā",
@@ -1757,6 +1999,12 @@
         "hòu"
       ],
       "common": "hòu"
+    },
+    "厝": {
+      "readings": [
+        "cuò"
+      ],
+      "common": "cuò"
     },
     "原": {
       "readings": [
@@ -1782,6 +2030,13 @@
         "qù"
       ],
       "common": "qù"
+    },
+    "县": {
+      "readings": [
+        "xiàn",
+        "xuán"
+      ],
+      "common": "xiàn"
     },
     "参": {
       "readings": [
@@ -1853,6 +2108,12 @@
       ],
       "common": "biàn"
     },
+    "叛": {
+      "readings": [
+        "pàn"
+      ],
+      "common": "pàn"
+    },
     "叟": {
       "readings": [
         "sǒu"
@@ -1902,6 +2163,13 @@
         "jiào"
       ],
       "common": "jiào"
+    },
+    "召": {
+      "readings": [
+        "shào",
+        "zhào"
+      ],
+      "common": "zhào"
     },
     "叭": {
       "readings": [
@@ -1976,6 +2244,12 @@
       ],
       "common": "hé"
     },
+    "吊": {
+      "readings": [
+        "diào"
+      ],
+      "common": "diào"
+    },
     "同": {
       "readings": [
         "tóng",
@@ -2014,6 +2288,12 @@
       ],
       "common": "xiàng"
     },
+    "吕": {
+      "readings": [
+        "lǚ"
+      ],
+      "common": "lǚ"
+    },
     "君": {
       "readings": [
         "jūn"
@@ -2031,6 +2311,12 @@
         "yín"
       ],
       "common": "yín"
+    },
+    "吠": {
+      "readings": [
+        "fèi"
+      ],
+      "common": "fèi"
     },
     "否": {
       "readings": [
@@ -2057,11 +2343,23 @@
       ],
       "common": "shǔn"
     },
+    "启": {
+      "readings": [
+        "qǐ"
+      ],
+      "common": "qǐ"
+    },
     "吴": {
       "readings": [
         "wú"
       ],
       "common": "wú"
+    },
+    "吸": {
+      "readings": [
+        "xī"
+      ],
+      "common": "xī"
     },
     "吹": {
       "readings": [
@@ -2129,11 +2427,24 @@
       ],
       "common": "hé"
     },
+    "咎": {
+      "readings": [
+        "jiù"
+      ],
+      "common": "jiù"
+    },
     "咏": {
       "readings": [
         "yǒng"
       ],
       "common": "yǒng"
+    },
+    "咥": {
+      "readings": [
+        "dié",
+        "xī"
+      ],
+      "common": "dié"
     },
     "咨": {
       "readings": [
@@ -2204,6 +2515,12 @@
       ],
       "common": "bǔ"
     },
+    "唇": {
+      "readings": [
+        "chún"
+      ],
+      "common": "chún"
+    },
     "唐": {
       "readings": [
         "táng"
@@ -2215,6 +2532,12 @@
         "suǒ"
       ],
       "common": "suǒ"
+    },
+    "唤": {
+      "readings": [
+        "huàn"
+      ],
+      "common": "huàn"
     },
     "唧": {
       "readings": [
@@ -2245,6 +2568,12 @@
         "shāng"
       ],
       "common": "shāng"
+    },
+    "啮": {
+      "readings": [
+        "niè"
+      ],
+      "common": "niè"
     },
     "啸": {
       "readings": [
@@ -2324,6 +2653,18 @@
       ],
       "common": "yīng"
     },
+    "嘻": {
+      "readings": [
+        "xī"
+      ],
+      "common": "xī"
+    },
+    "器": {
+      "readings": [
+        "qì"
+      ],
+      "common": "qì"
+    },
     "噫": {
       "readings": [
         "yī"
@@ -2378,6 +2719,12 @@
         "kùn"
       ],
       "common": "kùn"
+    },
+    "围": {
+      "readings": [
+        "wéi"
+      ],
+      "common": "wéi"
     },
     "固": {
       "readings": [
@@ -2448,17 +2795,35 @@
       ],
       "common": "jūn"
     },
+    "坏": {
+      "readings": [
+        "huài"
+      ],
+      "common": "huài"
+    },
     "坐": {
       "readings": [
         "zuò"
       ],
       "common": "zuò"
     },
+    "块": {
+      "readings": [
+        "kuài"
+      ],
+      "common": "kuài"
+    },
     "坚": {
       "readings": [
         "jiān"
       ],
       "common": "jiān"
+    },
+    "坛": {
+      "readings": [
+        "tán"
+      ],
+      "common": "tán"
     },
     "坟": {
       "readings": [
@@ -2471,6 +2836,12 @@
         "zhuì"
       ],
       "common": "zhuì"
+    },
+    "坡": {
+      "readings": [
+        "pō"
+      ],
+      "common": "pō"
     },
     "坤": {
       "readings": [
@@ -2490,11 +2861,47 @@
       ],
       "common": "chuí"
     },
+    "垄": {
+      "readings": [
+        "lǒng"
+      ],
+      "common": "lǒng"
+    },
+    "垒": {
+      "readings": [
+        "lěi"
+      ],
+      "common": "lěi"
+    },
+    "垝": {
+      "readings": [
+        "guǐ"
+      ],
+      "common": "guǐ"
+    },
+    "垣": {
+      "readings": [
+        "yuán"
+      ],
+      "common": "yuán"
+    },
+    "垦": {
+      "readings": [
+        "kěn"
+      ],
+      "common": "kěn"
+    },
     "城": {
       "readings": [
         "chéng"
       ],
       "common": "chéng"
+    },
+    "域": {
+      "readings": [
+        "yù"
+      ],
+      "common": "yù"
     },
     "培": {
       "readings": [
@@ -2563,6 +2970,18 @@
         "qiáng"
       ],
       "common": "qiáng"
+    },
+    "增": {
+      "readings": [
+        "zēng"
+      ],
+      "common": "zēng"
+    },
+    "墟": {
+      "readings": [
+        "xū"
+      ],
+      "common": "xū"
     },
     "墨": {
       "readings": [
@@ -2725,6 +3144,12 @@
       ],
       "common": "tóu"
     },
+    "夷": {
+      "readings": [
+        "yí"
+      ],
+      "common": "yí"
+    },
     "夸": {
       "readings": [
         "kuā",
@@ -2765,6 +3190,12 @@
       ],
       "common": "fèng"
     },
+    "奏": {
+      "readings": [
+        "zòu"
+      ],
+      "common": "zòu"
+    },
     "奔": {
       "readings": [
         "bēn",
@@ -2772,11 +3203,23 @@
       ],
       "common": "bēn"
     },
+    "奕": {
+      "readings": [
+        "yì"
+      ],
+      "common": "yì"
+    },
     "奚": {
       "readings": [
         "xī"
       ],
       "common": "xī"
+    },
+    "奢": {
+      "readings": [
+        "shē"
+      ],
+      "common": "shē"
     },
     "女": {
       "readings": [
@@ -2822,6 +3265,12 @@
       ],
       "common": "fù"
     },
+    "妒": {
+      "readings": [
+        "dù"
+      ],
+      "common": "dù"
+    },
     "妖": {
       "readings": [
         "yāo"
@@ -2865,6 +3314,13 @@
       ],
       "common": "xìng"
     },
+    "委": {
+      "readings": [
+        "wěi",
+        "wēi"
+      ],
+      "common": "wěi"
+    },
     "姚": {
       "readings": [
         "yáo"
@@ -2876,6 +3332,18 @@
         "shū"
       ],
       "common": "shū"
+    },
+    "姹": {
+      "readings": [
+        "chà"
+      ],
+      "common": "chà"
+    },
+    "姿": {
+      "readings": [
+        "zī"
+      ],
+      "common": "zī"
     },
     "威": {
       "readings": [
@@ -2919,11 +3387,23 @@
       ],
       "common": "xián"
     },
+    "婴": {
+      "readings": [
+        "yīng"
+      ],
+      "common": "yīng"
+    },
     "婵": {
       "readings": [
         "chán"
       ],
       "common": "chán"
+    },
+    "媒": {
+      "readings": [
+        "méi"
+      ],
+      "common": "méi"
     },
     "媚": {
       "readings": [
@@ -2937,6 +3417,24 @@
       ],
       "common": "ǎo"
     },
+    "嫁": {
+      "readings": [
+        "jià"
+      ],
+      "common": "jià"
+    },
+    "嫌": {
+      "readings": [
+        "xián"
+      ],
+      "common": "xián"
+    },
+    "嫣": {
+      "readings": [
+        "yān"
+      ],
+      "common": "yān"
+    },
     "嫦": {
       "readings": [
         "cháng"
@@ -2948,6 +3446,12 @@
         "xī"
       ],
       "common": "xī"
+    },
+    "孀": {
+      "readings": [
+        "shuāng"
+      ],
+      "common": "shuāng"
     },
     "子": {
       "readings": [
@@ -3010,6 +3514,26 @@
       ],
       "common": "hái"
     },
+    "孰": {
+      "readings": [
+        "shú"
+      ],
+      "common": "shú"
+    },
+    "宁": {
+      "readings": [
+        "níng",
+        "nìng",
+        "zhù"
+      ],
+      "common": "níng"
+    },
+    "宅": {
+      "readings": [
+        "zhái"
+      ],
+      "common": "zhái"
+    },
     "宇": {
       "readings": [
         "yǔ"
@@ -3033,12 +3557,6 @@
         "sòng"
       ],
       "common": "sòng"
-    },
-    "宏": {
-      "readings": [
-        "hóng"
-      ],
-      "common": "hóng"
     },
     "宗": {
       "readings": [
@@ -3106,6 +3624,12 @@
         "kè"
       ],
       "common": "kè"
+    },
+    "宣": {
+      "readings": [
+        "xuān"
+      ],
+      "common": "xuān"
     },
     "室": {
       "readings": [
@@ -3225,6 +3749,12 @@
       ],
       "common": "yù"
     },
+    "寝": {
+      "readings": [
+        "qǐn"
+      ],
+      "common": "qǐn"
+    },
     "寞": {
       "readings": [
         "mò"
@@ -3273,6 +3803,18 @@
       ],
       "common": "xún"
     },
+    "导": {
+      "readings": [
+        "dǎo"
+      ],
+      "common": "dǎo"
+    },
+    "寿": {
+      "readings": [
+        "shòu"
+      ],
+      "common": "shòu"
+    },
     "封": {
       "readings": [
         "fēng"
@@ -3300,6 +3842,12 @@
         "yù"
       ],
       "common": "wèi"
+    },
+    "尊": {
+      "readings": [
+        "zūn"
+      ],
+      "common": "zūn"
     },
     "小": {
       "readings": [
@@ -3356,12 +3904,24 @@
       ],
       "common": "jiù"
     },
+    "尸": {
+      "readings": [
+        "shī"
+      ],
+      "common": "shī"
+    },
     "尺": {
       "readings": [
         "chǐ",
         "chě"
       ],
       "common": "chǐ"
+    },
+    "尻": {
+      "readings": [
+        "kāo"
+      ],
+      "common": "kāo"
     },
     "尼": {
       "readings": [
@@ -3375,6 +3935,13 @@
         "jǐn"
       ],
       "common": "jìn"
+    },
+    "尾": {
+      "readings": [
+        "wěi",
+        "yǐ"
+      ],
+      "common": "wěi"
     },
     "层": {
       "readings": [
@@ -3438,6 +4005,13 @@
       ],
       "common": "xǐ"
     },
+    "屯": {
+      "readings": [
+        "tún",
+        "zhūn"
+      ],
+      "common": "tún"
+    },
     "山": {
       "readings": [
         "shān"
@@ -3456,6 +4030,12 @@
         "qǐ"
       ],
       "common": "qǐ"
+    },
+    "岐": {
+      "readings": [
+        "qí"
+      ],
+      "common": "qí"
     },
     "岑": {
       "readings": [
@@ -3639,6 +4219,15 @@
       ],
       "common": "wū"
     },
+    "差": {
+      "readings": [
+        "chà",
+        "chā",
+        "chāi",
+        "cī"
+      ],
+      "common": "chà"
+    },
     "己": {
       "readings": [
         "jǐ"
@@ -3706,11 +4295,25 @@
       ],
       "common": "zhàng"
     },
+    "帖": {
+      "readings": [
+        "tiè",
+        "tiě",
+        "tiē"
+      ],
+      "common": "tiè"
+    },
     "帘": {
       "readings": [
         "lián"
       ],
       "common": "lián"
+    },
+    "帛": {
+      "readings": [
+        "bó"
+      ],
+      "common": "bó"
     },
     "帝": {
       "readings": [
@@ -3729,6 +4332,12 @@
         "xí"
       ],
       "common": "xí"
+    },
+    "帷": {
+      "readings": [
+        "wéi"
+      ],
+      "common": "wéi"
     },
     "常": {
       "readings": [
@@ -3823,6 +4432,12 @@
       ],
       "common": "lú"
     },
+    "库": {
+      "readings": [
+        "kù"
+      ],
+      "common": "kù"
+    },
     "应": {
       "readings": [
         "yīng",
@@ -3886,6 +4501,12 @@
       ],
       "common": "shù"
     },
+    "康": {
+      "readings": [
+        "kāng"
+      ],
+      "common": "kāng"
+    },
     "庸": {
       "readings": [
         "yōng"
@@ -3909,6 +4530,12 @@
         "tíng"
       ],
       "common": "tíng"
+    },
+    "廿": {
+      "readings": [
+        "niàn"
+      ],
+      "common": "niàn"
     },
     "开": {
       "readings": [
@@ -3947,11 +4574,23 @@
       ],
       "common": "bì"
     },
+    "式": {
+      "readings": [
+        "shì"
+      ],
+      "common": "shì"
+    },
     "弓": {
       "readings": [
         "gōng"
       ],
       "common": "gōng"
+    },
+    "引": {
+      "readings": [
+        "yǐn"
+      ],
+      "common": "yǐn"
     },
     "弗": {
       "readings": [
@@ -3964,6 +4603,12 @@
         "hóng"
       ],
       "common": "hóng"
+    },
+    "弛": {
+      "readings": [
+        "chí"
+      ],
+      "common": "chí"
     },
     "弟": {
       "readings": [
@@ -3979,11 +4624,24 @@
       ],
       "common": "zhāng"
     },
+    "弥": {
+      "readings": [
+        "mí",
+        "mǐ"
+      ],
+      "common": "mí"
+    },
     "弦": {
       "readings": [
         "xián"
       ],
       "common": "xián"
+    },
+    "弩": {
+      "readings": [
+        "nǔ"
+      ],
+      "common": "nǔ"
     },
     "弱": {
       "readings": [
@@ -4006,6 +4664,12 @@
       ],
       "common": "qiáng"
     },
+    "彀": {
+      "readings": [
+        "gòu"
+      ],
+      "common": "gòu"
+    },
     "归": {
       "readings": [
         "guī"
@@ -4024,6 +4688,12 @@
         "lù"
       ],
       "common": "lù"
+    },
+    "彗": {
+      "readings": [
+        "huì"
+      ],
+      "common": "huì"
     },
     "形": {
       "readings": [
@@ -4074,6 +4744,12 @@
       ],
       "common": "yì"
     },
+    "彻": {
+      "readings": [
+        "chè"
+      ],
+      "common": "chè"
+    },
     "彼": {
       "readings": [
         "bǐ"
@@ -4111,11 +4787,29 @@
       ],
       "common": "dài"
     },
+    "徇": {
+      "readings": [
+        "xùn"
+      ],
+      "common": "xùn"
+    },
+    "徉": {
+      "readings": [
+        "yáng"
+      ],
+      "common": "yáng"
+    },
     "徊": {
       "readings": [
         "huái"
       ],
       "common": "huái"
+    },
+    "徐": {
+      "readings": [
+        "xú"
+      ],
+      "common": "xú"
     },
     "徒": {
       "readings": [
@@ -4149,6 +4843,12 @@
         "xǐ"
       ],
       "common": "xǐ"
+    },
+    "徜": {
+      "readings": [
+        "cháng"
+      ],
+      "common": "cháng"
     },
     "御": {
       "readings": [
@@ -4198,6 +4898,19 @@
       ],
       "common": "jì"
     },
+    "忍": {
+      "readings": [
+        "rěn"
+      ],
+      "common": "rěn"
+    },
+    "忒": {
+      "readings": [
+        "tè",
+        "tuī"
+      ],
+      "common": "tè"
+    },
     "志": {
       "readings": [
         "zhì"
@@ -4246,11 +4959,23 @@
       ],
       "common": "hū"
     },
+    "忿": {
+      "readings": [
+        "fèn"
+      ],
+      "common": "fèn"
+    },
     "怀": {
       "readings": [
         "huái"
       ],
       "common": "huái"
+    },
+    "态": {
+      "readings": [
+        "tài"
+      ],
+      "common": "tài"
     },
     "怅": {
       "readings": [
@@ -4325,11 +5050,29 @@
       ],
       "common": "yuàn"
     },
+    "怪": {
+      "readings": [
+        "guài"
+      ],
+      "common": "guài"
+    },
+    "怫": {
+      "readings": [
+        "fú"
+      ],
+      "common": "fú"
+    },
     "总": {
       "readings": [
         "zǒng"
       ],
       "common": "zǒng"
+    },
+    "怿": {
+      "readings": [
+        "yì"
+      ],
+      "common": "yì"
     },
     "恃": {
       "readings": [
@@ -4355,6 +5098,12 @@
       ],
       "common": "shù"
     },
+    "恚": {
+      "readings": [
+        "huì"
+      ],
+      "common": "huì"
+    },
     "恣": {
       "readings": [
         "zì"
@@ -4366,6 +5115,12 @@
         "hèn"
       ],
       "common": "hèn"
+    },
+    "恩": {
+      "readings": [
+        "ēn"
+      ],
+      "common": "ēn"
     },
     "息": {
       "readings": [
@@ -4387,6 +5142,12 @@
         "ě"
       ],
       "common": "è"
+    },
+    "恻": {
+      "readings": [
+        "cè"
+      ],
+      "common": "cè"
     },
     "悄": {
       "readings": [
@@ -4419,6 +5180,12 @@
       ],
       "common": "huàn"
     },
+    "悦": {
+      "readings": [
+        "yuè"
+      ],
+      "common": "yuè"
+    },
     "悬": {
       "readings": [
         "xuán"
@@ -4430,6 +5197,18 @@
         "bēi"
       ],
       "common": "bēi"
+    },
+    "悴": {
+      "readings": [
+        "cuì"
+      ],
+      "common": "cuì"
+    },
+    "悼": {
+      "readings": [
+        "dào"
+      ],
+      "common": "dào"
     },
     "情": {
       "readings": [
@@ -4491,6 +5270,18 @@
       ],
       "common": "cǎn"
     },
+    "惩": {
+      "readings": [
+        "chéng"
+      ],
+      "common": "chéng"
+    },
+    "惭": {
+      "readings": [
+        "cán"
+      ],
+      "common": "cán"
+    },
     "想": {
       "readings": [
         "xiǎng"
@@ -4508,6 +5299,12 @@
         "chóu"
       ],
       "common": "chóu"
+    },
+    "愆": {
+      "readings": [
+        "qiān"
+      ],
+      "common": "qiān"
     },
     "意": {
       "readings": [
@@ -4563,6 +5360,18 @@
       ],
       "common": "mù"
     },
+    "慢": {
+      "readings": [
+        "màn"
+      ],
+      "common": "màn"
+    },
+    "憔": {
+      "readings": [
+        "qiáo"
+      ],
+      "common": "qiáo"
+    },
     "憾": {
       "readings": [
         "hàn"
@@ -4593,6 +5402,18 @@
       ],
       "common": "wù"
     },
+    "戌": {
+      "readings": [
+        "xū"
+      ],
+      "common": "xū"
+    },
+    "戍": {
+      "readings": [
+        "shù"
+      ],
+      "common": "shù"
+    },
     "戎": {
       "readings": [
         "róng"
@@ -4617,6 +5438,12 @@
         "wǒ"
       ],
       "common": "wǒ"
+    },
+    "戒": {
+      "readings": [
+        "jiè"
+      ],
+      "common": "jiè"
     },
     "或": {
       "readings": [
@@ -4653,6 +5480,12 @@
         "lì"
       ],
       "common": "lì"
+    },
+    "房": {
+      "readings": [
+        "fáng"
+      ],
+      "common": "fáng"
     },
     "所": {
       "readings": [
@@ -4754,11 +5587,23 @@
       ],
       "common": "fú"
     },
+    "批": {
+      "readings": [
+        "pī"
+      ],
+      "common": "pī"
+    },
     "承": {
       "readings": [
         "chéng"
       ],
       "common": "chéng"
+    },
+    "技": {
+      "readings": [
+        "jì"
+      ],
+      "common": "jì"
     },
     "把": {
       "readings": [
@@ -4792,6 +5637,20 @@
         "fǔ"
       ],
       "common": "fǔ"
+    },
+    "抛": {
+      "readings": [
+        "pāo"
+      ],
+      "common": "pāo"
+    },
+    "抢": {
+      "readings": [
+        "chēng",
+        "qiāng",
+        "qiǎng"
+      ],
+      "common": "qiāng"
     },
     "护": {
       "readings": [
@@ -4844,6 +5703,14 @@
       ],
       "common": "zhǔ"
     },
+    "担": {
+      "readings": [
+        "dān",
+        "dàn",
+        "dǎn"
+      ],
+      "common": "dān"
+    },
     "拍": {
       "readings": [
         "pāi"
@@ -4880,6 +5747,36 @@
         "zhāo"
       ],
       "common": "zhāo"
+    },
+    "拜": {
+      "readings": [
+        "bài"
+      ],
+      "common": "bài"
+    },
+    "拟": {
+      "readings": [
+        "nǐ"
+      ],
+      "common": "nǐ"
+    },
+    "拣": {
+      "readings": [
+        "jiǎn"
+      ],
+      "common": "jiǎn"
+    },
+    "拥": {
+      "readings": [
+        "yōng"
+      ],
+      "common": "yōng"
+    },
+    "拦": {
+      "readings": [
+        "lán"
+      ],
+      "common": "lán"
     },
     "拨": {
       "readings": [
@@ -4925,6 +5822,12 @@
       ],
       "common": "zhǐ"
     },
+    "按": {
+      "readings": [
+        "àn"
+      ],
+      "common": "àn"
+    },
     "挑": {
       "readings": [
         "tiāo",
@@ -4932,17 +5835,42 @@
       ],
       "common": "tiāo"
     },
+    "挠": {
+      "readings": [
+        "náo"
+      ],
+      "common": "náo"
+    },
+    "挥": {
+      "readings": [
+        "huī"
+      ],
+      "common": "huī"
+    },
     "振": {
       "readings": [
         "zhèn"
       ],
       "common": "zhèn"
     },
+    "挺": {
+      "readings": [
+        "tǐng"
+      ],
+      "common": "tǐng"
+    },
     "捉": {
       "readings": [
         "zhuō"
       ],
       "common": "zhuō"
+    },
+    "捋": {
+      "readings": [
+        "luō",
+        "lǚ"
+      ],
+      "common": "luō"
     },
     "捕": {
       "readings": [
@@ -4968,11 +5896,24 @@
       ],
       "common": "dǎo"
     },
+    "据": {
+      "readings": [
+        "jù",
+        "jū"
+      ],
+      "common": "jù"
+    },
     "捷": {
       "readings": [
         "jié"
       ],
       "common": "jié"
+    },
+    "掇": {
+      "readings": [
+        "duō"
+      ],
+      "common": "duō"
     },
     "掌": {
       "readings": [
@@ -4986,6 +5927,12 @@
         "pǎi"
       ],
       "common": "pái"
+    },
+    "掠": {
+      "readings": [
+        "lüè"
+      ],
+      "common": "lüè"
     },
     "接": {
       "readings": [
@@ -5013,6 +5960,12 @@
       ],
       "common": "chā"
     },
+    "揖": {
+      "readings": [
+        "yī"
+      ],
+      "common": "yī"
+    },
     "揭": {
       "readings": [
         "jiē",
@@ -5025,13 +5978,6 @@
         "yuán"
       ],
       "common": "yuán"
-    },
-    "搁": {
-      "readings": [
-        "gē",
-        "gé"
-      ],
-      "common": "gē"
     },
     "搏": {
       "readings": [
@@ -5083,23 +6029,30 @@
       ],
       "common": "mó"
     },
-    "摴": {
-      "readings": [
-        "chū"
-      ],
-      "common": "chū"
-    },
     "撑": {
       "readings": [
         "chēng"
       ],
       "common": "chēng"
     },
+    "撒": {
+      "readings": [
+        "sā",
+        "sǎ"
+      ],
+      "common": "sā"
+    },
     "撷": {
       "readings": [
         "xié"
       ],
       "common": "xié"
+    },
+    "撼": {
+      "readings": [
+        "hàn"
+      ],
+      "common": "hàn"
     },
     "操": {
       "readings": [
@@ -5211,6 +6164,12 @@
       ],
       "common": "bì"
     },
+    "敞": {
+      "readings": [
+        "chǎng"
+      ],
+      "common": "chǎng"
+    },
     "敢": {
       "readings": [
         "gǎn"
@@ -5244,6 +6203,12 @@
       ],
       "common": "qiāo"
     },
+    "整": {
+      "readings": [
+        "zhěng"
+      ],
+      "common": "zhěng"
+    },
     "文": {
       "readings": [
         "wén"
@@ -5256,6 +6221,12 @@
         "dòu"
       ],
       "common": "dǒu"
+    },
+    "料": {
+      "readings": [
+        "liào"
+      ],
+      "common": "liào"
     },
     "斜": {
       "readings": [
@@ -5311,11 +6282,38 @@
       ],
       "common": "shī"
     },
+    "旁": {
+      "readings": [
+        "bàng",
+        "páng"
+      ],
+      "common": "páng"
+    },
+    "旃": {
+      "readings": [
+        "zhān"
+      ],
+      "common": "zhān"
+    },
+    "旄": {
+      "readings": [
+        "máo",
+        "mào"
+      ],
+      "common": "máo"
+    },
     "旅": {
       "readings": [
         "lǚ"
       ],
       "common": "lǚ"
+    },
+    "旋": {
+      "readings": [
+        "xuán",
+        "xuàn"
+      ],
+      "common": "xuán"
     },
     "旗": {
       "readings": [
@@ -5340,6 +6338,12 @@
         "rì"
       ],
       "common": "rì"
+    },
+    "旦": {
+      "readings": [
+        "dàn"
+      ],
+      "common": "dàn"
     },
     "旧": {
       "readings": [
@@ -5371,11 +6375,23 @@
       ],
       "common": "kuàng"
     },
+    "昂": {
+      "readings": [
+        "áng"
+      ],
+      "common": "áng"
+    },
     "昆": {
       "readings": [
         "kūn"
       ],
       "common": "kūn"
+    },
+    "昇": {
+      "readings": [
+        "shēng"
+      ],
+      "common": "shēng"
     },
     "明": {
       "readings": [
@@ -5456,6 +6472,12 @@
       ],
       "common": "jìn"
     },
+    "晏": {
+      "readings": [
+        "yàn"
+      ],
+      "common": "yàn"
+    },
     "晓": {
       "readings": [
         "xiǎo"
@@ -5480,11 +6502,23 @@
       ],
       "common": "xī"
     },
+    "晤": {
+      "readings": [
+        "wù"
+      ],
+      "common": "wù"
+    },
     "晦": {
       "readings": [
         "huì"
       ],
       "common": "huì"
+    },
+    "晨": {
+      "readings": [
+        "chén"
+      ],
+      "common": "chén"
     },
     "景": {
       "readings": [
@@ -5504,6 +6538,12 @@
         "zhì"
       ],
       "common": "zhì"
+    },
+    "暇": {
+      "readings": [
+        "xiá"
+      ],
+      "common": "xiá"
     },
     "暑": {
       "readings": [
@@ -5529,6 +6569,12 @@
       ],
       "common": "míng"
     },
+    "暧": {
+      "readings": [
+        "ài"
+      ],
+      "common": "ài"
+    },
     "暮": {
       "readings": [
         "mù"
@@ -5548,11 +6594,23 @@
       ],
       "common": "tóng"
     },
+    "曙": {
+      "readings": [
+        "shǔ"
+      ],
+      "common": "shǔ"
+    },
     "曛": {
       "readings": [
         "xūn"
       ],
       "common": "xūn"
+    },
+    "曩": {
+      "readings": [
+        "nǎng"
+      ],
+      "common": "nǎng"
     },
     "曰": {
       "readings": [
@@ -5771,6 +6829,13 @@
       ],
       "common": "cūn"
     },
+    "杓": {
+      "readings": [
+        "biāo",
+        "sháo"
+      ],
+      "common": "sháo"
+    },
     "杖": {
       "readings": [
         "zhàng"
@@ -5782,6 +6847,18 @@
         "dù"
       ],
       "common": "dù"
+    },
+    "杞": {
+      "readings": [
+        "qǐ"
+      ],
+      "common": "qǐ"
+    },
+    "束": {
+      "readings": [
+        "shù"
+      ],
+      "common": "shù"
     },
     "条": {
       "readings": [
@@ -5838,6 +6915,12 @@
       ],
       "common": "sōng"
     },
+    "板": {
+      "readings": [
+        "bǎn"
+      ],
+      "common": "bǎn"
+    },
     "极": {
       "readings": [
         "jí"
@@ -5861,6 +6944,12 @@
         "lín"
       ],
       "common": "lín"
+    },
+    "果": {
+      "readings": [
+        "guǒ"
+      ],
+      "common": "guǒ"
     },
     "枝": {
       "readings": [
@@ -5887,6 +6976,12 @@
       ],
       "common": "kū"
     },
+    "枳": {
+      "readings": [
+        "zhǐ"
+      ],
+      "common": "zhǐ"
+    },
     "柏": {
       "readings": [
         "bǎi",
@@ -5906,6 +7001,12 @@
         "róu"
       ],
       "common": "róu"
+    },
+    "柘": {
+      "readings": [
+        "zhè"
+      ],
+      "common": "zhè"
     },
     "柙": {
       "readings": [
@@ -5955,6 +7056,12 @@
       ],
       "common": "zhàn"
     },
+    "栏": {
+      "readings": [
+        "lán"
+      ],
+      "common": "lán"
+    },
     "树": {
       "readings": [
         "shù"
@@ -5973,6 +7080,13 @@
         "yàng"
       ],
       "common": "yàng"
+    },
+    "核": {
+      "readings": [
+        "hé",
+        "hú"
+      ],
+      "common": "hé"
     },
     "根": {
       "readings": [
@@ -6070,6 +7184,12 @@
       ],
       "common": "shū"
     },
+    "棋": {
+      "readings": [
+        "qí"
+      ],
+      "common": "qí"
+    },
     "棘": {
       "readings": [
         "jí"
@@ -6082,11 +7202,25 @@
       ],
       "common": "sēn"
     },
+    "棹": {
+      "readings": [
+        "zhào",
+        "zhuō"
+      ],
+      "common": "zhào"
+    },
     "植": {
       "readings": [
         "zhí"
       ],
       "common": "zhí"
+    },
+    "椎": {
+      "readings": [
+        "chuí",
+        "zhuī"
+      ],
+      "common": "zhuī"
     },
     "椟": {
       "readings": [
@@ -6105,6 +7239,12 @@
         "chǔ"
       ],
       "common": "chǔ"
+    },
+    "楫": {
+      "readings": [
+        "jí"
+      ],
+      "common": "jí"
     },
     "楼": {
       "readings": [
@@ -6130,11 +7270,36 @@
       ],
       "common": "xiè"
     },
+    "槲": {
+      "readings": [
+        "hú"
+      ],
+      "common": "hú"
+    },
     "槽": {
       "readings": [
         "cáo"
       ],
       "common": "cáo"
+    },
+    "樊": {
+      "readings": [
+        "fán"
+      ],
+      "common": "fán"
+    },
+    "樗": {
+      "readings": [
+        "chū"
+      ],
+      "common": "chū"
+    },
+    "模": {
+      "readings": [
+        "mó",
+        "mú"
+      ],
+      "common": "mó"
     },
     "横": {
       "readings": [
@@ -6185,11 +7350,23 @@
       ],
       "common": "yán"
     },
+    "次": {
+      "readings": [
+        "cì"
+      ],
+      "common": "cì"
+    },
     "欢": {
       "readings": [
         "huān"
       ],
       "common": "huān"
+    },
+    "欣": {
+      "readings": [
+        "xīn"
+      ],
+      "common": "xīn"
     },
     "欧": {
       "readings": [
@@ -6296,6 +7473,12 @@
       ],
       "common": "yīn"
     },
+    "殿": {
+      "readings": [
+        "diàn"
+      ],
+      "common": "diàn"
+    },
     "毁": {
       "readings": [
         "huǐ"
@@ -6307,6 +7490,12 @@
         "yì"
       ],
       "common": "yì"
+    },
+    "毋": {
+      "readings": [
+        "wú"
+      ],
+      "common": "wú"
     },
     "母": {
       "readings": [
@@ -6332,6 +7521,12 @@
       ],
       "common": "bì"
     },
+    "毙": {
+      "readings": [
+        "bì"
+      ],
+      "common": "bì"
+    },
     "毛": {
       "readings": [
         "máo"
@@ -6344,11 +7539,25 @@
       ],
       "common": "háo"
     },
+    "氏": {
+      "readings": [
+        "shì",
+        "zhī"
+      ],
+      "common": "shì"
+    },
     "民": {
       "readings": [
         "mín"
       ],
       "common": "mín"
+    },
+    "氓": {
+      "readings": [
+        "máng",
+        "méng"
+      ],
+      "common": "máng"
     },
     "气": {
       "readings": [
@@ -6361,6 +7570,18 @@
         "shuǐ"
       ],
       "common": "shuǐ"
+    },
+    "永": {
+      "readings": [
+        "yǒng"
+      ],
+      "common": "yǒng"
+    },
+    "汀": {
+      "readings": [
+        "tīng"
+      ],
+      "common": "tīng"
     },
     "求": {
       "readings": [
@@ -6381,6 +7602,12 @@
       ],
       "common": "hàn"
     },
+    "汝": {
+      "readings": [
+        "rǔ"
+      ],
+      "common": "rǔ"
+    },
     "江": {
       "readings": [
         "jiāng"
@@ -6392,6 +7619,12 @@
         "chí"
       ],
       "common": "chí"
+    },
+    "污": {
+      "readings": [
+        "wū"
+      ],
+      "common": "wū"
     },
     "汤": {
       "readings": [
@@ -6405,6 +7638,12 @@
         "wāng"
       ],
       "common": "wāng"
+    },
+    "汲": {
+      "readings": [
+        "jí"
+      ],
+      "common": "jí"
     },
     "汴": {
       "readings": [
@@ -6425,6 +7664,12 @@
       ],
       "common": "yí"
     },
+    "沃": {
+      "readings": [
+        "wò"
+      ],
+      "common": "wò"
+    },
     "沆": {
       "readings": [
         "hàng"
@@ -6444,12 +7689,24 @@
       ],
       "common": "shā"
     },
+    "沛": {
+      "readings": [
+        "pèi"
+      ],
+      "common": "pèi"
+    },
     "没": {
       "readings": [
         "méi",
         "mò"
       ],
       "common": "méi"
+    },
+    "沥": {
+      "readings": [
+        "lì"
+      ],
+      "common": "lì"
     },
     "沦": {
       "readings": [
@@ -6468,6 +7725,12 @@
         "hé"
       ],
       "common": "hé"
+    },
+    "油": {
+      "readings": [
+        "yóu"
+      ],
+      "common": "yóu"
     },
     "治": {
       "readings": [
@@ -6549,6 +7812,12 @@
       ],
       "common": "lèi"
     },
+    "泮": {
+      "readings": [
+        "pàn"
+      ],
+      "common": "pàn"
+    },
     "泰": {
       "readings": [
         "tài"
@@ -6628,6 +7897,12 @@
         "píng"
       ],
       "common": "píng"
+    },
+    "洵": {
+      "readings": [
+        "xún"
+      ],
+      "common": "xún"
     },
     "活": {
       "readings": [
@@ -6752,6 +8027,12 @@
       ],
       "common": "jìn"
     },
+    "涂": {
+      "readings": [
+        "tú"
+      ],
+      "common": "tú"
+    },
     "消": {
       "readings": [
         "xiāo"
@@ -6813,6 +8094,18 @@
         "yá"
       ],
       "common": "yá"
+    },
+    "涵": {
+      "readings": [
+        "hán"
+      ],
+      "common": "hán"
+    },
+    "淇": {
+      "readings": [
+        "qí"
+      ],
+      "common": "qí"
     },
     "淑": {
       "readings": [
@@ -6900,6 +8193,12 @@
       ],
       "common": "zhǔ"
     },
+    "渝": {
+      "readings": [
+        "yú"
+      ],
+      "common": "yú"
+    },
     "渠": {
       "readings": [
         "jù",
@@ -6961,6 +8260,12 @@
       ],
       "common": "hú"
     },
+    "湘": {
+      "readings": [
+        "xiāng"
+      ],
+      "common": "xiāng"
+    },
     "湿": {
       "readings": [
         "shī"
@@ -6973,6 +8278,12 @@
         "jiān"
       ],
       "common": "jiàn"
+    },
+    "溉": {
+      "readings": [
+        "gài"
+      ],
+      "common": "gài"
     },
     "源": {
       "readings": [
@@ -7165,6 +8476,12 @@
       ],
       "common": "jī"
     },
+    "濠": {
+      "readings": [
+        "háo"
+      ],
+      "common": "háo"
+    },
     "濯": {
       "readings": [
         "zhuó",
@@ -7221,6 +8538,12 @@
       ],
       "common": "càn"
     },
+    "炀": {
+      "readings": [
+        "yáng"
+      ],
+      "common": "yáng"
+    },
     "炉": {
       "readings": [
         "lú"
@@ -7232,6 +8555,12 @@
         "zhì"
       ],
       "common": "zhì"
+    },
+    "炜": {
+      "readings": [
+        "wěi"
+      ],
+      "common": "wěi"
     },
     "炬": {
       "readings": [
@@ -7361,6 +8690,12 @@
       ],
       "common": "liáo"
     },
+    "燔": {
+      "readings": [
+        "fán"
+      ],
+      "common": "fán"
+    },
     "燕": {
       "readings": [
         "yàn",
@@ -7386,6 +8721,12 @@
         "fǔ"
       ],
       "common": "fù"
+    },
+    "爽": {
+      "readings": [
+        "shuǎng"
+      ],
+      "common": "shuǎng"
     },
     "片": {
       "readings": [
@@ -7418,6 +8759,12 @@
       ],
       "common": "niú"
     },
+    "牢": {
+      "readings": [
+        "láo"
+      ],
+      "common": "láo"
+    },
     "牧": {
       "readings": [
         "mù"
@@ -7448,6 +8795,18 @@
       ],
       "common": "quǎn"
     },
+    "犯": {
+      "readings": [
+        "fàn"
+      ],
+      "common": "fàn"
+    },
+    "状": {
+      "readings": [
+        "zhuàng"
+      ],
+      "common": "zhuàng"
+    },
     "犹": {
       "readings": [
         "yóu"
@@ -7459,6 +8818,12 @@
         "kuáng"
       ],
       "common": "kuáng"
+    },
+    "狐": {
+      "readings": [
+        "hú"
+      ],
+      "common": "hú"
     },
     "狗": {
       "readings": [
@@ -7472,11 +8837,23 @@
       ],
       "common": "dú"
     },
+    "狭": {
+      "readings": [
+        "xiá"
+      ],
+      "common": "xiá"
+    },
     "狱": {
       "readings": [
         "yù"
       ],
       "common": "yù"
+    },
+    "狸": {
+      "readings": [
+        "lí"
+      ],
+      "common": "lí"
     },
     "狼": {
       "readings": [
@@ -7496,6 +8873,12 @@
       ],
       "common": "měng"
     },
+    "献": {
+      "readings": [
+        "xiàn"
+      ],
+      "common": "xiàn"
+    },
     "猱": {
       "readings": [
         "náo"
@@ -7507,6 +8890,13 @@
         "yuán"
       ],
       "common": "yuán"
+    },
+    "率": {
+      "readings": [
+        "lǜ",
+        "shuài"
+      ],
+      "common": "shuài"
     },
     "玉": {
       "readings": [
@@ -7526,6 +8916,12 @@
         "huán"
       ],
       "common": "huán"
+    },
+    "现": {
+      "readings": [
+        "xiàn"
+      ],
+      "common": "xiàn"
     },
     "玻": {
       "readings": [
@@ -7551,6 +8947,12 @@
       ],
       "common": "zhū"
     },
+    "班": {
+      "readings": [
+        "bān"
+      ],
+      "common": "bān"
+    },
     "珮": {
       "readings": [
         "pèi"
@@ -7568,6 +8970,12 @@
         "lǐ"
       ],
       "common": "lǐ"
+    },
+    "琉": {
+      "readings": [
+        "liú"
+      ],
+      "common": "liú"
     },
     "琊": {
       "readings": [
@@ -7610,6 +9018,12 @@
         "yáo"
       ],
       "common": "yáo"
+    },
+    "瑾": {
+      "readings": [
+        "jǐn"
+      ],
+      "common": "jǐn"
     },
     "璃": {
       "readings": [
@@ -7732,6 +9146,12 @@
       ],
       "common": "liú"
     },
+    "畚": {
+      "readings": [
+        "běn"
+      ],
+      "common": "běn"
+    },
     "略": {
       "readings": [
         "lüè"
@@ -7743,6 +9163,13 @@
         "qí"
       ],
       "common": "qí"
+    },
+    "疆": {
+      "readings": [
+        "jiāng",
+        "qiáng"
+      ],
+      "common": "jiāng"
     },
     "疏": {
       "readings": [
@@ -7786,6 +9213,12 @@
         "shòu"
       ],
       "common": "shòu"
+    },
+    "瘴": {
+      "readings": [
+        "zhàng"
+      ],
+      "common": "zhàng"
     },
     "登": {
       "readings": [
@@ -7844,6 +9277,12 @@
       ],
       "common": "hào"
     },
+    "皿": {
+      "readings": [
+        "mǐn"
+      ],
+      "common": "mǐn"
+    },
     "盆": {
       "readings": [
         "pén"
@@ -7868,6 +9307,12 @@
       ],
       "common": "zhǎn"
     },
+    "盐": {
+      "readings": [
+        "yán"
+      ],
+      "common": "yán"
+    },
     "盖": {
       "readings": [
         "gài",
@@ -7888,6 +9333,12 @@
         "shèng"
       ],
       "common": "shèng"
+    },
+    "盟": {
+      "readings": [
+        "méng"
+      ],
+      "common": "méng"
     },
     "目": {
       "readings": [
@@ -7914,6 +9365,12 @@
         "xǐng"
       ],
       "common": "shěng"
+    },
+    "眈": {
+      "readings": [
+        "dān"
+      ],
+      "common": "dān"
     },
     "眉": {
       "readings": [
@@ -7979,6 +9436,24 @@
       ],
       "common": "mù"
     },
+    "睨": {
+      "readings": [
+        "nì"
+      ],
+      "common": "nì"
+    },
+    "瞑": {
+      "readings": [
+        "míng"
+      ],
+      "common": "míng"
+    },
+    "瞬": {
+      "readings": [
+        "shùn"
+      ],
+      "common": "shùn"
+    },
     "瞻": {
       "readings": [
         "zhān"
@@ -8024,6 +9499,13 @@
       ],
       "common": "jǔ"
     },
+    "矫": {
+      "readings": [
+        "jiǎo",
+        "jiáo"
+      ],
+      "common": "jiǎo"
+    },
     "短": {
       "readings": [
         "duǎn"
@@ -8055,6 +9537,12 @@
         "yàn"
       ],
       "common": "yàn"
+    },
+    "砥": {
+      "readings": [
+        "dǐ"
+      ],
+      "common": "dǐ"
     },
     "砯": {
       "readings": [
@@ -8099,6 +9587,18 @@
       ],
       "common": "bì"
     },
+    "碾": {
+      "readings": [
+        "niǎn"
+      ],
+      "common": "niǎn"
+    },
+    "磐": {
+      "readings": [
+        "pán"
+      ],
+      "common": "pán"
+    },
     "磨": {
       "readings": [
         "mó",
@@ -8142,6 +9642,12 @@
       ],
       "common": "zhī"
     },
+    "祝": {
+      "readings": [
+        "zhù"
+      ],
+      "common": "zhù"
+    },
     "神": {
       "readings": [
         "shén"
@@ -8161,6 +9667,12 @@
       ],
       "common": "jì"
     },
+    "祲": {
+      "readings": [
+        "jìn"
+      ],
+      "common": "jìn"
+    },
     "祸": {
       "readings": [
         "huò"
@@ -8173,6 +9685,19 @@
         "jìn"
       ],
       "common": "jīn"
+    },
+    "禅": {
+      "readings": [
+        "chán",
+        "shàn"
+      ],
+      "common": "chán"
+    },
+    "福": {
+      "readings": [
+        "fú"
+      ],
+      "common": "fú"
     },
     "离": {
       "readings": [
@@ -8224,6 +9749,12 @@
       ],
       "common": "qín"
     },
+    "秧": {
+      "readings": [
+        "yāng"
+      ],
+      "common": "yāng"
+    },
     "积": {
       "readings": [
         "jī"
@@ -8268,6 +9799,12 @@
         "zhì"
       ],
       "common": "zhì"
+    },
+    "稷": {
+      "readings": [
+        "jì"
+      ],
+      "common": "jì"
     },
     "稻": {
       "readings": [
@@ -8325,6 +9862,12 @@
       ],
       "common": "chuāng"
     },
+    "窘": {
+      "readings": [
+        "jiǒng"
+      ],
+      "common": "jiǒng"
+    },
     "窥": {
       "readings": [
         "kuī"
@@ -8337,11 +9880,24 @@
       ],
       "common": "dòu"
     },
+    "窾": {
+      "readings": [
+        "cuàn",
+        "kuǎn"
+      ],
+      "common": "kuǎn"
+    },
     "立": {
       "readings": [
         "lì"
       ],
       "common": "lì"
+    },
+    "竖": {
+      "readings": [
+        "shù"
+      ],
+      "common": "shù"
     },
     "竟": {
       "readings": [
@@ -8409,11 +9965,23 @@
       ],
       "common": "bǐ"
     },
+    "笙": {
+      "readings": [
+        "shēng"
+      ],
+      "common": "shēng"
+    },
     "笛": {
       "readings": [
         "dí"
       ],
       "common": "dí"
+    },
+    "笞": {
+      "readings": [
+        "chī"
+      ],
+      "common": "chī"
     },
     "笠": {
       "readings": [
@@ -8466,6 +10034,12 @@
       ],
       "common": "cè"
     },
+    "筮": {
+      "readings": [
+        "shì"
+      ],
+      "common": "shì"
+    },
     "筹": {
       "readings": [
         "chóu"
@@ -8477,6 +10051,12 @@
         "jiǎn"
       ],
       "common": "jiǎn"
+    },
+    "箕": {
+      "readings": [
+        "jī"
+      ],
+      "common": "jī"
     },
     "算": {
       "readings": [
@@ -8532,6 +10112,12 @@
       ],
       "common": "huáng"
     },
+    "篆": {
+      "readings": [
+        "zhuàn"
+      ],
+      "common": "zhuàn"
+    },
     "篇": {
       "readings": [
         "piān"
@@ -8544,11 +10130,23 @@
       ],
       "common": "kuì"
     },
+    "篝": {
+      "readings": [
+        "gōu"
+      ],
+      "common": "gōu"
+    },
     "篱": {
       "readings": [
         "lí"
       ],
       "common": "lí"
+    },
+    "篷": {
+      "readings": [
+        "péng"
+      ],
+      "common": "péng"
     },
     "簇": {
       "readings": [
@@ -8569,6 +10167,24 @@
       ],
       "common": "bò"
     },
+    "籁": {
+      "readings": [
+        "lài"
+      ],
+      "common": "lài"
+    },
+    "籍": {
+      "readings": [
+        "jí"
+      ],
+      "common": "jí"
+    },
+    "米": {
+      "readings": [
+        "mǐ"
+      ],
+      "common": "mǐ"
+    },
     "类": {
       "readings": [
         "lèi"
@@ -8587,6 +10203,13 @@
       ],
       "common": "lì"
     },
+    "粘": {
+      "readings": [
+        "nián",
+        "zhān"
+      ],
+      "common": "nián"
+    },
     "粟": {
       "readings": [
         "sù"
@@ -8604,6 +10227,13 @@
         "jīng"
       ],
       "common": "jīng"
+    },
+    "糁": {
+      "readings": [
+        "sǎn",
+        "shēn"
+      ],
+      "common": "sǎn"
     },
     "素": {
       "readings": [
@@ -8643,12 +10273,25 @@
       ],
       "common": "xù"
     },
+    "綮": {
+      "readings": [
+        "qìng",
+        "qǐ"
+      ],
+      "common": "qìng"
+    },
     "繁": {
       "readings": [
         "fán",
         "pó"
       ],
       "common": "fán"
+    },
+    "纡": {
+      "readings": [
+        "yū"
+      ],
+      "common": "yū"
     },
     "红": {
       "readings": [
@@ -8676,6 +10319,12 @@
         "jí"
       ],
       "common": "jí"
+    },
+    "纫": {
+      "readings": [
+        "rèn"
+      ],
+      "common": "rèn"
     },
     "纯": {
       "readings": [
@@ -8821,6 +10470,12 @@
       ],
       "common": "zhuì"
     },
+    "缈": {
+      "readings": [
+        "miǎo"
+      ],
+      "common": "miǎo"
+    },
     "缊": {
       "readings": [
         "wēn",
@@ -8854,6 +10509,12 @@
       ],
       "common": "féng"
     },
+    "缟": {
+      "readings": [
+        "gǎo"
+      ],
+      "common": "gǎo"
+    },
     "缤": {
       "readings": [
         "bīn"
@@ -8872,6 +10533,13 @@
         "yīng"
       ],
       "common": "yīng"
+    },
+    "缩": {
+      "readings": [
+        "suō",
+        "sù"
+      ],
+      "common": "suō"
     },
     "缺": {
       "readings": [
@@ -8917,11 +10585,29 @@
       ],
       "common": "bà"
     },
+    "罪": {
+      "readings": [
+        "zuì"
+      ],
+      "common": "zuì"
+    },
     "置": {
       "readings": [
         "zhì"
       ],
       "common": "zhì"
+    },
+    "罹": {
+      "readings": [
+        "lí"
+      ],
+      "common": "lí"
+    },
+    "罾": {
+      "readings": [
+        "zēng"
+      ],
+      "common": "zēng"
     },
     "羁": {
       "readings": [
@@ -8984,6 +10670,12 @@
       ],
       "common": "wēng"
     },
+    "翔": {
+      "readings": [
+        "xiáng"
+      ],
+      "common": "xiáng"
+    },
     "翕": {
       "readings": [
         "xī"
@@ -9013,6 +10705,12 @@
         "yì"
       ],
       "common": "yì"
+    },
+    "耀": {
+      "readings": [
+        "yào"
+      ],
+      "common": "yào"
     },
     "老": {
       "readings": [
@@ -9062,6 +10760,31 @@
       ],
       "common": "ěr"
     },
+    "耶": {
+      "readings": [
+        "yé",
+        "yē"
+      ],
+      "common": "yé"
+    },
+    "耻": {
+      "readings": [
+        "chǐ"
+      ],
+      "common": "chǐ"
+    },
+    "耽": {
+      "readings": [
+        "dān"
+      ],
+      "common": "dān"
+    },
+    "聂": {
+      "readings": [
+        "niè"
+      ],
+      "common": "niè"
+    },
     "聊": {
       "readings": [
         "liáo"
@@ -9073,6 +10796,12 @@
         "guō"
       ],
       "common": "guō"
+    },
+    "联": {
+      "readings": [
+        "lián"
+      ],
+      "common": "lián"
     },
     "聚": {
       "readings": [
@@ -9092,6 +10821,12 @@
       ],
       "common": "sù"
     },
+    "肆": {
+      "readings": [
+        "sì"
+      ],
+      "common": "sì"
+    },
     "肉": {
       "readings": [
         "ròu"
@@ -9109,6 +10844,12 @@
         "cháng"
       ],
       "common": "cháng"
+    },
+    "股": {
+      "readings": [
+        "gǔ"
+      ],
+      "common": "gǔ"
     },
     "肥": {
       "readings": [
@@ -9140,6 +10881,12 @@
       ],
       "common": "xié"
     },
+    "胄": {
+      "readings": [
+        "zhòu"
+      ],
+      "common": "zhòu"
+    },
     "胆": {
       "readings": [
         "dǎn"
@@ -9153,6 +10900,12 @@
       ],
       "common": "bèi"
     },
+    "胛": {
+      "readings": [
+        "jiǎ"
+      ],
+      "common": "jiǎ"
+    },
     "胜": {
       "readings": [
         "shèng"
@@ -9164,6 +10917,18 @@
         "hú"
       ],
       "common": "hú"
+    },
+    "胥": {
+      "readings": [
+        "xū"
+      ],
+      "common": "xū"
+    },
+    "胶": {
+      "readings": [
+        "jiāo"
+      ],
+      "common": "jiāo"
     },
     "胸": {
       "readings": [
@@ -9246,6 +11011,25 @@
       ],
       "common": "yāo"
     },
+    "腹": {
+      "readings": [
+        "fù"
+      ],
+      "common": "fù"
+    },
+    "腾": {
+      "readings": [
+        "téng"
+      ],
+      "common": "téng"
+    },
+    "膏": {
+      "readings": [
+        "gāo",
+        "gào"
+      ],
+      "common": "gāo"
+    },
     "膝": {
       "readings": [
         "xī"
@@ -9257,6 +11041,13 @@
         "yīng"
       ],
       "common": "yīng"
+    },
+    "臂": {
+      "readings": [
+        "bì",
+        "bei"
+      ],
+      "common": "bì"
     },
     "臆": {
       "readings": [
@@ -9337,6 +11128,12 @@
       ],
       "common": "bān"
     },
+    "舱": {
+      "readings": [
+        "cāng"
+      ],
+      "common": "cāng"
+    },
     "船": {
       "readings": [
         "chuán"
@@ -9392,6 +11189,12 @@
       ],
       "common": "wú"
     },
+    "芣": {
+      "readings": [
+        "fú"
+      ],
+      "common": "fú"
+    },
     "芥": {
       "readings": [
         "gài",
@@ -9423,6 +11226,12 @@
       ],
       "common": "yá"
     },
+    "苇": {
+      "readings": [
+        "wěi"
+      ],
+      "common": "wěi"
+    },
     "苍": {
       "readings": [
         "cāng"
@@ -9435,6 +11244,12 @@
         "sù"
       ],
       "common": "sū"
+    },
+    "苑": {
+      "readings": [
+        "yuàn"
+      ],
+      "common": "yuàn"
     },
     "苔": {
       "readings": [
@@ -9455,6 +11270,12 @@
       ],
       "common": "gǒu"
     },
+    "苢": {
+      "readings": [
+        "yǐ"
+      ],
+      "common": "yǐ"
+    },
     "若": {
       "readings": [
         "ruò",
@@ -9468,6 +11289,13 @@
       ],
       "common": "kǔ"
     },
+    "苫": {
+      "readings": [
+        "shān",
+        "shàn"
+      ],
+      "common": "shān"
+    },
     "英": {
       "readings": [
         "yīng"
@@ -9479,6 +11307,12 @@
         "mào"
       ],
       "common": "mào"
+    },
+    "范": {
+      "readings": [
+        "fàn"
+      ],
+      "common": "fàn"
     },
     "茅": {
       "readings": [
@@ -9498,6 +11332,12 @@
       ],
       "common": "zhū"
     },
+    "茶": {
+      "readings": [
+        "chá"
+      ],
+      "common": "chá"
+    },
     "荆": {
       "readings": [
         "jīng"
@@ -9515,6 +11355,13 @@
         "cǎo"
       ],
       "common": "cǎo"
+    },
+    "荑": {
+      "readings": [
+        "tí",
+        "yí"
+      ],
+      "common": "yí"
     },
     "荒": {
       "readings": [
@@ -9546,6 +11393,13 @@
         "róng"
       ],
       "common": "róng"
+    },
+    "荫": {
+      "readings": [
+        "yīn",
+        "yìn"
+      ],
+      "common": "yīn"
     },
     "药": {
       "readings": [
@@ -9684,11 +11538,36 @@
       ],
       "common": "là"
     },
+    "葚": {
+      "readings": [
+        "shèn"
+      ],
+      "common": "shèn"
+    },
+    "葛": {
+      "readings": [
+        "gé",
+        "gě"
+      ],
+      "common": "gé"
+    },
     "葡": {
       "readings": [
         "pú"
       ],
       "common": "pú"
+    },
+    "葫": {
+      "readings": [
+        "hú"
+      ],
+      "common": "hú"
+    },
+    "葭": {
+      "readings": [
+        "jiā"
+      ],
+      "common": "jiā"
     },
     "葵": {
       "readings": [
@@ -9715,6 +11594,24 @@
         "pú"
       ],
       "common": "pú"
+    },
+    "蒲": {
+      "readings": [
+        "pú"
+      ],
+      "common": "pú"
+    },
+    "蒸": {
+      "readings": [
+        "zhēng"
+      ],
+      "common": "zhēng"
+    },
+    "蒹": {
+      "readings": [
+        "jiān"
+      ],
+      "common": "jiān"
     },
     "蒿": {
       "readings": [
@@ -9789,6 +11686,12 @@
       ],
       "common": "fán"
     },
+    "蕲": {
+      "readings": [
+        "qí"
+      ],
+      "common": "qí"
+    },
     "薄": {
       "readings": [
         "báo",
@@ -9809,12 +11712,25 @@
       ],
       "common": "xīn"
     },
+    "藉": {
+      "readings": [
+        "jiè",
+        "jí"
+      ],
+      "common": "jiè"
+    },
     "藏": {
       "readings": [
         "cáng",
         "zàng"
       ],
       "common": "cáng"
+    },
+    "藕": {
+      "readings": [
+        "ǒu"
+      ],
+      "common": "ǒu"
     },
     "藤": {
       "readings": [
@@ -9834,6 +11750,12 @@
       ],
       "common": "hǔ"
     },
+    "虏": {
+      "readings": [
+        "lǔ"
+      ],
+      "common": "lǔ"
+    },
     "虑": {
       "readings": [
         "lǜ"
@@ -9846,17 +11768,41 @@
       ],
       "common": "xū"
     },
+    "虞": {
+      "readings": [
+        "yú"
+      ],
+      "common": "yú"
+    },
+    "虹": {
+      "readings": [
+        "hóng"
+      ],
+      "common": "hóng"
+    },
     "虽": {
       "readings": [
         "suī"
       ],
       "common": "suī"
     },
+    "蚊": {
+      "readings": [
+        "wén"
+      ],
+      "common": "wén"
+    },
     "蚕": {
       "readings": [
         "cán"
       ],
       "common": "cán"
+    },
+    "蚩": {
+      "readings": [
+        "chī"
+      ],
+      "common": "chī"
     },
     "蛇": {
       "readings": [
@@ -10055,6 +12001,12 @@
       ],
       "common": "páo"
     },
+    "袒": {
+      "readings": [
+        "tǎn"
+      ],
+      "common": "tǎn"
+    },
     "袖": {
       "readings": [
         "xiù"
@@ -10074,11 +12026,24 @@
       ],
       "common": "xí"
     },
+    "袺": {
+      "readings": [
+        "jié"
+      ],
+      "common": "jié"
+    },
     "裁": {
       "readings": [
         "cái"
       ],
       "common": "cái"
+    },
+    "裂": {
+      "readings": [
+        "liè",
+        "liě"
+      ],
+      "common": "liè"
     },
     "裔": {
       "readings": [
@@ -10105,6 +12070,12 @@
       ],
       "common": "cháng"
     },
+    "褶": {
+      "readings": [
+        "zhě"
+      ],
+      "common": "zhě"
+    },
     "襄": {
       "readings": [
         "xiāng"
@@ -10116,6 +12087,12 @@
         "jīn"
       ],
       "common": "jīn"
+    },
+    "襭": {
+      "readings": [
+        "xié"
+      ],
+      "common": "xié"
     },
     "西": {
       "readings": [
@@ -10208,6 +12185,12 @@
       ],
       "common": "yán"
     },
+    "誓": {
+      "readings": [
+        "shì"
+      ],
+      "common": "shì"
+    },
     "譬": {
       "readings": [
         "pì"
@@ -10231,6 +12214,12 @@
         "ràng"
       ],
       "common": "ràng"
+    },
+    "讫": {
+      "readings": [
+        "qì"
+      ],
+      "common": "qì"
     },
     "议": {
       "readings": [
@@ -10264,6 +12253,18 @@
       ],
       "common": "lùn"
     },
+    "设": {
+      "readings": [
+        "shè"
+      ],
+      "common": "shè"
+    },
+    "访": {
+      "readings": [
+        "fǎng"
+      ],
+      "common": "fǎng"
+    },
     "评": {
       "readings": [
         "píng"
@@ -10277,6 +12278,12 @@
       ],
       "common": "shí"
     },
+    "诈": {
+      "readings": [
+        "zhà"
+      ],
+      "common": "zhà"
+    },
     "诉": {
       "readings": [
         "sù"
@@ -10288,6 +12295,12 @@
         "cí"
       ],
       "common": "cí"
+    },
+    "诎": {
+      "readings": [
+        "qū"
+      ],
+      "common": "qū"
     },
     "诏": {
       "readings": [
@@ -10306,6 +12319,12 @@
         "chéng"
       ],
       "common": "chéng"
+    },
+    "诛": {
+      "readings": [
+        "zhū"
+      ],
+      "common": "zhū"
     },
     "话": {
       "readings": [
@@ -10339,6 +12358,12 @@
       ],
       "common": "wù"
     },
+    "诱": {
+      "readings": [
+        "yòu"
+      ],
+      "common": "yòu"
+    },
     "说": {
       "readings": [
         "shuō",
@@ -10358,6 +12383,13 @@
         "zhū"
       ],
       "common": "zhū"
+    },
+    "读": {
+      "readings": [
+        "dú",
+        "dòu"
+      ],
+      "common": "dú"
     },
     "谁": {
       "readings": [
@@ -10409,6 +12441,12 @@
       ],
       "common": "wèi"
     },
+    "谕": {
+      "readings": [
+        "yù"
+      ],
+      "common": "yù"
+    },
     "谗": {
       "readings": [
         "chán"
@@ -10420,6 +12458,12 @@
         "ān"
       ],
       "common": "ān"
+    },
+    "谢": {
+      "readings": [
+        "xiè"
+      ],
+      "common": "xiè"
     },
     "谤": {
       "readings": [
@@ -10433,6 +12477,12 @@
       ],
       "common": "qiān"
     },
+    "谨": {
+      "readings": [
+        "jǐn"
+      ],
+      "common": "jǐn"
+    },
     "谩": {
       "readings": [
         "mán"
@@ -10444,6 +12494,12 @@
         "zhé"
       ],
       "common": "zhé"
+    },
+    "谯": {
+      "readings": [
+        "qiáo"
+      ],
+      "common": "qiáo"
     },
     "谷": {
       "readings": [
@@ -10468,6 +12524,12 @@
         "tún"
       ],
       "common": "tún"
+    },
+    "象": {
+      "readings": [
+        "xiàng"
+      ],
+      "common": "xiàng"
     },
     "豪": {
       "readings": [
@@ -10547,6 +12609,30 @@
       ],
       "common": "pín"
     },
+    "贬": {
+      "readings": [
+        "biǎn"
+      ],
+      "common": "biǎn"
+    },
+    "贮": {
+      "readings": [
+        "zhù"
+      ],
+      "common": "zhù"
+    },
+    "贯": {
+      "readings": [
+        "guàn"
+      ],
+      "common": "guàn"
+    },
+    "贰": {
+      "readings": [
+        "èr"
+      ],
+      "common": "èr"
+    },
     "贱": {
       "readings": [
         "jiàn"
@@ -10558,6 +12644,12 @@
         "guì"
       ],
       "common": "guì"
+    },
+    "贸": {
+      "readings": [
+        "mào"
+      ],
+      "common": "mào"
     },
     "费": {
       "readings": [
@@ -10583,6 +12675,12 @@
         "jiǎ"
       ],
       "common": "jiǎ"
+    },
+    "贿": {
+      "readings": [
+        "huì"
+      ],
+      "common": "huì"
     },
     "赂": {
       "readings": [
@@ -10619,6 +12717,12 @@
         "lài"
       ],
       "common": "lài"
+    },
+    "赚": {
+      "readings": [
+        "zhuàn"
+      ],
+      "common": "zhuàn"
     },
     "赢": {
       "readings": [
@@ -10681,6 +12785,25 @@
       ],
       "common": "zú"
     },
+    "趾": {
+      "readings": [
+        "zhǐ"
+      ],
+      "common": "zhǐ"
+    },
+    "跐": {
+      "readings": [
+        "cī",
+        "cǐ"
+      ],
+      "common": "cī"
+    },
+    "跣": {
+      "readings": [
+        "xiǎn"
+      ],
+      "common": "xiǎn"
+    },
     "跪": {
       "readings": [
         "guì"
@@ -10736,11 +12859,23 @@
       ],
       "common": "jiǎn"
     },
+    "蹈": {
+      "readings": [
+        "dǎo"
+      ],
+      "common": "dǎo"
+    },
     "蹰": {
       "readings": [
         "chú"
       ],
       "common": "chú"
+    },
+    "躁": {
+      "readings": [
+        "zào"
+      ],
+      "common": "zào"
     },
     "躇": {
       "readings": [
@@ -10759,6 +12894,12 @@
         "gōng"
       ],
       "common": "gōng"
+    },
+    "軱": {
+      "readings": [
+        "gū"
+      ],
+      "common": "gū"
     },
     "车": {
       "readings": [
@@ -10824,11 +12965,23 @@
       ],
       "common": "huī"
     },
+    "辍": {
+      "readings": [
+        "chuò"
+      ],
+      "common": "chuò"
+    },
     "输": {
       "readings": [
         "shū"
       ],
       "common": "shū"
+    },
+    "辔": {
+      "readings": [
+        "pèi"
+      ],
+      "common": "pèi"
     },
     "辙": {
       "readings": [
@@ -10885,6 +13038,18 @@
       ],
       "common": "dá"
     },
+    "迁": {
+      "readings": [
+        "qiān"
+      ],
+      "common": "qiān"
+    },
+    "迂": {
+      "readings": [
+        "yū"
+      ],
+      "common": "yū"
+    },
     "过": {
       "readings": [
         "guò",
@@ -10898,6 +13063,12 @@
         "yíng"
       ],
       "common": "yíng"
+    },
+    "运": {
+      "readings": [
+        "yùn"
+      ],
+      "common": "yùn"
     },
     "近": {
       "readings": [
@@ -10955,6 +13126,13 @@
         "tiáo"
       ],
       "common": "tiáo"
+    },
+    "迤": {
+      "readings": [
+        "yǐ",
+        "yí"
+      ],
+      "common": "yǐ"
     },
     "迩": {
       "readings": [
@@ -11053,6 +13231,12 @@
       ],
       "common": "shì"
     },
+    "速": {
+      "readings": [
+        "sù"
+      ],
+      "common": "sù"
+    },
     "造": {
       "readings": [
         "zào"
@@ -11064,6 +13248,12 @@
         "féng"
       ],
       "common": "féng"
+    },
+    "逶": {
+      "readings": [
+        "wēi"
+      ],
+      "common": "wēi"
     },
     "逸": {
       "readings": [
@@ -11089,6 +13279,12 @@
       ],
       "common": "suì"
     },
+    "遇": {
+      "readings": [
+        "yù"
+      ],
+      "common": "yù"
+    },
     "遍": {
       "readings": [
         "biàn"
@@ -11107,11 +13303,23 @@
       ],
       "common": "yí"
     },
+    "遣": {
+      "readings": [
+        "qiǎn"
+      ],
+      "common": "qiǎn"
+    },
     "遥": {
       "readings": [
         "yáo"
       ],
       "common": "yáo"
+    },
+    "適": {
+      "readings": [
+        "shì"
+      ],
+      "common": "shì"
     },
     "遭": {
       "readings": [
@@ -11187,6 +13395,24 @@
       ],
       "common": "láng"
     },
+    "郑": {
+      "readings": [
+        "zhèng"
+      ],
+      "common": "zhèng"
+    },
+    "郡": {
+      "readings": [
+        "jùn"
+      ],
+      "common": "jùn"
+    },
+    "郤": {
+      "readings": [
+        "xì"
+      ],
+      "common": "xì"
+    },
     "郦": {
       "readings": [
         "lì",
@@ -11213,6 +13439,13 @@
       ],
       "common": "bǐ"
     },
+    "酂": {
+      "readings": [
+        "cuó",
+        "zàn"
+      ],
+      "common": "cuó"
+    },
     "酌": {
       "readings": [
         "zhuó"
@@ -11236,6 +13469,12 @@
         "sū"
       ],
       "common": "sū"
+    },
+    "酹": {
+      "readings": [
+        "lèi"
+      ],
+      "common": "lèi"
     },
     "酿": {
       "readings": [
@@ -11261,6 +13500,12 @@
         "cài"
       ],
       "common": "cǎi"
+    },
+    "释": {
+      "readings": [
+        "shì"
+      ],
+      "common": "shì"
     },
     "里": {
       "readings": [
@@ -11343,6 +13588,18 @@
       ],
       "common": "tiě"
     },
+    "铎": {
+      "readings": [
+        "duó"
+      ],
+      "common": "duó"
+    },
+    "铚": {
+      "readings": [
+        "zhì"
+      ],
+      "common": "zhì"
+    },
     "铜": {
       "readings": [
         "tóng"
@@ -11386,6 +13643,12 @@
       ],
       "common": "chú"
     },
+    "锐": {
+      "readings": [
+        "ruì"
+      ],
+      "common": "ruì"
+    },
     "错": {
       "readings": [
         "cuò"
@@ -11409,6 +13672,12 @@
         "zhōng"
       ],
       "common": "zhōng"
+    },
+    "镕": {
+      "readings": [
+        "róng"
+      ],
+      "common": "róng"
     },
     "镜": {
       "readings": [
@@ -11478,11 +13747,23 @@
       ],
       "common": "tà"
     },
+    "闾": {
+      "readings": [
+        "lǘ"
+      ],
+      "common": "lǘ"
+    },
     "阁": {
       "readings": [
         "gé"
       ],
       "common": "gé"
+    },
+    "阅": {
+      "readings": [
+        "yuè"
+      ],
+      "common": "yuè"
     },
     "阑": {
       "readings": [
@@ -11533,6 +13814,12 @@
       ],
       "common": "jiē"
     },
+    "阻": {
+      "readings": [
+        "zǔ"
+      ],
+      "common": "zǔ"
+    },
     "阿": {
       "readings": [
         "ā",
@@ -11559,6 +13846,12 @@
         "lù"
       ],
       "common": "lù"
+    },
+    "陇": {
+      "readings": [
+        "lǒng"
+      ],
+      "common": "lǒng"
     },
     "陈": {
       "readings": [
@@ -11603,11 +13896,23 @@
       ],
       "common": "chú"
     },
+    "陨": {
+      "readings": [
+        "yǔn"
+      ],
+      "common": "yǔn"
+    },
     "险": {
       "readings": [
         "xiǎn"
       ],
       "common": "xiǎn"
+    },
+    "陪": {
+      "readings": [
+        "péi"
+      ],
+      "common": "péi"
     },
     "陵": {
       "readings": [
@@ -11651,6 +13956,18 @@
         "gé"
       ],
       "common": "gé"
+    },
+    "隧": {
+      "readings": [
+        "suì"
+      ],
+      "common": "suì"
+    },
+    "隰": {
+      "readings": [
+        "xí"
+      ],
+      "common": "xí"
     },
     "隳": {
       "readings": [
@@ -11717,17 +14034,23 @@
       ],
       "common": "yōng"
     },
+    "雎": {
+      "readings": [
+        "jū"
+      ],
+      "common": "jū"
+    },
+    "雏": {
+      "readings": [
+        "chú"
+      ],
+      "common": "chú"
+    },
     "雕": {
       "readings": [
         "diāo"
       ],
       "common": "diāo"
-    },
-    "雠": {
-      "readings": [
-        "chóu"
-      ],
-      "common": "chóu"
     },
     "雨": {
       "readings": [
@@ -11778,6 +14101,12 @@
       ],
       "common": "xiāo"
     },
+    "霎": {
+      "readings": [
+        "shà"
+      ],
+      "common": "shà"
+    },
     "霏": {
       "readings": [
         "fēi"
@@ -11803,6 +14132,12 @@
       ],
       "common": "lòu"
     },
+    "霸": {
+      "readings": [
+        "bà"
+      ],
+      "common": "bà"
+    },
     "霹": {
       "readings": [
         "pī"
@@ -11827,17 +14162,35 @@
       ],
       "common": "fēi"
     },
+    "靡": {
+      "readings": [
+        "mí"
+      ],
+      "common": "mí"
+    },
     "面": {
       "readings": [
         "miàn"
       ],
       "common": "miàn"
     },
+    "革": {
+      "readings": [
+        "gé"
+      ],
+      "common": "gé"
+    },
     "鞭": {
       "readings": [
         "biān"
       ],
       "common": "biān"
+    },
+    "韩": {
+      "readings": [
+        "hán"
+      ],
+      "common": "hán"
     },
     "音": {
       "readings": [
@@ -11850,6 +14203,12 @@
         "yùn"
       ],
       "common": "yùn"
+    },
+    "韶": {
+      "readings": [
+        "sháo"
+      ],
+      "common": "sháo"
     },
     "顶": {
       "readings": [
@@ -11887,6 +14246,12 @@
       ],
       "common": "gù"
     },
+    "顿": {
+      "readings": [
+        "dùn"
+      ],
+      "common": "dùn"
+    },
     "预": {
       "readings": [
         "yù"
@@ -11917,6 +14282,12 @@
         "tuí"
       ],
       "common": "tuí"
+    },
+    "颔": {
+      "readings": [
+        "hàn"
+      ],
+      "common": "hàn"
     },
     "颗": {
       "readings": [
@@ -11954,6 +14325,12 @@
         "fěng"
       ],
       "common": "fēng"
+    },
+    "飏": {
+      "readings": [
+        "yáng"
+      ],
+      "common": "yáng"
     },
     "飘": {
       "readings": [
@@ -12065,11 +14442,29 @@
       ],
       "common": "bó"
     },
+    "驿": {
+      "readings": [
+        "yì"
+      ],
+      "common": "yì"
+    },
+    "骂": {
+      "readings": [
+        "mà"
+      ],
+      "common": "mà"
+    },
     "骈": {
       "readings": [
         "pián"
       ],
       "common": "pián"
+    },
+    "骊": {
+      "readings": [
+        "lí"
+      ],
+      "common": "lí"
     },
     "骑": {
       "readings": [
@@ -12083,6 +14478,18 @@
         "sǎo"
       ],
       "common": "sāo"
+    },
+    "骤": {
+      "readings": [
+        "zhòu"
+      ],
+      "common": "zhòu"
+    },
+    "骥": {
+      "readings": [
+        "jì"
+      ],
+      "common": "jì"
     },
     "骨": {
       "readings": [
@@ -12103,6 +14510,18 @@
       ],
       "common": "tiáo"
     },
+    "髯": {
+      "readings": [
+        "rán"
+      ],
+      "common": "rán"
+    },
+    "髻": {
+      "readings": [
+        "jì"
+      ],
+      "common": "jì"
+    },
     "鬓": {
       "readings": [
         "bìn"
@@ -12115,11 +14534,23 @@
       ],
       "common": "guǐ"
     },
+    "魁": {
+      "readings": [
+        "kuí"
+      ],
+      "common": "kuí"
+    },
     "魂": {
       "readings": [
         "hún"
       ],
       "common": "hún"
+    },
+    "魄": {
+      "readings": [
+        "pò"
+      ],
+      "common": "pò"
     },
     "魏": {
       "readings": [
@@ -12152,6 +14583,12 @@
       ],
       "common": "xiān"
     },
+    "鲦": {
+      "readings": [
+        "tiáo"
+      ],
+      "common": "tiáo"
+    },
     "鲲": {
       "readings": [
         "kūn"
@@ -12182,6 +14619,12 @@
         "niǎo"
       ],
       "common": "niǎo"
+    },
+    "鸠": {
+      "readings": [
+        "jiū"
+      ],
+      "common": "jiū"
     },
     "鸡": {
       "readings": [
@@ -12249,6 +14692,12 @@
       ],
       "common": "juān"
     },
+    "鹄": {
+      "readings": [
+        "hú"
+      ],
+      "common": "hú"
+    },
     "鹅": {
       "readings": [
         "é"
@@ -12297,6 +14746,12 @@
       ],
       "common": "lù"
     },
+    "鹰": {
+      "readings": [
+        "yīng"
+      ],
+      "common": "yīng"
+    },
     "麓": {
       "readings": [
         "lù"
@@ -12333,11 +14788,23 @@
       ],
       "common": "shǔ"
     },
+    "黎": {
+      "readings": [
+        "lí"
+      ],
+      "common": "lí"
+    },
     "黑": {
       "readings": [
         "hēi"
       ],
       "common": "hēi"
+    },
+    "黠": {
+      "readings": [
+        "xiá"
+      ],
+      "common": "xiá"
     },
     "鼐": {
       "readings": [
@@ -12365,6 +14832,12 @@
         "chǐ"
       ],
       "common": "chǐ"
+    },
+    "龀": {
+      "readings": [
+        "chèn"
+      ],
+      "common": "chèn"
     },
     "龙": {
       "readings": [
