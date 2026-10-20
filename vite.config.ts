@@ -24,6 +24,11 @@ export default defineConfig({
     ],
   build: {
     chunkSizeWarningLimit: 1000,
+    // Vite 8 默认用 lightningcss 压 CSS：把标准 backdrop-filter 删掉只留 -webkit- 前缀版，
+    // 而 Chromium 不认孤立的前缀声明——顶栏毛玻璃整个失效（handle 先踩，实抓）。
+    // 切回 esbuild 压缩（配 cssTarget=chrome106 实测两行都保留）。
+    cssTarget: 'chrome106',
+    cssMinify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: (id) => {
