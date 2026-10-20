@@ -5,6 +5,7 @@ import TabBar from './components/TabBar.vue'
 import corpus from '~/data/corpus.json'
 import { dayKey, parseDayKey } from '~/logic/daily.mjs'
 import { KEYS, loadRecords, loadSettings, loadStage, loadPlayedPieces, saveSettings, saveStage } from '~/logic/store'
+import { toggleTheme as coreToggle } from '../core/theme.mjs'
 import { hant, locale, setLocale, t, tf, toggleLocale } from '~/logic/locale'
 import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
 
@@ -84,13 +85,8 @@ function backToDaily() {
   history.replaceState(null, '', '?view=daily')
 }
 function toggleTheme() {
-  dark.value = !dark.value
-  const t = dark.value ? 'dark' : 'light'
-  document.documentElement.dataset.theme = t
-  document.documentElement.classList.toggle('dark', dark.value)
-  try { localStorage.setItem(KEYS.theme, t) } catch {}
-  const meta = document.getElementById('metaTheme')
-  if (meta) meta.setAttribute('content', dark.value ? '#17140f' : '#f4ede0')
+  // 切换走统一核心 core/theme（PLAN-全站统一-v2 追加）：data-theme/双 class/地址栏色全由 core 管
+  dark.value = coreToggle() === 'dark'
 }
 function save() { saveSettings(settings.value) }
 function refreshRecords() { records.value = loadRecords(); played.value = loadPlayedPieces() }
