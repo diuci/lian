@@ -20,6 +20,17 @@ const PARKS = parksData.parks.map((p: any) => ({
   on: typeof location !== 'undefined' && p.href.includes(location.hostname),
 }))
 
+// 顶部菜单（v4.1）：小屏点开全部八站（含月冕/大作战——底栏不摆它们）；点外/Escape 收起
+const menuOpen = ref(false)
+function toggleMenu() { menuOpen.value = !menuOpen.value }
+onMounted(() => {
+  document.addEventListener('click', (e) => {
+    const n = e.target as Element | null
+    if (menuOpen.value && n && !n.closest('.dc-menu') && !n.closest('.dc-menu-btn')) menuOpen.value = false
+  })
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') menuOpen.value = false })
+})
+
 const params = new URLSearchParams(location.search)
 const view = ref<View>((params.get('view') as View) || 'daily')
 const stage = ref(params.get('stage') || loadStage() || '小学')
@@ -130,6 +141,15 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a v-for="p in PARKS" :key="p.href" :href="p.href"
            :aria-current="p.on ? 'page' : undefined" :class="{ on: p.on }">{{ t(p.key) }}</a>
       </nav>
+      <button class="dc-menu-btn" type="button" :aria-label="t('parks.aria')" :title="t('parks.aria')"
+              :aria-expanded="menuOpen ? 'true' : 'false'" @click.stop="toggleMenu">
+        <svg class="i-bars" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6.8h16M4 12h16M4 17.2h16"/>
+        </svg>
+        <svg class="i-x" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
       <button class="dc-theme-btn" type="button" :title="dark ? t('theme.light') : t('theme.dark')" :aria-label="dark ? t('theme.light') : t('theme.dark')" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
@@ -139,6 +159,12 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
           <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z"/>
         </svg>
       </button>
+      <nav class="dc-menu" :hidden="!menuOpen" :aria-label="t('parks.aria')">
+        <div class="dc-menu-in">
+          <a v-for="p in PARKS" :key="p.href" :href="p.href"
+             :aria-current="p.on ? 'page' : undefined" :class="{ on: p.on }">{{ t(p.key) }}</a>
+        </div>
+      </nav>
       </div>
     </header>
 
