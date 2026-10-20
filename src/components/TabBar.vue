@@ -1,21 +1,13 @@
 <script setup lang="ts">
-// 移动端底部标签栏：与主站 diuci.com、k12.diuci.com、汉兜完全同一组、同一顺序、同一图标路径。
+// 移动端底部标签栏：八站数据单源 core/tabbar.json（正本 _deploy，sync 拷贝，
+// check-core R3 钉结构）。当前项按 hostname 判定。
 import { t } from '~/logic/locale'
-// （之前这里的「连句 / 对战 / 月光 / 汉兜」是另一套画法，四站四样，
-//  孩子在手机上来回换站要重新认一遍图标。）
-// 八项乐园入口，桌面端由 CSS 隐藏（顶栏已经有导航）。
-const tabs = [
-  { href: 'https://diuci.com/', key: 'tabbar.home', paths: ['M3.6 10.4 12 3.8l8.4 6.6', 'M5.8 9.2V19a1.4 1.4 0 0 0 1.4 1.4h9.6a1.4 1.4 0 0 0 1.4-1.4V9.2', 'M10 20.4v-5.2h4v5.2'] },
-  { href: 'https://k12.diuci.com/', key: 'tabbar.k12', paths: ['M4 5.2A1.4 1.4 0 0 1 5.4 3.8H11a2 2 0 0 1 2 2v13a1.6 1.6 0 0 0-1.6-1.4H4z', 'M20 5.2a1.4 1.4 0 0 0-1.4-1.4H15a2 2 0 0 0-2 2v13a1.6 1.6 0 0 1 1.6-1.4H20z'] },
-  // 画甲骨：骨片上的一竖一横（甲骨形的抽象），外框是骨片轮廓
-  { href: 'https://jiagu.diuci.com/', key: 'tabbar.jiagu', paths: ['M6.2 4.6h11.6a1.6 1.6 0 0 1 1.6 1.6v11.6a1.6 1.6 0 0 1-1.6 1.6H6.2a1.6 1.6 0 0 1-1.6-1.6V6.2a1.6 1.6 0 0 1 1.6-1.6z', 'M12 8.4v7.2', 'M9.6 12h4.8'] },
-  { href: 'https://lian.diuci.com/', key: 'tabbar.lian', on: true, paths: ['M5.4 6.6a2.3 2.3 0 1 0 0.01 0', 'M12 12a2.3 2.3 0 1 0 0.01 0', 'M18.6 17.4a2.3 2.3 0 1 0 0.01 0', 'M7.1 8.3l3.5 2.4M13.4 13.3l3.5 2.4'] },
-  // 猜谜：一个问号压在谜面上
-  { href: 'https://zimi.diuci.com/', key: 'tabbar.zimi', paths: ['M4.2 5.4h15.6', 'M7.2 5.4v13.2M16.8 5.4v13.2', 'M9.4 18.6h5.2', 'M9.8 9.6a2.4 2.4 0 1 1 3.3 2.2c-.7.35-1.1.95-1.1 1.7v.5'] },
-  { href: 'https://handle.diuci.com/', key: 'tabbar.handle', paths: ['M5.6 3.6h3.6a2 2 0 0 1 2 2v3.6a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2V5.6a2 2 0 0 1 2-2z', 'M14.8 3.6h3.6a2 2 0 0 1 2 2v3.6a2 2 0 0 1-2 2h-3.6a2 2 0 0 1-2-2V5.6a2 2 0 0 1 2-2z', 'M5.6 12.8h3.6a2 2 0 0 1 2 2v3.6a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2v-3.6a2 2 0 0 1 2-2z', 'M14.8 12.8h3.6a2 2 0 0 1 2 2v3.6a2 2 0 0 1-2 2h-3.6a2 2 0 0 1-2-2v-3.6a2 2 0 0 1 2-2z'] },
-  { href: 'https://moon.diuci.com/', key: 'tabbar.moon', paths: ['M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z', 'M17.6 3.2 16.8 5M20.8 6.4 18.6 6.9M14.6 2.4l.5 1.8'] },
-  { href: 'https://ink.diuci.com/', key: 'tabbar.ink', paths: ['M14.2 3.6H20a.4.4 0 0 1 .4.4v5.8', 'M20.4 3.6 11.2 12.8a2 2 0 0 0-.5 1l-.8 3.4a.5.5 0 0 0 .6.6l3.4-.8a2 2 0 0 0 1-.5l9.2-9.2', 'M15.6 8.4 5.2 18.8a2 2 0 0 1-1 .5l-2 .6a.5.5 0 0 1-.6-.6l.6-2a2 2 0 0 1 .5-1L13 5.6'] },
-]
+import tabbarData from '../../core/tabbar.json'
+
+const tabs = tabbarData.tabs.map((x: any) => ({
+  ...x,
+  on: typeof location !== 'undefined' && x.href.includes(location.hostname),
+}))
 </script>
 
 <template>
