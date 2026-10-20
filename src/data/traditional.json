@@ -1,8 +1,8 @@
 {
  "contentVersion": "2026.10.03",
- "corpusSha256": "7c135abc4d5790f0ff2b4692ad63b67ab7895f879d2fd9292e5377ac2a24d0e6",
+ "corpusSha256": "d0c14ebeede527a7977b1ca702f0b12407ebef8d9b7f802143173c5792da7f50",
  "sourceFile": "k12-chinese-poetry/data/traditional.json",
- "sourceSha256": "e916d5fc807e05dd5f1f070a878da1362391301276d6752d9271aca986e52a44",
+ "sourceSha256": "dfb2a00cd8faee51bb7cfd5277501f23fc9a2ca244f32cd0180ca2c5d28985e6",
  "note": "繁体形全部取自内容仓派生好的那一份；本站不第二次转换。",
  "units": {
   "明月几时有": "明月幾時有",
@@ -1722,7 +1722,7 @@
   "黄冈之地多竹": "黃岡之地多竹",
   "有瀑布声": "有瀑布聲",
   "有碎玉声": "有碎玉聲",
-  "琴调和畅": "琴調和暢",
+  "琴调虚畅": "琴調虛暢",
   "宜咏诗": "宜詠詩",
   "诗韵清绝": "詩韻清絕",
   "第见风帆沙鸟": "第見風帆沙鳥",
@@ -4569,7 +4569,7 @@
  "stats": {
   "groups": 622,
   "lines": 2961,
-  "unitsKnown": 8266,
+  "unitsKnown": 8267,
   "unitsTotal": 3413,
   "unitsChanged": 2681,
   "unitsSame": 732,

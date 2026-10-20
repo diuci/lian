@@ -15,7 +15,7 @@
   "footer": [
     {
       "file": "src/App.vue",
-      "start": "<footer class=\"foot\">",
+      "start": "<footer class=\"dc-foot\">",
       "end": "</footer>"
     }
   ],
@@ -28,7 +28,7 @@
     },
     {
       "file": "src/App.vue",
-      "start": "<footer class=\"foot\">",
+      "start": "<footer class=\"dc-foot\">",
       "end": "</footer>"
     },
     {
@@ -53,7 +53,6 @@
     "大作战"
   ],
   "localeLabels": {
-    "parks.home": "首页",
     "parks.k12": "学古诗",
     "parks.jiagu": "画甲骨",
     "parks.lian": "连词",
@@ -70,5 +69,17 @@
   ],
   "tabbarFiles": [
     "core/tabbar.json"
-  ]
+  ],
+  "chrome": {
+    "noBlankLinks": [
+      "src/App.vue",
+      "src/components/TabBar.vue"
+    ],
+    "mustContain": [
+      {
+        "file": "src/App.vue",
+        "needle": ["dc-nav-in", "dc-brand-tx", "dc-brand-s", "core/parks.json"]
+      }
+    ]
+  }
 }

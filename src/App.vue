@@ -8,11 +8,18 @@ import { KEYS, loadRecords, loadSettings, loadStage, loadPlayedPieces, saveSetti
 import { toggleTheme as coreToggle } from '../core/theme.mjs'
 import { hant, locale, setLocale, t, tf, toggleLocale } from '~/logic/locale'
 import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
+import parksData from '../core/parks.json'
 
 type View = 'daily' | 'browse' | 'stats' | 'help'
 
 const pieces = (corpus as any).pieces
 const today = dayKey()
+
+// 顶栏乐园数据单源 core/parks.json（当前项按 hostname 判定）
+const PARKS = parksData.parks.map((p: any) => ({
+  ...p,
+  on: typeof location !== 'undefined' && p.href.includes(location.hostname),
+}))
 
 const params = new URLSearchParams(location.search)
 const view = ref<View>((params.get('view') as View) || 'daily')
@@ -101,35 +108,30 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 
 <template>
   <div class="shell">
-    <header class="top">
-      <!-- 主站的顶栏是「满宽的条 + 1160 网格的内层」两层：
-           背景与毛玻璃铺满视口，内容落在 1160 网格、左右 24px。
-           之前这里只有一层 padding:10px 20px，整条顶栏贴到屏幕边，印章在 19px，
-           主站在 84px，同一排链接的位置自然对不上。 -->
-      <div class="top-in">
-      <a class="brand" href="/">
-        <span class="mark">{{ t('brand.mark') }}</span>
-        <span class="brand-tx">
-          <span class="name">{{ t('brand.name') }}</span>
-          <span class="brand-sub">DIUCI</span>
+    <!-- 顶栏：结构与样式单源 core/chrome.css（PLAN-全站统一-v3）。
+         本站站内视图 tab（每日/浏览/战绩/说明）摆在牌子后，乐园整组靠右——
+         八项乐园的起点与主站、汉兜对齐。 -->
+    <header class="dc-nav">
+      <div class="dc-nav-in">
+      <a class="dc-brand" href="/">
+        <span class="dc-seal">{{ t('brand.mark') }}</span>
+        <span class="dc-brand-tx">
+          <span class="dc-brand-t">{{ t('brand.name') }}</span>
+          <span class="dc-brand-s">DIUCI</span>
         </span>
       </a>
-      <!-- 六个乐园：与主站、汉兜、古诗文库同一组、同一顺序、同一措辞 -->
+      <!-- 站内视图：与主站、汉兜、古诗文库同一组、同一顺序、同一措辞 -->
       <nav class="nav">
         <button :class="['tab', view === 'daily' ? 'on' : '']" @click="backToDaily">{{ t('nav.daily') }}</button>
         <button :class="['tab', view === 'browse' ? 'on' : '']" @click="view = 'browse'">{{ t('nav.browse') }}</button>
         <button :class="['tab', view === 'stats' ? 'on' : '']" @click="view = 'stats'">{{ t('nav.stats') }}</button>
         <button :class="['tab', view === 'help' ? 'on' : '']" @click="view = 'help'">{{ t('nav.help') }}</button>
       </nav>
-      <nav class="parks" :aria-label="t('parks.aria')">
-        <a href="https://diuci.com/">{{ t('parks.home') }}</a>
-        <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
-        <a href="https://jiagu.diuci.com/">{{ t('parks.jiagu') }}</a>
-        <a href="https://lian.diuci.com/" aria-current="page" class="on">{{ t('parks.lian') }}</a>
-        <a href="https://zimi.diuci.com/">{{ t('parks.zimi') }}</a>
-        <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
-        <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
-        <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
+      <!-- 六个乐园：数据单源 core/parks.json（label 走词典 key，繁体由 i18n 接管），
+           样式单源 chrome.css 的 .dc-nav-links -->
+      <nav class="dc-nav-links" :aria-label="t('parks.aria')">
+        <a v-for="p in PARKS" :key="p.href" :href="p.href"
+           :aria-current="p.on ? 'page' : undefined" :class="{ on: p.on }">{{ t(p.key) }}</a>
       </nav>
       <button class="dc-lang-btn" type="button" :title="t('lang.aria')" :aria-label="t('lang.aria')" @click="toggleLocale">
         {{ isHant ? t('lang.toHans') : t('lang.toHant') }}
@@ -146,7 +148,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       </div>
     </header>
 
-    <main class="main">
+    <main class="main dc-page-in">
       <p v-if="badLink" class="notice">
         {{ tf('notice.badLink', { id: badLink }) }}
         {{ t('notice.maybeVersion') }}<a href="#" @click.prevent="view = 'browse'">{{ t('notice.browse') }}</a>{{ t('notice.pickTail') }}
@@ -238,9 +240,9 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
       </section>
     </main>
 
-    <footer class="foot">
-      <div class="foot-in">
-      <div class="foot-l">
+    <footer class="dc-foot">
+      <div class="dc-foot-in">
+      <div class="dc-foot-l">
         <a href="https://diuci.com/">{{ t('foot.brand') }}</a> · {{ t('foot.sub') }}<br>
         {{ tf('foot.snapshot', { version: corpus.contentVersion, count: corpus.count }) }}
         <template v-if="corpus.sourceTotal">{{ tf('foot.repo', { total: corpus.sourceTotal, skipped: (corpus.skipped || []).length }) }}</template><br>
@@ -267,43 +269,7 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 
 <style scoped>
 .shell{min-height:100%;display:flex;flex-direction:column}
-.top{
-  position:sticky;top:0;z-index:20;
-  background:var(--nav-bg);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line)
-}
-/* 与主站 .wrap.nav-in 逐值一致：1160px 网格、24px 内边距、66px 栏高 */
-.top-in{
-  display:flex;align-items:center;gap:28px;
-  height:66px;max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box
-}
-/* 牌子与主站逐值一致：印章 40px、渐变、-4° 倾角、站名 21px、DIUCI 10px */
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);flex:none}
-.mark{
-  width:40px;height:40px;flex:0 0 40px;border-radius:9px;display:grid;place-items:center;
-  background:linear-gradient(155deg,var(--cinnabar),var(--cinnabar-deep));
-  color:var(--on-accent);font-family:var(--round);font-size:23px;line-height:1;
-  box-shadow:0 3px 10px -2px rgba(200,68,46,.5);transform:rotate(-4deg)
-}
-.brand-tx{display:block}
-.name{display:block;font-family:var(--round);font-size:21px;letter-spacing:.04em;line-height:1.25;white-space:nowrap}
-/* 主站的 brand-s 没有单独指定字体，跟着正文走衬线 */
-/* DIUCI 跟着站名同一只笔：圆体 ZCOOL KuaiLe，四站的副标都是这一款。 */
-.brand-sub{display:block;font-family:var(--round);font-size:10px;letter-spacing:.24em;color:var(--ink-faint);margin-top:1px}
-/* 六个乐园：主站 .nav-links 那套（26px 间距、衬线 14.5px、悬停朱砂 + 下划线展开） */
-.parks{display:flex;gap:26px;margin-left:auto}
-.parks a{
-  font-family:var(--serif);font-size:14.5px;color:var(--ink-soft);text-decoration:none;
-  border-bottom:0;position:relative;padding:4px 0;transition:color .22s;white-space:nowrap
-}
-.parks a::after{
-  content:'';position:absolute;left:0;bottom:0;width:0;height:2px;
-  background:var(--cinnabar);transition:width .28s cubic-bezier(.4,0,.2,1)
-}
-.parks a:hover{color:var(--cinnabar);border-bottom-color:transparent}
-.parks a:hover::after{width:100%}
-.parks a.on{color:var(--cinnabar)}
-.parks a.on::after{width:100%}
+/* 顶栏/页脚/圆钮样式单源 core/chrome.css（v3）——这里只留本站特有的视图 tab。 */
 .nav{display:flex;gap:2px}
 .tab{
   border:0;background:none;color:var(--ink-soft);cursor:pointer;
@@ -312,28 +278,18 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 }
 .tab:hover{opacity:.9}
 .tab.on{opacity:1;background:var(--tag-bg);color:var(--ink)}
-/* 主站那枚圆钮：尺寸吃正本令牌、描边、surface 底、太阳/月亮 SVG 互换 */
-.dc-theme-btn{
-  width:var(--btn-round);height:var(--btn-round);flex:0 0 var(--btn-round);border-radius:50%;cursor:pointer;padding:0;
-  background:var(--surface);border:1px solid var(--line);color:var(--ink);
-  display:grid;place-items:center;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s,border-color .25s,color .25s
-}
-.dc-theme-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar);transform:rotate(18deg) scale(1.08)}
-/* 繁简那一枚：与明暗钮同尺寸同描边，字用圆体（规范 §2、§3） */
-.dc-lang-btn{
-  width:var(--btn-round);height:var(--btn-round);flex:0 0 var(--btn-round);border-radius:50%;cursor:pointer;padding:0;
-  background:var(--surface);border:1px solid var(--line);color:var(--ink);
-  font-family:var(--round);font-size:15px;display:grid;place-items:center
-}
-.dc-lang-btn:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
 .langs{display:flex;gap:8px;margin-top:6px}
-.dc-theme-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.dc-theme-btn .i-sun{display:block}
-.dc-theme-btn .i-moon{display:none}
-:root[data-theme="dark"] .dc-theme-btn .i-sun{display:none}
-:root[data-theme="dark"] .dc-theme-btn .i-moon{display:block}
-.main{flex:1;padding-bottom:78px}
+/* 本站顶栏比别站多一组视图 tab：≤560px 站名文字让位（印章保留），tab 行可滑动兜底，
+   不许把布局视口撑出横向溢出（实测会连带 fixed 底栏一起跑出屏）。 */
+@media (max-width:560px){
+  .dc-brand-tx{display:none}
+}
+.nav{display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.tab{flex:none}
+/* 本站顶栏比别站多一组视图 tab，乐园整组 ≤1080px 让位（chrome 的 768 断点之上） */
+@media (max-width:1080px){ .dc-nav-links{display:none} }
+.main{flex:1;padding-bottom:20px}
 .notice{
   margin:0 0 14px;padding:10px 14px;border-radius:10px;
   border:1px solid var(--line);background:var(--surface-3);
@@ -376,34 +332,10 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
 .rules b{font-family:var(--round)}
 .rules em{font-style:normal;border-bottom:2px solid var(--gold)}
 code{background:var(--tag-bg);padding:1px 6px;border-radius:6px;font-size:12.5px}
-/* 主站页脚：上边框 + 左块三行 + 右侧六个乐园 */
-/* 主站页脚：满宽的 footer + 1160 网格的内层（padding 38px 0，内层 0 24px） */
-.foot{
-  border-top:1px solid var(--line);margin-top:34px;
-  background:var(--surface-3);padding:38px 0 84px
-}
-.foot-in{
-  max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box;
-  display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between;
-  font-size:13.4px;color:var(--ink-faint)
-}
-.foot-l{line-height:1.9}
-.foot-l a{color:var(--cinnabar);border-bottom:0}
-.foot-l a:hover{text-decoration:underline}
-.foot nav{display:flex;flex-wrap:wrap;gap:20px}
-.foot nav a{font-size:13.6px;color:var(--ink-soft);border-bottom:0;text-decoration:none;transition:color .2s}
-.foot nav a:hover{color:var(--cinnabar)}
-/* 乐园那一排在窄屏让位给底部标签栏（与汉兜、主站同一处理） */
-@media (max-width:1080px){ .parks{display:none} }
+/* 页脚样式单源 core/chrome.css（v3） */
+/* 乐园那一排与窄屏处理：chrome 768 断点 + 本站 1080 让位（上方） */
 @media (max-width:430px){
-  .top-in{padding:0 16px;gap:10px;height:56px}
-  .mark{width:34px;height:34px;flex:0 0 34px;font-size:20px}
-  .name{font-size:18px}
-  .brand-sub{font-size:9px;letter-spacing:.2em}
-  .dc-theme-btn,.dc-lang-btn{width:var(--btn-round-sm);height:var(--btn-round-sm);flex:0 0 var(--btn-round-sm)}
-  .dc-theme-btn svg{width:17px;height:17px}
   .nav{gap:0}
   .tab{padding:6px 7px;font-size:13px}
 }
-@media (min-width:940px){ .main{padding-bottom:20px} .foot{padding-bottom:24px} }
 </style>
