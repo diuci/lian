@@ -4,8 +4,7 @@ import BoardGrid from './BoardGrid.vue'
 import StrandPanel from './StrandPanel.vue'
 import { useGame } from '~/logic/game'
 import { fmtTime, markPlayed, pushRecord, shareText } from '~/logic/store'
-import { hant, t, tf } from '~/logic/locale'
-import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
+import { t, tf } from '~/logic/locale'
 
 const props = defineProps<{
   // 整份课文快照：词库 + 已发出去日子的冻结记录
@@ -25,15 +24,14 @@ const copied = ref(false)
 const shareBox = ref('')
 const shareRef = ref<unknown>(null)
 const orderWrong = ref(false)
-const isHant = computed(() => hant())
 
 const pieceLabel = computed(() => {
   const p = game.piece
-  const who = [tradLabel(p, 'dynasty', isHant.value), tradLabel(p, 'author', isHant.value)].filter(Boolean).join(' · ')
+  const who = [p.dynasty, p.author].filter(Boolean).join(' · ')
   return {
-    title: tradLabel(p, 'title', isHant.value),
+    title: p.title,
     who,
-    where: tradStage(p.stage, isHant.value) + ' ' + tradVolume(p.volume, isHant.value),
+    where: p.stage + ' ' + p.volume,
     part: game.part,
   }
 })
@@ -76,7 +74,7 @@ function check() {
 
 async function share() {
   const text = shareText({
-    day: game.day, pieceId: game.piece.id, title: tradLabel(game.piece, 'title', isHant.value), part: game.part,
+    day: game.day, pieceId: game.piece.id, title: game.piece.title, part: game.part,
     units: game.units.length, chars: game.units.join('').length,
     mistakes: game.mistakes.value, orderAttempts: game.orderAttempts.value,
     seconds: game.seconds.value, solved: game.phase.value === 'done', mode: props.mode,
@@ -128,7 +126,6 @@ defineExpose({ game })
       :rows="game.puzzle.rows"
       :cells="game.puzzle.cells"
       :units="game.units"
-      :hant="isHant"
       :locked="game.lockedCells.value"
       :path="game.path.value"
       :flash="game.flash.value"
@@ -166,7 +163,6 @@ defineExpose({ game })
       :phase="game.phase.value"
       :order="game.order.value"
       :picked="picked"
-      :hant="isHant"
       :readings="readings"
       :show-target="showTarget"
       :show-pinyin="showPinyin"

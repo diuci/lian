@@ -1,85 +1,80 @@
 {
-  "tokens": "src/styles/tokens.css",
-  "tokensSha256": "1dc7fa43afa870c3fde8b52f9e2b90b23d819d37dadde3dc79e1bdb6d5ae1985",
-  "css": [
-    "src/styles/main.css",
-    "src/App.vue"
-  ],
-  "nav": [
-    {
-      "file": "src/App.vue",
-      "start": "<header",
-      "end": "</header>"
-    }
-  ],
-  "footer": [
-    {
-      "file": "src/App.vue",
-      "start": "<footer class=\"dc-foot\">",
-      "end": "</footer>"
-    }
-  ],
-  "sidebar": [],
-  "parkOrder": [
-    {
-      "file": "src/App.vue",
-      "start": "<header",
-      "end": "</header>"
-    },
-    {
-      "file": "src/App.vue",
-      "start": "<footer class=\"dc-foot\">",
-      "end": "</footer>"
-    },
-    {
-      "file": "src/components/TabBar.vue",
-      "start": "<nav class=\"dc-tabbar\" :aria-label=\"t('tabbar.aria')\">",
-      "end": "</nav>"
-    }
-  ],
-  "legalLinks": [
-    "/sources",
-    "/accuracy",
-    "/legal"
-  ],
-  "parks": [
-    "首页",
-    "学古诗",
-    "画甲骨",
-    "连词",
-    "猜谜",
-    "汉兜",
-    "月冕",
-    "大作战"
-  ],
-  "localeLabels": {
-    "parks.k12": "学古诗",
-    "parks.jiagu": "画甲骨",
-    "parks.lian": "连词",
-    "parks.zimi": "猜谜",
-    "parks.handle": "汉兜",
-    "parks.moon": "月冕",
-    "parks.ink": "大作战"
-  },
-  "langBtnClass": "dc-lang-btn",
-  "themeBtnClass": "dc-theme-btn",
-  "sidebarSelectors": [
-    ".dc-sidebar",
-    ".VPSidebar"
-  ],
-  "tabbarFiles": [
-    "core/tabbar.json"
-  ],
-  "chrome": {
-    "noBlankLinks": [
-      "src/App.vue",
-      "src/components/TabBar.vue"
-    ],
-    "mustContain": [
-      {
-        "file": "src/App.vue",
-        "needle": ["dc-nav-in", "dc-brand-tx", "dc-brand-s", "core/parks.json"]
-      }
-    ]
-  }
+    "tokens":  "src/styles/tokens.css",
+    "tokensSha256":  "1dc7fa43afa870c3fde8b52f9e2b90b23d819d37dadde3dc79e1bdb6d5ae1985",
+    "css":  [
+                "src/styles/main.css",
+                "src/App.vue"
+            ],
+    "nav":  [
+                {
+                    "file":  "src/App.vue",
+                    "start":  "\u003cheader",
+                    "end":  "\u003c/header\u003e"
+                }
+            ],
+    "footer":  [
+                   {
+                       "file":  "src/App.vue",
+                       "start":  "\u003cfooter class=\"dc-foot\"\u003e",
+                       "end":  "\u003c/footer\u003e"
+                   }
+               ],
+    "sidebar":  [
+
+                ],
+    "parkOrder":  [
+                      {
+                          "file":  "src/App.vue",
+                          "start":  "\u003cheader",
+                          "end":  "\u003c/header\u003e"
+                      },
+                      {
+                          "file":  "src/App.vue",
+                          "start":  "\u003cfooter class=\"dc-foot\"\u003e",
+                          "end":  "\u003c/footer\u003e"
+                      },
+                      {
+                          "file":  "src/components/TabBar.vue",
+                          "start":  "\u003cnav class=\"dc-tabbar\" :aria-label=\"t(\u0027tabbar.aria\u0027)\"\u003e",
+                          "end":  "\u003c/nav\u003e"
+                      }
+                  ],
+    "legalLinks":  [
+                       "/legal"
+                   ],
+    "parks":  [
+                  "首页",
+                  "学古诗",
+                  "画甲骨",
+                  "连词",
+                  "猜谜",
+                  "汉兜",
+                  "月冕",
+                  "大作战"
+              ],
+    "themeBtnClass":  "dc-theme-btn",
+    "sidebarSelectors":  [
+                             ".dc-sidebar",
+                             ".VPSidebar"
+                         ],
+    "tabbarFiles":  [
+                        "core/tabbar.json"
+                    ],
+    "chrome":  {
+                   "noBlankLinks":  [
+                                        "src/App.vue",
+                                        "src/components/TabBar.vue"
+                                    ],
+                   "mustContain":  [
+                                       {
+                                           "file":  "src/App.vue",
+                                           "needle":  [
+                                                          "dc-nav-in",
+                                                          "dc-brand-tx",
+                                                          "dc-brand-s",
+                                                          "core/parks.json"
+                                                      ]
+                                       }
+                                   ]
+               }
 }

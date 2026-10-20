@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { t, tf } from '~/logic/locale'
-import { tradUnit } from '~/logic/trad'
 
 const props = defineProps<{
   units: string[]
@@ -8,15 +7,13 @@ const props = defineProps<{
   phase: 'find' | 'order' | 'done'
   order: number[]
   picked: number
-  hant: boolean
   readings: Record<string, { common: string }>
   showTarget: boolean
   showPinyin: boolean
 }>()
 const emit = defineEmits<{ (e: 'pick', i: number): void }>()
 
-/** 给玩家看的那一句：繁体时换成繁体字形，玩法与判定仍用简体那份。 */
-function text(unitIndex: number) { return tradUnit(props.units[unitIndex], props.hant) }
+function text(unitIndex: number) { return props.units[unitIndex] }
 function plain(unitIndex: number) { return props.units[unitIndex] }
 function pinyin(unitIndex: number) {
   return [...plain(unitIndex)].map((ch) => props.readings[ch]?.common || '').join(' ')

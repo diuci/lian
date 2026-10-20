@@ -17,11 +17,9 @@
     "check:legal": "node tools/check-legal.mjs",
     "check:ui": "node tools/check-ui.mjs",
     "smoke": "node tools/smoke-lian.mjs",
-    "selftest": "node tools/check-legal.mjs --selftest && node tools/check-build.mjs --selftest && node tools/smoke-lian.mjs --selftest && node tools/sync-corpus.mjs --selftest && node tools/build-readings.mjs --selftest && node tools/check-puzzle.mjs --selftest && node tools/build-traditional.mjs --selftest && node tools/check-trad.mjs --selftest && node tools/check-ui.mjs --selftest && node tools/check-core.mjs --selftest",
+    "selftest": "node tools/check-legal.mjs --selftest && node tools/check-build.mjs --selftest && node tools/smoke-lian.mjs --selftest && node tools/sync-corpus.mjs --selftest && node tools/build-readings.mjs --selftest && node tools/check-puzzle.mjs --selftest && node tools/check-ui.mjs --selftest && node tools/check-core.mjs --selftest",
     "report:readings": "node tools/build-readings.mjs --report",
-    "build:traditional": "node tools/build-traditional.mjs",
-    "check:trad": "node tools/check-trad.mjs",
-    "verify": "npm run selftest && npm test && npm run build && npm run check:build && npm run check:legal && npm run check:puzzle && npm run check:corpus && node tools/build-readings.mjs --check && node tools/build-traditional.mjs --check && npm run check:trad -- --require-content && npm run check:ui && node tools/check-core.mjs",
+    "verify": "npm run selftest && npm test && npm run build && npm run check:build && npm run check:legal && npm run check:puzzle && npm run check:corpus && node tools/build-readings.mjs --check && npm run check:ui && node tools/check-core.mjs",
     "check:core": "node tools/check-core.mjs"
   },
   "dependencies": {

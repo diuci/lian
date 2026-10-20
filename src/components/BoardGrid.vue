@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Cell } from '~/logic/game'
-import { tradGlyph } from '~/logic/trad'
 
 const props = defineProps<{
   cols: number
   rows: number
   cells: Cell[]
   units: string[]
-  hant: boolean
   locked: Map<number, number>
   path: number[]
   flash: '' | 'ok' | 'mis'
@@ -33,15 +31,11 @@ const pathIndex = computed(() => {
 })
 
 /**
- * 盘面上画哪个字。玩法与判定全在简体那一遍上（按句子序号与位置匹配），
- * 这里只是把同一个位置换成繁体字形 —— 换字形不改玩法，也不改答案。
+ * 盘面上画哪个字。v4 起全站仅简体：玩法、判定与展示都直接用简体字形。
  * 干扰块没有句子序号，靠 from 记着的「哪一句第几字」取形。
  */
 function glyph(c: Cell) {
-  if (!props.hant) return c.ch
-  const src = c.unit >= 0 ? { unit: c.unit, k: c.k } : c.from
-  if (!src || !props.units[src.unit]) return c.ch
-  return tradGlyph(props.units[src.unit], src.k, true)
+  return c.ch
 }
 
 /** 拼音按简体那个字读：读音表是以简体字为键的，繁体字形只是同一格的另一种写法。 */
@@ -82,7 +76,7 @@ if (typeof window !== 'undefined') {
 <template>
   <div
     class="board"
-    :data-script="hant ? 'hant' : 'hans'"
+    :data-script="'hans'"
     :style="{
       gridTemplateColumns: 'repeat(' + cols + ', ' + tile + 'px)',
       gap: gap + 'px',

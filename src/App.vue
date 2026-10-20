@@ -6,8 +6,7 @@ import corpus from '~/data/corpus.json'
 import { dayKey, parseDayKey } from '~/logic/daily.mjs'
 import { KEYS, loadRecords, loadSettings, loadStage, loadPlayedPieces, saveSettings, saveStage } from '~/logic/store'
 import { toggleTheme as coreToggle } from '../core/theme.mjs'
-import { hant, locale, setLocale, t, tf, toggleLocale } from '~/logic/locale'
-import { tradLabel, tradStage, tradVolume } from '~/logic/trad'
+import { t, tf } from '~/logic/locale'
 import parksData from '../core/parks.json'
 
 type View = 'daily' | 'browse' | 'stats' | 'help'
@@ -40,12 +39,10 @@ const day = (() => {
 })()
 
 const settings = ref(loadSettings())
-const isHant = computed(() => hant())
 const pieceById = new Map(pieces.map((p: any) => [p.id, p]))
-// 战绩里存的是简体篇名；繁体那一遍按 id 找回这篇的繁体标签，找不回就照简体摆。
 function titleOf(rec: any) {
   const p = pieceById.get(rec.pieceId)
-  return p ? tradLabel(p, 'title', isHant.value) : rec.title
+  return p ? p.title : rec.title
 }
 
 // 拼音是可选显示，默认关。所以读音表不在首屏包里：151 KB 的表不该为一个人不看的开关先下载。
@@ -133,9 +130,6 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <a v-for="p in PARKS" :key="p.href" :href="p.href"
            :aria-current="p.on ? 'page' : undefined" :class="{ on: p.on }">{{ t(p.key) }}</a>
       </nav>
-      <button class="dc-lang-btn" type="button" :title="t('lang.aria')" :aria-label="t('lang.aria')" @click="toggleLocale">
-        {{ isHant ? t('lang.toHans') : t('lang.toHant') }}
-      </button>
       <button class="dc-theme-btn" type="button" :title="dark ? t('theme.light') : t('theme.dark')" :aria-label="dark ? t('theme.light') : t('theme.dark')" @click="toggleTheme">
         <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2"/>
@@ -171,16 +165,16 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <p class="lead">{{ tf('browse.lead', { count: corpus.count }) }}</p>
         <div class="stages">
           <button v-for="s in ['小学', '初中', '高中']" :key="s"
-            :class="['pill', stage === s ? 'on' : '']" @click="setStage(s)">{{ tradStage(s, isHant) }}</button>
+            :class="['pill', stage === s ? 'on' : '']" @click="setStage(s)">{{ s }}</button>
           <span class="dim">{{ tf('browse.count', { n: stageCount }) }}</span>
         </div>
         <div v-for="[vol, list] in volumes" :key="vol" class="vol">
-          <h3>{{ tradVolume(vol, isHant) }}</h3>
+          <h3>{{ vol }}</h3>
           <ul>
             <li v-for="p in list" :key="p.id">
               <button class="piece" @click="play(p, 0)">
-                <b>{{ tradLabel(p, 'title', isHant) }}</b>
-                <span class="dim">{{ tradLabel(p, 'dynasty', isHant) }} · {{ tradLabel(p, 'author', isHant) }}</span>
+                <b>{{ p.title }}</b>
+                <span class="dim">{{ p.dynasty }} · {{ p.author }}</span>
                 <span class="tags">
                   <span class="tag">{{ tf('browse.units', { n: p.totalUnits }) }}</span>
                   <span class="tag">{{ tf('browse.chars', { n: p.totalChars }) }}</span>
@@ -217,11 +211,6 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
         <label class="opt"><input type="checkbox" v-model="settings.showTarget" @change="save"> {{ t('stats.optTarget') }}</label>
         <label class="opt"><input type="checkbox" v-model="settings.showPinyin" @change="save"> {{ t('stats.optPinyin') }}</label>
         <p class="dim">{{ t('stats.optNote') }}</p>
-        <p class="dim">{{ t('stats.locale') }}</p>
-        <div class="langs">
-          <button :class="['pill', !isHant ? 'on' : '']" @click="setLocale('hans')">{{ t('lang.hans') }}</button>
-          <button :class="['pill', isHant ? 'on' : '']" @click="setLocale('hant')">{{ t('lang.hant') }}</button>
-        </div>
       </section>
 
       <section v-else class="panel">
@@ -243,22 +232,12 @@ onMounted(() => { if (view.value === 'stats') refreshRecords() })
     <footer class="dc-foot">
       <div class="dc-foot-in">
       <div class="dc-foot-l">
-        <a href="https://diuci.com/">{{ t('foot.brand') }}</a> · {{ t('foot.sub') }}<br>
-        {{ tf('foot.snapshot', { version: corpus.contentVersion, count: corpus.count }) }}
-        <template v-if="corpus.sourceTotal">{{ tf('foot.repo', { total: corpus.sourceTotal, skipped: (corpus.skipped || []).length }) }}</template><br>
-        <a href="https://k12.diuci.com/legal">{{ t('foot.license') }}</a><br>
-        <a href="https://k12.diuci.com/accuracy">{{ t('foot.accuracy') }}</a> · 
-        <a href="https://k12.diuci.com/sources">{{ t('foot.sources') }}</a>
+        <a href="https://diuci.com/">{{ t('foot.brand') }}</a> · 课文来自内容仓必背篇目 · 注释 CC BY 4.0 · 代码 MIT ·
+        <a href="https://k12.diuci.com/legal">{{ t('help.legal') }}</a>
       </div>
       <nav :aria-label="t('parks.aria')">
-        <a href="https://k12.diuci.com/">{{ t('parks.k12') }}</a>
-        <a href="https://jiagu.diuci.com/">{{ t('parks.jiagu') }}</a>
-        <a href="https://lian.diuci.com/">{{ t('parks.lian') }}</a>
-        <a href="https://zimi.diuci.com/">{{ t('parks.zimi') }}</a>
-        <a href="https://handle.diuci.com/">{{ t('parks.handle') }}</a>
-        <a href="https://moon.diuci.com/">{{ t('parks.moon') }}</a>
-        <a href="https://ink.diuci.com/">{{ t('parks.ink') }}</a>
-        <a href="https://github.com/diuci/k12-chinese-poetry">{{ t('foot.contentRepo') }}</a>
+        <a v-for="p in PARKS" :key="p.href" :href="p.href">{{ p.label }}</a>
+        <a href="mailto:hi@diuci.com">hi@diuci.com</a>
       </nav>
       </div>
     </footer>
